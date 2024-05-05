@@ -1,0 +1,23 @@
+{
+  "configurations": [
+    {
+      "browse": {
+        "databaseFilename": "${default}",
+        "limitSymbolsToIncludedHeaders": false
+      },
+      "includePath": [
+        "/home/kaku0608/tutle/install/turtle_interfaces/include/**",
+        "/home/kaku0608/ros2_t/install/my_robot_interfaces/include/**",
+        "/opt/ros/humble/include/**",
+        "/home/kaku0608/ros2_training/ros2_ws/src/lesson4_cmake/include/**",
+        "/usr/include/**"
+      ],
+      "name": "ROS",
+      "intelliSenseMode": "gcc-x64",
+      "compilerPath": "/usr/bin/gcc",
+      "cStandard": "gnu11",
+      "cppStandard": "c++14"
+    }
+  ],
+  "version": 4
+}
