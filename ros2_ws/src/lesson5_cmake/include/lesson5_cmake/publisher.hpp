@@ -8,6 +8,7 @@
 #include <string>
 #include <rclcpp/rclcpp.hpp>
 #include <std_msgs/msg/string.hpp>
+#include "lesson_interfaces/msg/lunch.hpp"
 
 /**
  * @class Publisher
