@@ -34,7 +34,7 @@ class MoveTurtlesimServer: public rclcpp::Node{
     this->service_ = this->create_service<lesson_interfaces::srv::MoveTurtlesim>(
         this->service_name_,
         std::bind(
-            &MoveTurtlesimServer::callback_service,
+            &MoveTurtlesimServer::callback_service_,
             this,
             std::placeholders::_1,
             std::placeholders::_2

@@ -46,7 +46,7 @@ class MoveTurtlesimClient: public rclcpp::Node{
       );
     } 
 
-    RCLCPP_INFO_STREAM(this->get_logger(), "Calling service '" this->service_name_ << "'!!");
+    RCLCPP_INFO_STREAM(this->get_logger(), "Calling service '" << this->service_name_ << "'!!");
     lesson_interfaces::srv::MoveTurtlesim::Request::SharedPtr request{ 
         std::make_shared<lesson_interfaces::srv::MoveTurtlesim::Request>()};
     request->path = path;

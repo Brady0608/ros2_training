@@ -8,6 +8,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
+find_package(std_srvs REQUIRED)
 find_package(geometry_msgs REQUIRED)
 find_package(lesson_interfaces REQUIRED)
 
@@ -22,5 +23,43 @@ if(BUILD_TESTING)
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+
+# include 
+include_directories(include)
+
+# add executable
+## move_turtlesim_server_exe
+add_executable(move_turtlesim_server_exe
+  src/move_turtlesim_server/callback_service_.cpp
+  src/move_turtlesim_server/main.cpp
+  src/move_turtlesim_server/move_circle_.cpp
+  src/move_turtlesim_server/move_line_.cpp
+  src/move_turtlesim_server/move_square_.cpp
+  src/move_turtlesim_server/move_triangle_.cpp
+  src/move_turtlesim_server/stop_.cpp
+)
+
+ament_target_dependencies(move_turtlesim_server_exe rclcpp geometry_msgs lesson_interfaces)
+
+## move_turtlesim_client_exe
+add_executable(move_turtlesim_client_exe
+  src/move_turtlesim_client/main.cpp
+)
+
+ament_target_dependencies(move_turtlesim_client_exe rclcpp lesson_interfaces)
+
+# install program
+install(TARGETS
+  move_turtlesim_server_exe
+  move_turtlesim_client_exe
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+# install directory launch
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}/
+)
 
 ament_package()
