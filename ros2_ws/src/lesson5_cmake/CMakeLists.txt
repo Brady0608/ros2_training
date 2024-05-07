@@ -41,12 +41,17 @@ add_executable(subscriber_exe
 )
 ament_target_dependencies(subscriber_exe rclcpp std_msgs lesson_interfaces)
 
-
+# executable
 install(TARGETS
   publisher_exe
   subscriber_exe
   DESTINATION lib/${PROJECT_NAME}
 )
 
+# launch
+install(DIRECTORY
+  launch
+  DESTINATION share/${PROJECT_NAME}
+)
 
 ament_package()
