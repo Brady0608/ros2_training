@@ -9,6 +9,8 @@ endif()
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
 find_package(lesson_interfaces REQUIRED)
+find_package(std_msgs REQUIRED)
+
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -30,11 +32,19 @@ add_executable(publisher_exe
   src/publisher/callback_wall_timer_.cpp
   src/publisher/main.cpp
 )
-ament_target_dependencies(publisher_exe rclcpp lesson_interfaces)
+ament_target_dependencies(publisher_exe rclcpp std_msgs lesson_interfaces)
+
+## subscriber_exe
+add_executable(subscriber_exe
+  src/subscriber/callback_lunch_info_.cpp
+  src/subscriber/main.cpp
+)
+ament_target_dependencies(subscriber_exe rclcpp std_msgs lesson_interfaces)
+
 
 install(TARGETS
   publisher_exe
-  # subscriber_exe
+  subscriber_exe
   DESTINATION lib/${PROJECT_NAME}
 )
 

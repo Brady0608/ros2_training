@@ -15,9 +15,28 @@
 * Author    : Joe Lin
 * Maintainer: Brady Guo
 *******************************************************************************/
-#include "lesson5_cmake/publisher.hpp"
+#ifndef COLOR__HPP_
+#define COLOR__HPP_
 
-void Publisher::callback_wall_timer_()
-{ 
-    this->publisher_ptr_->publish(this->lunch_);
+#include <vector>
+
+enum class ColorIndex: int
+{
+    RED = 0,
+    GREEN,
+    BLUE,
+    ALPHA
 };
+
+class ColorStorer
+{
+private:
+    std::vector<double> purple_ = {106.0, 90.0, 205.0, 1.0};
+
+public:
+    ColorStorer() = default;
+    ~ColorStorer() = default;
+    std::vector<double> get_purple_vector(){return this->purple_;}
+};
+
+#endif // COLOR__HPP_

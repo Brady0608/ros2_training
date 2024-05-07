@@ -19,36 +19,26 @@
 #define PUBLISHER__HPP_
 
 #include <chrono>
-#include <iostream>
-#include <iomanip>
-#include <sstream>
-#include <string>
 #include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/string.hpp>
-#include <lesson_interfaces/msg/lunch.hpp>
+#include <std_msgs/msg/color_rgba.hpp>
+#include "color.hpp"
+#include "lesson_interfaces/msg/lunch.hpp"
 
 /**
  * @class Publisher
  * @brief publish std_msgs/String message with timer for testing
 */
-class Purple{
-public:
-    double R = 106.0;
-    double G = 90.0;
-    double B = 205.0;
-    double A = 1.0;
-};
-
 
 class Publisher: public rclcpp::Node
 {
 private:
 
-    int counter_ = 0;
+    ColorStorer color_storer_ {};
     rclcpp::TimerBase::SharedPtr timer_;
     rclcpp::Publisher<lesson_interfaces::msg::Lunch>::SharedPtr publisher_ptr_;
-    lesson_interfaces::msg::Lunch __lunch;
-    Purple color;
+    lesson_interfaces::msg::Lunch lunch_;
+    std::vector<double> purple_vector_ {};
+    
     
     /**
      * @brief publish topic
@@ -63,15 +53,20 @@ public:
     Publisher(const std::string node_name="publisher_node"): Node(node_name)
     {
         
-        this->__lunch.color_of_bowls.r = this->color.R;
-        this->__lunch.color_of_bowls.g = this->color.G;
-        this->__lunch.color_of_bowls.b = this->color.B;
-        this->__lunch.color_of_bowls.a = this->color.A;
-        this->__lunch.bowls_of_rice = 2;
-        this->__lunch.meats = {"fish", "pork"};
-        this->__lunch.vegetables = {"spinach", "tomato"};
+        this->lunch_.bowls_of_rice = 5;
+        this->purple_vector_ = this->color_storer_.get_purple_vector();
+        this->lunch_.color_of_bowls.r = this->purple_vector_.at(int(ColorIndex::RED));
+        this->lunch_.color_of_bowls.g = this->purple_vector_.at(int(ColorIndex::GREEN));
+        this->lunch_.color_of_bowls.b = this->purple_vector_.at(int(ColorIndex::BLUE));
+        this->lunch_.color_of_bowls.a = this->purple_vector_.at(int(ColorIndex::ALPHA));
 
-        this->publisher_ptr_ = this->create_publisher<lesson_interfaces::msg::Lunch>("lunch", 10);
+        std::vector<std::string> meats {"fish", "pork"};
+        this->lunch_.meats = meats;
+
+        std::vector<std::string> vegetables {"spinach", "tomato"};
+        this->lunch_.vegetables = vegetables;
+
+        this->publisher_ptr_ = this->create_publisher<lesson_interfaces::msg::Lunch>("lunch_info", 10);
         this->timer_ = this->create_wall_timer(
             std::chrono::milliseconds(1000),
             std::bind(&Publisher::callback_wall_timer_, this)

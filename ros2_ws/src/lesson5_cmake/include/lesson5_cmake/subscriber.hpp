@@ -34,7 +34,7 @@ private:
     /**
      * @brief publish topic
     */
-    void callback_publish_test_(const std_msgs::msg::String::SharedPtr msg);
+    void callback_lunch_info_(const lesson_interfaces::msg::Lunch::SharedPtr msg_ptr);
 
 public:
 
@@ -44,9 +44,9 @@ public:
     Subscriber(const std::string node_name="subscriber_node"): Node(node_name)
     {
         this->subscription_ptr_ = this->create_subscription<lesson_interfaces::msg::Lunch>(
-            "lunch", 
+            "lunch_info", 
             10,
-            std::bind(&Subscriber::callback_publish_test_, this, std::placeholders::_1)
+            std::bind(&Subscriber::callback_lunch_info_, this, std::placeholders::_1)
         );
     }
 
