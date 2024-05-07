@@ -28,14 +28,6 @@
 */
 class Subscriber: public rclcpp::Node
 {
-private:
-    rclcpp::Subscription<lesson_interfaces::msg::Lunch>::SharedPtr subscription_ptr_;
-
-    /**
-     * @brief publish topic
-    */
-    void callback_lunch_info_(const lesson_interfaces::msg::Lunch::SharedPtr msg_ptr);
-
 public:
 
     /**
@@ -49,6 +41,16 @@ public:
             std::bind(&Subscriber::callback_lunch_info_, this, std::placeholders::_1)
         );
     }
+
+private:
+    rclcpp::Subscription<lesson_interfaces::msg::Lunch>::SharedPtr subscription_ptr_;
+
+    /**
+     * @brief publish topic
+    */
+    void callback_lunch_info_(const lesson_interfaces::msg::Lunch::SharedPtr msg_ptr);
+
+
 
 };
 

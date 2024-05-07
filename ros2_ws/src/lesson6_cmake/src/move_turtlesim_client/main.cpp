@@ -15,30 +15,15 @@
 * Author    : Joe Lin
 * Maintainer: Brady Guo
 *******************************************************************************/
-#ifndef COLOR__HPP_
-#define COLOR__HPP_
 
-#include <vector>
+#include "lesson6_cmake/move_turtlesim_client.hpp"
 
-enum class ColorIndex: int
+int main(int argc, char *argv[])
 {
-    RED = 0,
-    GREEN,
-    BLUE,
-    ALPHA
-};
+    rclcpp::init(argc, argv);    
 
-class ColorStorer
-{
-public:
-    ColorStorer() = default;
-    ~ColorStorer() = default;
-    std::vector<double> get_purple_vector(){return this->purple_;}
-
-private:
-    std::vector<double> purple_ = {106.0, 90.0, 205.0, 1.0};
-
-
-};
-
-#endif // COLOR__HPP_
+    TurtlesimPath turtlesim_path {};
+    rclcpp::Node::SharedPtr node = std::make_shared<MoveTurtlesimClient>("move_turtlesim_client_node", turtlesim_path.SQUARE);
+    rclcpp::shutdown();
+    return 0;
+}

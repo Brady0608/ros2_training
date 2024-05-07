@@ -15,30 +15,17 @@
 * Author    : Joe Lin
 * Maintainer: Brady Guo
 *******************************************************************************/
-#ifndef COLOR__HPP_
-#define COLOR__HPP_
+#ifndef TURTLESIM_PATH__HPP_
+#define TURTLESIM_PATH__HPP_
 
-#include <vector>
+#include <string>
 
-enum class ColorIndex: int
-{
-    RED = 0,
-    GREEN,
-    BLUE,
-    ALPHA
-};
-
-class ColorStorer
-{
-public:
-    ColorStorer() = default;
-    ~ColorStorer() = default;
-    std::vector<double> get_purple_vector(){return this->purple_;}
-
-private:
-    std::vector<double> purple_ = {106.0, 90.0, 205.0, 1.0};
-
+struct TurtlesimPath {
+    std::string LINE     = "line",
+                SQUARE   = "square",
+                CIRCLE   = "circle",
+                TRIANGLE = "triangle";
 
 };
 
-#endif // COLOR__HPP_
+#endif 

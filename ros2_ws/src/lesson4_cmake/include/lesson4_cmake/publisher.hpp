@@ -33,16 +33,6 @@
 */
 class Publisher: public rclcpp::Node
 {
-private:
-    int counter_ = 0;
-    rclcpp::TimerBase::SharedPtr timer_;
-    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_ptr_;
-
-    /**
-     * @brief publish topic
-    */
-    void callback_wall_timer_();
-
 public:
 
     /**
@@ -56,6 +46,16 @@ public:
             std::bind(&Publisher::callback_wall_timer_, this)
         );
     }
+
+private:
+    int counter_ = 0;
+    rclcpp::TimerBase::SharedPtr timer_;
+    rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_ptr_;
+
+    /**
+     * @brief publish topic
+    */
+    void callback_wall_timer_();
 
 };
 

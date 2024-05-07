@@ -31,19 +31,6 @@
 
 class Publisher: public rclcpp::Node
 {
-private:
-
-    ColorStorer color_storer_ {};
-    rclcpp::TimerBase::SharedPtr timer_;
-    rclcpp::Publisher<lesson_interfaces::msg::Lunch>::SharedPtr publisher_ptr_;
-    lesson_interfaces::msg::Lunch lunch_;
-    std::vector<double> purple_vector_ {};
-    
-    
-    /**
-     * @brief publish topic
-    */
-    void callback_wall_timer_();
 
 public:
 
@@ -72,6 +59,19 @@ public:
             std::bind(&Publisher::callback_wall_timer_, this)
         );
     }
+
+private:
+
+    ColorStorer color_storer_ {};
+    rclcpp::TimerBase::SharedPtr timer_;
+    rclcpp::Publisher<lesson_interfaces::msg::Lunch>::SharedPtr publisher_ptr_;
+    lesson_interfaces::msg::Lunch lunch_;
+    std::vector<double> purple_vector_ {};
+        
+    /**
+     * @brief publish topic
+    */
+    void callback_wall_timer_();
 
 };
 

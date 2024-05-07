@@ -14,31 +14,26 @@
 * limitations under the License.
 * Author    : Joe Lin
 * Maintainer: Brady Guo
+* Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
-#ifndef COLOR__HPP_
-#define COLOR__HPP_
 
-#include <vector>
+#include "lesson6_cmake/move_turtlesim_server.hpp"
 
-enum class ColorIndex: int
-{
-    RED = 0,
-    GREEN,
-    BLUE,
-    ALPHA
-};
+void MoveTurtlesimServer::move_triangle_() {
+  
+  RCLCPP_INFO_STREAM(this->get_logger(), "Moving around a triangle!");
 
-class ColorStorer
-{
-public:
-    ColorStorer() = default;
-    ~ColorStorer() = default;
-    std::vector<double> get_purple_vector(){return this->purple_;}
+  for (int number = 0; number < 3; number++) {
+    this->twist_.linear.x = 0.0;
+    this->twist_.angular.z = -M_PI_4 - (M_PI_4*number);
+    this->publisher_->publish(this->twist_);
+    rclcpp::sleep_for(std::chrono::milliseconds(1000));
 
-private:
-    std::vector<double> purple_ = {106.0, 90.0, 205.0, 1.0};
-
-
-};
-
-#endif // COLOR__HPP_
+    this->twist_.linear.x = 2.0;
+    this->twist_.angular.z = 0.0;
+    this->publisher_->publish(this->twist_);
+    rclcpp::sleep_for(std::chrono::milliseconds(1000));
+  }
+  
+  this->stop_();
+}

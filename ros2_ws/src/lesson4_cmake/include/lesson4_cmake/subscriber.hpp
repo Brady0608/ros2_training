@@ -29,14 +29,6 @@
 */
 class Subscriber: public rclcpp::Node
 {
-private:
-    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_ptr_;
-
-    /**
-     * @brief publish topic
-    */
-    void callback_publish_test_(const std_msgs::msg::String::SharedPtr msg);
-
 public:
 
     /**
@@ -50,6 +42,15 @@ public:
             std::bind(&Subscriber::callback_publish_test_, this, std::placeholders::_1)
         );
     }
+
+private:
+    rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscription_ptr_;
+
+    /**
+     * @brief publish topic
+    */
+    void callback_publish_test_(const std_msgs::msg::String::SharedPtr msg);
+
 
 };
 
