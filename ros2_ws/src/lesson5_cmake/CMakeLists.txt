@@ -8,7 +8,7 @@ endif()
 # find dependencies
 find_package(ament_cmake REQUIRED)
 find_package(rclcpp REQUIRED)
-find_package(lesson_interfaces/ REQUIRED)
+find_package(lesson_interfaces REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -21,5 +21,22 @@ if(BUILD_TESTING)
   set(ament_cmake_cpplint_FOUND TRUE)
   ament_lint_auto_find_test_dependencies()
 endif()
+
+include_directories(include)
+
+# add executable
+## publisher_exe
+add_executable(publisher_exe 
+  src/publisher/callback_wall_timer_.cpp
+  src/publisher/main.cpp
+)
+ament_target_dependencies(publisher_exe rclcpp lesson_interfaces)
+
+install(TARGETS
+  publisher_exe
+  # subscriber_exe
+  DESTINATION lib/${PROJECT_NAME}
+)
+
 
 ament_package()

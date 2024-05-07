@@ -15,13 +15,12 @@
 * Author    : Joe Lin
 * Maintainer: Brady Guo
 *******************************************************************************/
-#include "lesson5_cmake/publisher.hpp"
+#include "lesson4_cmake/subscriber.hpp"
 
-int main(int argc, char *argv[])
+void Subscriber::callback_publish_test_(const std_msgs::msg::String::SharedPtr msg_ptr)
 {
-    rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<Publisher>("publisher_node");
-    rclcpp::spin(node);
-    rclcpp::shutdown();
-    return 0;
-}
+    RCLCPP_INFO_STREAM(
+        this->get_logger(),
+        "I heard: " << msg_ptr->data
+    );
+};

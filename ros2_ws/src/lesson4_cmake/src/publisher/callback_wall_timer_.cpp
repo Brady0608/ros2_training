@@ -15,13 +15,18 @@
 * Author    : Joe Lin
 * Maintainer: Brady Guo
 *******************************************************************************/
-#include "lesson5_cmake/publisher.hpp"
+#include "lesson4_cmake/publisher.hpp"
 
-int main(int argc, char *argv[])
+void Publisher::callback_wall_timer_()
 {
-    rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<Publisher>("publisher_node");
-    rclcpp::spin(node);
-    rclcpp::shutdown();
-    return 0;
-}
+    this->counter_ += 1;
+    std::ostringstream oss {};
+    oss << "Publish number: " << this->counter_;
+    std_msgs::msg::String msg;
+    msg.data = oss.str();
+    this->publisher_ptr_->publish(msg);
+    RCLCPP_INFO_STREAM(
+        this->get_logger(),
+        "I publish message: " << msg.data
+    );
+};
