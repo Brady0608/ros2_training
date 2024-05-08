@@ -34,7 +34,10 @@ find_package(turtlesim REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Lunch.msg"
+  "msg/Turtle.msg"
+  "msg/TurtleArray.msg"
   "srv/MoveTurtlesim.srv"
+  "srv/CatchTurtle.srv"
   DEPENDENCIES std_msgs geometry_msgs turtlesim
 )
 
