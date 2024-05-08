@@ -20,6 +20,7 @@
 #define MOVE_TURTLESIM_CLIENT__HPP_
 
 #include <chrono>
+#include <vector>
 #include <rclcpp/rclcpp.hpp>
 #include <lesson_interfaces/srv/move_turtlesim.hpp>
 #include "turtlesim_path.hpp"
@@ -27,8 +28,7 @@
 class MoveTurtlesimClient: public rclcpp::Node{
  public:
   MoveTurtlesimClient(
-    std::string node_name="move_turtlesim_client_node",
-    std::string path="line")
+    std::string node_name="move_turtlesim_client_node")
       : Node(node_name) {
 
     RCLCPP_INFO_STREAM(this->get_logger(), "Initializing...");
@@ -47,23 +47,27 @@ class MoveTurtlesimClient: public rclcpp::Node{
     } 
 
     RCLCPP_INFO_STREAM(this->get_logger(), "Calling service '" << this->service_name_ << "'!!");
-    lesson_interfaces::srv::MoveTurtlesim::Request::SharedPtr request{ 
-        std::make_shared<lesson_interfaces::srv::MoveTurtlesim::Request>()};
-    request->path = path;
+    
+    for(auto path = paths_.begin();path != paths_.end(); ++path){
+      
+      auto request = std::make_shared<lesson_interfaces::srv::MoveTurtlesim::Request>();
+      request->path = *path;
 
-    rclcpp::Client<lesson_interfaces::srv::MoveTurtlesim>::FutureAndRequestId future{
-        this->client_->async_send_request(request)};
-
-    if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) == rclcpp::FutureReturnCode::SUCCESS)
+      auto future = this->client_->async_send_request(request);
+      
+      if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) == rclcpp::FutureReturnCode::SUCCESS)
         RCLCPP_INFO_STREAM(this->get_logger(), "Successfull to call serive '" << this->service_name_ << "'");
-    else
+      else
         RCLCPP_ERROR_STREAM(this->get_logger(), "Failed to call service '" << this->service_name_ << "'");
 
+    }
   }
 
  private:
    rclcpp::Client<lesson_interfaces::srv::MoveTurtlesim>::SharedPtr client_;      
    std::string service_name_ {"move_turtlesim"};
+   TurtlesimPath turtlesim_path_{};
+   std::vector<std::string> paths_ {turtlesim_path_.LINE,turtlesim_path_.SQUARE,turtlesim_path_.CIRCLE,turtlesim_path_.TRIANGLE};
 };
 
 

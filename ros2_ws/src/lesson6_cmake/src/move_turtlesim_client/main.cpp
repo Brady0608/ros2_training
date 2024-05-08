@@ -21,9 +21,7 @@
 int main(int argc, char *argv[])
 {
     rclcpp::init(argc, argv);    
-
-    TurtlesimPath turtlesim_path {};
-    rclcpp::Node::SharedPtr node = std::make_shared<MoveTurtlesimClient>("move_turtlesim_client_node", turtlesim_path.SQUARE);
+    rclcpp::Node::SharedPtr node = std::make_shared<MoveTurtlesimClient>("move_turtlesim_client_node");
     rclcpp::shutdown();
     return 0;
 }
