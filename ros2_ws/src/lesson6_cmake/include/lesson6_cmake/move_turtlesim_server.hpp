@@ -41,7 +41,7 @@ class MoveTurtlesimServer: public rclcpp::Node{
         )
     );
 
-    this->publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("cmd_vel", 10);
+    this->publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("turtle1/cmd_vel", 10);
     RCLCPP_INFO_STREAM(this->get_logger(), "Initialized!!");
   }
 
