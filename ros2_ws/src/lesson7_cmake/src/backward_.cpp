@@ -10,18 +10,19 @@
 * Unless required by applicable law or agreed to in writing, software
 * distributed under the License is distributed on an "AS IS" BASIS,
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-* See the License for the specific language governing permissions and
+* See the License for the specific language governing permissons and
 * limitations under the License.
-* Author    : Joe Lin
+* Author    : Brady Guo
 * Maintainer: Brady Guo
+* Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
 
-#include "lesson6_cmake/move_turtlesim_client.hpp"
+#include "lesson7_cmake/teleop_in_terminal.hpp"
 
-int main(int argc, char *argv[])
-{
-    rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<TeleopInTerminal>("move_turtlesim_client_node");
-    rclcpp::shutdown();
-    return 0;
+void TeleopInTerminal::backward_() {
+  
+  this->twist_.linear.x = -1.0;
+  this->twist_.angular.z = 0.0;
+  this->cmd_vel_publisher_->publish(this->twist_);
+  
 }

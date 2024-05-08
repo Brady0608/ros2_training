@@ -16,12 +16,13 @@
 * Maintainer: Brady Guo
 *******************************************************************************/
 
-#include "lesson6_cmake/move_turtlesim_client.hpp"
+#include "lesson7_cmake/teleop_in_terminal.hpp"
 
 int main(int argc, char *argv[])
 {
     rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<TeleopInTerminal>("move_turtlesim_client_node");
+    rclcpp::Node::SharedPtr node = std::make_shared<TeleopInTerminal>("teleop_in_terminal_node");
+    rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;
 }

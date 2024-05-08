@@ -25,9 +25,9 @@
 #include <lesson_interfaces/srv/move_turtlesim.hpp>
 #include "turtlesim_path.hpp"
 
-class MoveTurtlesimClient: public rclcpp::Node{
+class TeleopInTerminal: public rclcpp::Node{
  public:
-  MoveTurtlesimClient(
+  TeleopInTerminal(
     std::string node_name="move_turtlesim_client_node")
       : Node(node_name) {
 
