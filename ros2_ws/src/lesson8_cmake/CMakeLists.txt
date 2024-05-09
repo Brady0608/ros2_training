@@ -28,7 +28,6 @@ endif()
 include_directories(include)
 
 # add executable
-## move_turtlesim_server_exe
 add_executable(turtle_spawner_exe
   src/turtle_spawner/call_spawn_service_.cpp
   src/turtle_spawner/main.cpp
@@ -40,10 +39,20 @@ add_executable(turtle_spawner_exe
 
 ament_target_dependencies(turtle_spawner_exe rclcpp geometry_msgs lesson_interfaces turtlesim)
 
+add_executable(follow_the_turtle_exe
+  src/follow_the_turtle/main.cpp
+  src/follow_the_turtle/callback_control_loop_.cpp
+  src/follow_the_turtle/callback_turtle1_pose_.cpp
+  src/follow_the_turtle/callback_turtle2_pose_.cpp
+  src/follow_the_turtle/call_turtlesim_spawn_service_.cpp
+)
+
+ament_target_dependencies(follow_the_turtle_exe rclcpp geometry_msgs turtlesim)
 
 # install program
 install(TARGETS
   turtle_spawner_exe
+  follow_the_turtle_exe
   DESTINATION lib/${PROJECT_NAME}
 )
 

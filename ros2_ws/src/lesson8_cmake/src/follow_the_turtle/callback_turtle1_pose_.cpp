@@ -16,13 +16,8 @@
 * Maintainer: Brady Guo
 *******************************************************************************/
 
-#include "lesson8_cmake/turtle_spawner.hpp"
+#include "lesson8_cmake/follow_the_turtle.hpp"
 
-int main(int argc, char *argv[])
-{
-    rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<TurtleSpawner>("turtle_spawner_node");
-    rclcpp::spin(node);
-    rclcpp::shutdown();
-    return 0;
+void FollowTheTurtle::callback_turtle1_pose_(const turtlesim::msg::Pose::SharedPtr turtle1_pose_ptr){
+    this->turtle1_pose_ = *turtle1_pose_ptr.get();
 }

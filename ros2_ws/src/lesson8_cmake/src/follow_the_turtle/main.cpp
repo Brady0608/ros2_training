@@ -16,12 +16,12 @@
 * Maintainer: Brady Guo
 *******************************************************************************/
 
-#include "lesson8_cmake/turtle_spawner.hpp"
+#include "lesson8_cmake/follow_the_turtle.hpp"
 
 int main(int argc, char *argv[])
 {
     rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<TurtleSpawner>("turtle_spawner_node");
+    rclcpp::Node::SharedPtr node = std::make_shared<FollowTheTurtle>("follow_the_turtle_node");
     rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;
