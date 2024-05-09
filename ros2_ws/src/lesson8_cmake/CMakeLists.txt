@@ -24,4 +24,26 @@ if(BUILD_TESTING)
   ament_lint_auto_find_test_dependencies()
 endif()
 
+# include 
+include_directories(include)
+
+# add executable
+## move_turtlesim_server_exe
+add_executable(turtle_spawner_exe
+  src/turtle_spawner/call_spawn_service_.cpp
+  src/turtle_spawner/main.cpp
+  src/turtle_spawner/callback_spawn_turtle_timer_.cpp
+  src/turtle_spawner/publish_alive_turtles_.cpp
+)
+
+ament_target_dependencies(turtle_spawner_exe rclcpp geometry_msgs lesson_interfaces turtlesim)
+
+
+# install program
+install(TARGETS
+  turtle_spawner_exe
+  DESTINATION lib/${PROJECT_NAME}
+)
+
+
 ament_package()

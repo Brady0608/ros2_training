@@ -23,6 +23,7 @@
 #include <rclcpp/rclcpp.hpp>
 #include <cmath>
 #include <random>
+#include <iostream>
 #include <turtlesim/srv/spawn.hpp>
 #include <turtlesim/srv/kill.hpp>
 #include "lesson_interfaces/msg/turtle.hpp"
@@ -35,10 +36,14 @@ class TurtleSpawner: public rclcpp::Node{
   TurtleSpawner(
     std::string node_name="turtle_spawner_node")
       : Node(node_name) {
+
+    turtle_counter_ = 0;
+    turtlesim_bound_ = 11.0;
+    turtle_name_prefix_ = "turtle";
+
     this->alive_turtles_publisher_ = this->create_publisher<lesson_interfaces::msg::TurtleArray>("alive_turtles",10);
     this->spawn_turtle_timer_ = this->create_wall_timer(std::chrono::seconds(2),
                                                         std::bind(&TurtleSpawner::callback_spawn_turtle_timer_,this));
-    this->turtle_spawn_client_ = this->create_client<turtlesim::srv::Spawn>("spawn");
   }
 
  private:
@@ -46,8 +51,17 @@ class TurtleSpawner: public rclcpp::Node{
     rclcpp::TimerBase::SharedPtr spawn_turtle_timer_;
     rclcpp::Client<turtlesim::srv::Spawn>::SharedPtr turtle_spawn_client_;
 
-    void callback_spawn_turtle_timer_();
+    int turtle_counter_;
+    double turtlesim_bound_;
+    std::string turtle_name_prefix_;
+    std::vector<lesson_interfaces::msg::TurtleArray> alive_turtles_;
 
+    std::vector<std::shared_ptr<std::thread>> spawn_turtle_threads_;
+
+
+    void callback_spawn_turtle_timer_();
+    void call_spawn_service_(std::string turtle_name, double x, double y, double theta);
+    void publish_alive_turtles_();
 };
 
 
