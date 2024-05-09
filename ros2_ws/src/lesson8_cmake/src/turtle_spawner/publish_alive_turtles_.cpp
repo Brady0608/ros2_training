@@ -20,7 +20,6 @@
 
 void TurtleSpawner::publish_alive_turtles_(){
     auto msg = lesson_interfaces::msg::TurtleArray();
-    msg.turtle_array = alive_turtles_;
+    msg.turtle_array = alive_turtles_.turtle_array;
     alive_turtles_publisher_->publish(msg);
-
 }

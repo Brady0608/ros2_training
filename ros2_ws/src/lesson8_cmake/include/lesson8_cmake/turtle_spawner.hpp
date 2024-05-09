@@ -24,6 +24,7 @@
 #include <cmath>
 #include <random>
 #include <iostream>
+#include <vector>
 #include <turtlesim/srv/spawn.hpp>
 #include <turtlesim/srv/kill.hpp>
 #include "lesson_interfaces/msg/turtle.hpp"
@@ -52,15 +53,15 @@ class TurtleSpawner: public rclcpp::Node{
     rclcpp::Client<turtlesim::srv::Spawn>::SharedPtr turtle_spawn_client_;
 
     int turtle_counter_;
-    double turtlesim_bound_;
+    float turtlesim_bound_;
     std::string turtle_name_prefix_;
-    std::vector<lesson_interfaces::msg::TurtleArray> alive_turtles_;
+    lesson_interfaces::msg::TurtleArray alive_turtles_;
 
     std::vector<std::shared_ptr<std::thread>> spawn_turtle_threads_;
 
 
     void callback_spawn_turtle_timer_();
-    void call_spawn_service_(std::string turtle_name, double x, double y, double theta);
+    void call_spawn_service_(std::string turtle_name, float x, float y, float theta);
     void publish_alive_turtles_();
 };
 

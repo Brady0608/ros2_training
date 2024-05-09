@@ -24,11 +24,11 @@ void TurtleSpawner::callback_spawn_turtle_timer_(){
     auto turtle_name = turtle_name_prefix_ + std::to_string(turtle_counter_);
     std::random_device rd;
     std::default_random_engine gen(rd());
-    std::uniform_real_distribution<double> dist_xy(0.0,turtlesim_bound_);
-    std::uniform_real_distribution<double> dist_theta(0.0,2*M_PI);
-    double x = dist_xy(gen);
-    double y = dist_xy(gen);
-    double theta = dist_theta(gen);
+    std::uniform_real_distribution<float> dist_xy(0.0,turtlesim_bound_);
+    std::uniform_real_distribution<float> dist_theta(0.0,2*M_PI);
+    float x = dist_xy(gen);
+    float y = dist_xy(gen);
+    float theta = dist_theta(gen);
     spawn_turtle_threads_.push_back(
         std::make_shared<std::thread>(
             std::bind(&TurtleSpawner::call_spawn_service_, this, turtle_name, x, y, theta)));

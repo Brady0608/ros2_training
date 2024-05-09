@@ -13,12 +13,12 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Joe Lin
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson8_cmake/turtle_spawner.hpp"
 
-void TurtleSpawner::call_spawn_service_(std::string turtle_name, double x, double y, double theta){
+void TurtleSpawner::call_spawn_service_(std::string turtle_name, float x, float y, float theta){
     this->turtle_spawn_client_ = this->create_client<turtlesim::srv::Spawn>("spawn");
     while (!turtle_spawn_client_->wait_for_service(std::chrono::seconds(1)))
         {
@@ -33,23 +33,20 @@ void TurtleSpawner::call_spawn_service_(std::string turtle_name, double x, doubl
 
     auto future = turtle_spawn_client_->async_send_request(request);
 
-    try
-    {
+    try {
         auto response = future.get();
-        if (response->name != "")
-        {
-        auto new_turtle = lesson_interfaces::msg::Turtle();
-        new_turtle.name = response->name;
-        new_turtle.pose.x = x;
-        new_turtle.pose.y = y;
-        new_turtle.pose.theta = theta;
-        alive_turtles_.push_back(new_turtle);
-        publish_alive_turtles_();
-        RCLCPP_INFO(this->get_logger(), "Turtle %s is now alive.", response->name.c_str());
+        if (response->name != "") {
+            auto new_turtle = lesson_interfaces::msg::Turtle();
+            new_turtle.name = response->name;
+            new_turtle.pose.x = x;
+            new_turtle.pose.y = y;
+            new_turtle.pose.theta = theta;
+            this->alive_turtles_.turtle_array.push_back(new_turtle);
+            publish_alive_turtles_();
+            RCLCPP_INFO(this->get_logger(), "Turtle %s is now alive.", response->name.c_str());
         }
     }
-    catch (const std::exception &e)
-    {
+    catch (const std::exception &e) {
         RCLCPP_ERROR(this->get_logger(), "Service call failed.");
     }
 
