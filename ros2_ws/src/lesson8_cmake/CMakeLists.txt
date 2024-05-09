@@ -34,6 +34,8 @@ add_executable(turtle_spawner_exe
   src/turtle_spawner/main.cpp
   src/turtle_spawner/callback_spawn_turtle_timer_.cpp
   src/turtle_spawner/publish_alive_turtles_.cpp
+  src/turtle_spawner/callback_catch_turtle_.cpp
+  src/turtle_spawner/call_kill_turtle_service_.cpp
 )
 
 ament_target_dependencies(turtle_spawner_exe rclcpp geometry_msgs lesson_interfaces turtlesim)

@@ -42,7 +42,7 @@ void TurtleSpawner::call_spawn_service_(std::string turtle_name, float x, float 
             new_turtle.pose.y = y;
             new_turtle.pose.theta = theta;
             this->alive_turtles_.turtle_array.push_back(new_turtle);
-            publish_alive_turtles_();
+            this->publish_alive_turtles_();
             RCLCPP_INFO(this->get_logger(), "Turtle %s is now alive.", response->name.c_str());
         }
     }
