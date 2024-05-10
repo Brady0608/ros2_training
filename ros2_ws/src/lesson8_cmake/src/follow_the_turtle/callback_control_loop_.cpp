@@ -19,7 +19,7 @@
 #include "lesson8_cmake/follow_the_turtle.hpp"
 
 void FollowTheTurtle::callback_control_loop_(){
-    if (this->check_turtle1_up && this->check_turtle2_up){
+    if (!this->check_turtle1_up && !this->check_turtle2_up){
         return;
     }
     double distance_x = this->turtle1_pose_.x - this->turtle2_pose_.x;

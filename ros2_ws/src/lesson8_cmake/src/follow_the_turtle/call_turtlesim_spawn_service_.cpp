@@ -31,7 +31,7 @@ void FollowTheTurtle::call_turtlesim_spawn_service_(){
     std::random_device rd;
     std::default_random_engine gen(rd());
     std::uniform_real_distribution<double> dist_xy(0.0, this->turtlesim_bound_);
-    std::uniform_real_distribution<double> dist_theta(0.0, 2*M_PI);
+    std::uniform_real_distribution<double> dist_theta(-M_PI, M_PI);
     request->name = this->turtle2_name_;
     request->x = dist_xy(gen);
     request->y = dist_xy(gen);
@@ -39,22 +39,26 @@ void FollowTheTurtle::call_turtlesim_spawn_service_(){
     
 
     auto future = client->async_send_request(request);
-    // rclcpp::Client<turtlesim::srv::Spawn>::FutureAndRequestId future{
-    //     client->async_send_request(request)};
 
-    RCLCPP_INFO(this->get_logger(), "Before try");
-    try{
+    if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) == rclcpp::FutureReturnCode::SUCCESS) {
+
         auto response = future.get();
+
         RCLCPP_INFO(this->get_logger(), "After getting..");
+
         if (response->name != ""){
+
             RCLCPP_INFO(this->get_logger(),"Turtle %s spawned successfully",response->name.c_str());
+
         }
-    }
-    catch(const std::exception& e){
-         RCLCPP_ERROR(this->get_logger(), "Service call failed.");
+
     }
 
-    RCLCPP_INFO(this->get_logger(),"After try-catch");
+    else {
+
+        RCLCPP_ERROR(this->get_logger(), "Service call failed.");
+
+    }
 
 
     
