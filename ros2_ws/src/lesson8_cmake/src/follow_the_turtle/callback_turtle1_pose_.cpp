@@ -20,4 +20,5 @@
 
 void FollowTheTurtle::callback_turtle1_pose_(const turtlesim::msg::Pose::SharedPtr turtle1_pose_ptr){
     this->turtle1_pose_ = *turtle1_pose_ptr.get();
+    this->check_turtle1_up = true;
 }

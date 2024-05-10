@@ -53,7 +53,6 @@ class TeleopInTerminal: public rclcpp::Node{
           else if (this->key == 's')
               this->stop_();
           else {
-              // RCLCPP_WARN_STREAM(this->get_logger(), "Wrong path!");
               this->stop_();
               if (key == '\x03')
                 break;
@@ -67,8 +66,6 @@ class TeleopInTerminal: public rclcpp::Node{
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_publisher_;      
     geometry_msgs::msg::Twist twist_;
     char key = ' ';
-
-    // std::string msg = "Control the Turtle!"
     std::string msg = R"(
 Control the Turtle!
 -------------------------

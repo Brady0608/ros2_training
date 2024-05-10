@@ -36,13 +36,15 @@ class FollowTheTurtle: public rclcpp::Node{
         this->turtle2_name_ = "turtle2";
         this->turtlesim_bound_ = 11.0;
         this->p_controller_coefficient_ = 1.0;
+        this->check_turtle1_up = false;
+        this->check_turtle2_up = false;
         
-
-        // this->turtle1_pose_subscriber_ = this->create_subscription<turtlesim::msg::Pose>("/turtle1/pose", 10, std::bind(&FollowTheTurtle::callback_turtle1_pose_,this));
-        // this->turtle2_pose_subscriber_ = this->create_subscription<turtlesim::msg::Pose>(turtle2_name_ + "/pose", 10, std::bind(&FollowTheTurtle::callback_turtle2_pose_,this));
-        // this->turtle2_cmd_vel_publisher_ = this->create_publisher<geometry_msgs::msg::Twist>(turtle2_name_+"/cmd_vel",10);
-        // this->control_loop_ = this->create_wall_timer(std::chrono::milliseconds(10),std::bind(&FollowTheTurtle::callback_control_loop_,this));
+        this->turtle1_pose_subscriber_ = this->create_subscription<turtlesim::msg::Pose>("/turtle1/pose", 10, std::bind(&FollowTheTurtle::callback_turtle1_pose_,this, std::placeholders::_1));
+        this->turtle2_pose_subscriber_ = this->create_subscription<turtlesim::msg::Pose>(turtle2_name_ + "/pose", 10, std::bind(&FollowTheTurtle::callback_turtle2_pose_,this, std::placeholders::_1));
+        this->turtle2_cmd_vel_publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("/"+turtle2_name_+"/cmd_vel",10);
+        this->control_loop_ = this->create_wall_timer(std::chrono::milliseconds(10),std::bind(&FollowTheTurtle::callback_control_loop_,this));
         this->call_turtlesim_spawn_service_();
+
     }
 
  private:
@@ -57,7 +59,17 @@ class FollowTheTurtle: public rclcpp::Node{
     turtlesim::msg::Pose turtle2_pose_;
     double turtlesim_bound_;
     double p_controller_coefficient_;
+    bool check_turtle1_up;
+    bool check_turtle2_up;
 
+    
+
+    /**
+     * @brief asdad
+     * @param turtle_pose_ptr asdasd
+     * 
+     * @return
+    */
     void callback_turtle1_pose_(const turtlesim::msg::Pose::SharedPtr turtle1_pose_ptr);
     void callback_turtle2_pose_(const turtlesim::msg::Pose::SharedPtr turtle2_pose_ptr);
     void call_turtlesim_spawn_service_();

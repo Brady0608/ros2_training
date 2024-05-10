@@ -19,5 +19,30 @@
 #include "lesson8_cmake/follow_the_turtle.hpp"
 
 void FollowTheTurtle::callback_control_loop_(){
+    if (this->check_turtle1_up && this->check_turtle2_up){
+        return;
+    }
+    double distance_x = this->turtle1_pose_.x - this->turtle2_pose_.x;
+    double distance_y = this->turtle1_pose_.y - this->turtle2_pose_.y;
+    double distance = std::sqrt(std::pow(distance_x, 2) + std::pow(distance_y, 2));
+    
+    auto twist_msg = geometry_msgs::msg::Twist();
+    if(distance > 0.5){
+        twist_msg.linear.x = this->p_controller_coefficient_ * 0.5 * distance;
+        double goal_theta = std::atan2(distance_y,distance_x);
+        double theta_to_goal = goal_theta - this->turtle2_pose_.theta;
+        if (theta_to_goal > M_PI)
+            theta_to_goal -= (2*M_PI);
+        else if (theta_to_goal < -M_PI)
+            theta_to_goal += (2*M_PI);
+        twist_msg.angular.z = this->p_controller_coefficient_ * theta_to_goal;
+    }
+    else{
+        twist_msg.linear.x = 0;
+        twist_msg.angular.z = 0;
+    }
+
+    this->turtle2_cmd_vel_publisher_->publish(twist_msg);
+
     
 }
