@@ -39,6 +39,7 @@ class FollowTheTurtle: public rclcpp::Node{
         this->check_turtle1_up = false;
         this->check_turtle2_up = false;
         
+        this->turtle2_spawn_client_ = this->create_client<turtlesim::srv::Spawn>("spawn");
         this->turtle1_pose_subscriber_ = this->create_subscription<turtlesim::msg::Pose>("/turtle1/pose", 10, std::bind(&FollowTheTurtle::callback_turtle1_pose_,this, std::placeholders::_1));
         this->turtle2_pose_subscriber_ = this->create_subscription<turtlesim::msg::Pose>(turtle2_name_ + "/pose", 10, std::bind(&FollowTheTurtle::callback_turtle2_pose_,this, std::placeholders::_1));
         this->turtle2_cmd_vel_publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("/"+turtle2_name_+"/cmd_vel",10);
@@ -52,6 +53,7 @@ class FollowTheTurtle: public rclcpp::Node{
     rclcpp::Subscription<turtlesim::msg::Pose>::SharedPtr turtle1_pose_subscriber_;
     rclcpp::Subscription<turtlesim::msg::Pose>::SharedPtr turtle2_pose_subscriber_;
     rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr turtle2_cmd_vel_publisher_;
+    rclcpp::Client<turtlesim::srv::Spawn>::SharedPtr turtle2_spawn_client_;
     rclcpp::TimerBase::SharedPtr control_loop_;
 
     std::string turtle2_name_;

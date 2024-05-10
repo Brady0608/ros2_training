@@ -19,10 +19,7 @@
 #include "lesson8_cmake/follow_the_turtle.hpp"
 
 void FollowTheTurtle::call_turtlesim_spawn_service_(){
-    RCLCPP_INFO(this->get_logger(),"Before client");
-
-    auto client = this->create_client<turtlesim::srv::Spawn>("spawn");
-    while (!client->wait_for_service(std::chrono::seconds(1))){
+    while (!this->turtle2_spawn_client_->wait_for_service(std::chrono::seconds(1))){
         RCLCPP_WARN(this->get_logger(), "Waiting for \"/spawn\" service...");
     }
 
@@ -38,7 +35,7 @@ void FollowTheTurtle::call_turtlesim_spawn_service_(){
     request->theta = dist_theta(gen);
     
 
-    auto future = client->async_send_request(request);
+    auto future = this->turtle2_spawn_client_->async_send_request(request);
 
     if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) == rclcpp::FutureReturnCode::SUCCESS) {
 
