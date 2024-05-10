@@ -42,6 +42,9 @@ class TurtleSpawner: public rclcpp::Node{
     this->turtlesim_bound_ = 11.0;
     this->turtle_name_prefix_ = "turtle";
 
+    this->turtle_spawn_client_ = this->create_client<turtlesim::srv::Spawn>("spawn");
+
+
     this->alive_turtles_publisher_ = this->create_publisher<lesson_interfaces::msg::TurtleArray>("alive_turtles",10);
     this->spawn_turtle_timer_ = this->create_wall_timer(
       std::chrono::seconds(2),

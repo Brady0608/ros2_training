@@ -19,7 +19,7 @@
 #include "lesson8_cmake/turtle_spawner.hpp"
 
 void TurtleSpawner::call_spawn_service_(std::string turtle_name, float x, float y, float theta){
-    this->turtle_spawn_client_ = this->create_client<turtlesim::srv::Spawn>("spawn");
+    // this->turtle_spawn_client_ = this->create_client<turtlesim::srv::Spawn>("spawn");
     while (!turtle_spawn_client_->wait_for_service(std::chrono::seconds(1)))
         {
             RCLCPP_WARN(this->get_logger(), "Waiting for \"/spawn\" service...");

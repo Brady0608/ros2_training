@@ -25,7 +25,7 @@ void TurtleSpawner::callback_spawn_turtle_timer_(){
     std::random_device rd;
     std::default_random_engine gen(rd());
     std::uniform_real_distribution<float> dist_xy(0.0,turtlesim_bound_);
-    std::uniform_real_distribution<float> dist_theta(0.0,2*M_PI);
+    std::uniform_real_distribution<float> dist_theta(-M_PI, M_PI);
     float x = dist_xy(gen);
     float y = dist_xy(gen);
     float theta = dist_theta(gen);
