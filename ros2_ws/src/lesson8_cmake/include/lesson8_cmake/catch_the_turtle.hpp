@@ -47,7 +47,7 @@ class CatchTheTurtle: public rclcpp::Node{
             "alive_turtle",
              10, 
              std::bind(&CatchTheTurtle::callback_alive_turtles_,this,std::placeholders::_1));
-          // this->control_loop_timer_ = this->create_wall_timer(std::chrono::milliseconds(10),std::bind(&CatchTheTurtle::controller_loop_,this));
+          this->control_loop_timer_ = this->create_wall_timer(std::chrono::milliseconds(10),std::bind(&CatchTheTurtle::controller_loop_,this));
 
 
     }
