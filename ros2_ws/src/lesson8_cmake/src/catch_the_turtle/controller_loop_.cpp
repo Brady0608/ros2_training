@@ -30,7 +30,7 @@ void CatchTheTurtle::controller_loop_(){
     if(distance > 0.5){
         twist_msg.linear.x = this->p_controller_coefficient_ * 0.5 * distance;
         double goal_theta = std::atan2(distance_y,distance_x);
-        double theta_to_goal = goal_theta - this->turtle2_pose_.theta;
+        double theta_to_goal = goal_theta - this->pose_.theta;
         if (theta_to_goal > M_PI)
             theta_to_goal -= (2*M_PI);
         else if (theta_to_goal < -M_PI)
