@@ -44,10 +44,11 @@ class CatchTheTurtle: public rclcpp::Node{
             10, 
             std::bind(&CatchTheTurtle::callback_turtle_pose_,this,std::placeholders::_1));
           this->alive_turtles_subscriber_ = this->create_subscription<lesson_interfaces::msg::TurtleArray>(
-            "alive_turtle",
+            "alive_turtles",
              10, 
              std::bind(&CatchTheTurtle::callback_alive_turtles_,this,std::placeholders::_1));
           this->control_loop_timer_ = this->create_wall_timer(std::chrono::milliseconds(10),std::bind(&CatchTheTurtle::controller_loop_,this));
+          this->call_catch_turtle_client_ = this->create_client<lesson_interfaces::srv::CatchTurtle>("catch_turtle");
 
 
     }
@@ -58,6 +59,7 @@ class CatchTheTurtle: public rclcpp::Node{
   rclcpp::Subscription<turtlesim::msg::Pose>::SharedPtr pose_subscriber_;
   rclcpp::Subscription<lesson_interfaces::msg::TurtleArray>::SharedPtr alive_turtles_subscriber_;
   rclcpp::TimerBase::SharedPtr control_loop_timer_;
+  rclcpp::Client<lesson_interfaces::srv::CatchTurtle>::SharedPtr call_catch_turtle_client_;
 
   lesson_interfaces::msg::Turtle turtle_to_catch_;
   turtlesim::msg::Pose pose_;
@@ -65,11 +67,14 @@ class CatchTheTurtle: public rclcpp::Node{
   bool get_turtle_pose_;
   bool get_turtle_to_catch_;
 
+  std::vector<std::shared_ptr<std::thread>> catch_turtle_threads_;
+
+
   void callback_turtle_pose_(const turtlesim::msg::Pose::SharedPtr msg);
   void callback_alive_turtles_(const lesson_interfaces::msg::TurtleArray msg);
   void controller_loop_();
   void call_catch_turtle_service_(std::string turtle_name);
-  void callback_call_catch_turtle_();
+  // void callback_call_catch_turtle_();
 
     
 

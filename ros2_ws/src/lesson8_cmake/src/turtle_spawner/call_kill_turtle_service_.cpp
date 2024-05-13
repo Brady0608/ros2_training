@@ -19,18 +19,17 @@
 #include "lesson8_cmake/turtle_spawner.hpp"
 
 void TurtleSpawner::call_kill_turtle_service_(std::string turtle_name){
-    auto client = this->create_client<turtlesim::srv::Kill>("kill");
-    while (!client->wait_for_service(std::chrono::seconds(1))){
+    auto kill_turtle_service_client_ = this->create_client<turtlesim::srv::Kill>("kill");
+    while (!kill_turtle_service_client_->wait_for_service(std::chrono::seconds(1))){
         RCLCPP_WARN(this->get_logger(), "Waiting for \"/kill\" service...");
     }
 
     auto request = std::make_shared<turtlesim::srv::Kill::Request>();
     request->name = turtle_name;
 
-    auto future = client->async_send_request(request);
+    auto future = kill_turtle_service_client_->async_send_request(request);
 
-    try
-    {
+    if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) == rclcpp::FutureReturnCode::SUCCESS) {
         future.get();
         for (int i = 0; i < (int)alive_turtles_.turtle_array.size(); i++)
         {
@@ -42,9 +41,9 @@ void TurtleSpawner::call_kill_turtle_service_(std::string turtle_name){
             }
         }
     }
-    catch (const std::exception &e)
+    else
     {
-        RCLCPP_ERROR(this->get_logger(), "Service call failed.");
+        RCLCPP_ERROR(this->get_logger(), "Kill service call failed.");
     }
 
 }

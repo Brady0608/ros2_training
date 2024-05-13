@@ -40,5 +40,7 @@ void CatchTheTurtle::controller_loop_(){
     else{
         twist_msg.linear.x = 0;
         twist_msg.angular.z = 0;
+        this->call_catch_turtle_service_(turtle_to_catch_.name);
     }
+    cmd_vel_publisher_->publish(twist_msg);
 }

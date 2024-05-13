@@ -26,7 +26,6 @@ void FollowTheTurtle::callback_control_loop_(){
     double distance_y = this->turtle1_pose_.y - this->turtle2_pose_.y;
     double distance = std::sqrt(std::pow(distance_x, 2) + std::pow(distance_y, 2));
     
-    // auto twist_msg = geometry_msgs::msg::Twist();
     geometry_msgs::msg::Twist twist_msg;
     if(distance > 0.5){
         twist_msg.linear.x = this->p_controller_coefficient_ * 0.5 * distance;

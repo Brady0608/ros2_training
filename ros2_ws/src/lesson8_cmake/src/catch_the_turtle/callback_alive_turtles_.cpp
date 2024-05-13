@@ -25,6 +25,7 @@ void CatchTheTurtle::callback_alive_turtles_(const lesson_interfaces::msg::Turtl
         RCLCPP_INFO(this->get_logger(),"Have a turtle to catch!");
     }else{
         RCLCPP_INFO(this->get_logger(),"NOOOOOOOOOOOOOO turtle to catch!");
+        this->get_turtle_to_catch_ = false;
 
     }
 }

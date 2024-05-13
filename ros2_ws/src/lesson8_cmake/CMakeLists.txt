@@ -54,7 +54,7 @@ add_executable(catch_the_turtle_exe
   src/catch_the_turtle/controller_loop_.cpp
   src/catch_the_turtle/callback_turtle_pose_.cpp
   src/catch_the_turtle/callback_alive_turtles_.cpp
-  # src/catch_the_turtle/call_turtlesim_spawn_service_.cpp
+  src/catch_the_turtle/call_catch_turtle_service_.cpp
 )
 
 ament_target_dependencies(catch_the_turtle_exe rclcpp geometry_msgs turtlesim lesson_interfaces)

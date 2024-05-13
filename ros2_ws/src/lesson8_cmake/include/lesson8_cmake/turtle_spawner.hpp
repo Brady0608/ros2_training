@@ -58,6 +58,7 @@ class TurtleSpawner: public rclcpp::Node{
     rclcpp::TimerBase::SharedPtr spawn_turtle_timer_;
     rclcpp::Client<turtlesim::srv::Spawn>::SharedPtr turtle_spawn_client_;
     rclcpp::Service<lesson_interfaces::srv::CatchTurtle>::SharedPtr catch_turtle_service_;
+    rclcpp::Service<turtlesim::srv::Kill>::SharedPtr kill_turtle_service_client_;
 
     int turtle_counter_;
     float turtlesim_bound_;
