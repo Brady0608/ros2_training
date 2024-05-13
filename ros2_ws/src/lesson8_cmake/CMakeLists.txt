@@ -49,10 +49,22 @@ add_executable(follow_the_turtle_exe
 
 ament_target_dependencies(follow_the_turtle_exe rclcpp geometry_msgs turtlesim)
 
+add_executable(catch_the_turtle_exe
+  src/catch_the_turtle/main.cpp
+  # src/catch_the_turtle/callback_control_loop_.cpp
+  src/catch_the_turtle/callback_turtle_pose_.cpp
+  src/catch_the_turtle/callback_alive_turtles_.cpp
+  # src/catch_the_turtle/call_turtlesim_spawn_service_.cpp
+)
+
+ament_target_dependencies(catch_the_turtle_exe rclcpp geometry_msgs turtlesim lesson_interfaces)
+
+
 # install program
 install(TARGETS
   turtle_spawner_exe
   follow_the_turtle_exe
+  catch_the_turtle_exe
   DESTINATION lib/${PROJECT_NAME}
 )
 

@@ -14,58 +14,64 @@
 * limitations under the License.
 * Author    : Brady Guo
 * Maintainer: Brady Guo
-* Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
 #ifndef CATCH_THE_TURTLE__HPP_
 #define CATCH_THE_TURTLE__HPP_
 
 
-#include <string>
-#include <cmath>
-#include <iostream> 
-#include <stdio.h>
-#include <unistd.h>
-#include <termios.h>
-
 #include <rclcpp/rclcpp.hpp>
+#include <cmath>
 #include <geometry_msgs/msg/twist.hpp>
+#include <turtlesim/msg/pose.hpp>
+#include "lesson_interfaces/msg/turtle.hpp"
+#include "lesson_interfaces/msg/turtle_array.hpp"
+#include "lesson_interfaces/srv/catch_turtle.hpp"
+
 
 class CatchTheTurtle: public rclcpp::Node{
  public:
-  CatchTheTurtle(
-    std::string node_name="catch_the_turtle_node")
-      : Node(node_name) {
-        
+    CatchTheTurtle(
+        std::string node_name="catch_the_turtle_node")
+        : Node(node_name) {
+          
+          this->p_controller_coefficient_ = 1.0;
+          this->get_turtle_pose_ = false;
+          this->get_turtle_to_catch_ = false;
+          
+          this->cmd_vel_publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("/turtle1/cmd_vel",10);
+          this->pose_subscriber_ = this->create_subscription<turtlesim::msg::Pose>(
+            "/turtle1/pose", 
+            10, 
+            std::bind(&CatchTheTurtle::callback_turtle_pose_,this,std::placeholders::_1));
+          this->alive_turtles_subscriber_ = this->create_subscription<lesson_interfaces::msg::TurtleArray>(
+            "alive_turtle",
+             10, 
+             std::bind(&CatchTheTurtle::callback_alive_turtles_,this,std::placeholders::_1));
+          // this->control_loop_timer_ = this->create_wall_timer(std::chrono::milliseconds(10),std::bind(&CatchTheTurtle::controller_loop_,this));
 
-      }
+
     }
 
-  }
-
  private:
-    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_publisher_;      
-    geometry_msgs::msg::Twist twist_;
-    char key = ' ';
 
-    // std::string msg = "Control the Turtle!"
-    std::string msg = R"(
-Control the Turtle!
--------------------------
-Moving around:
-    w
-a   s   d
-    x
+  rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_publisher_;
+  rclcpp::Subscription<turtlesim::msg::Pose>::SharedPtr pose_subscriber_;
+  rclcpp::Subscription<lesson_interfaces::msg::TurtleArray>::SharedPtr alive_turtles_subscriber_;
+  rclcpp::TimerBase::SharedPtr control_loop_timer_;
+
+  lesson_interfaces::msg::Turtle turtle_to_catch_;
+  turtlesim::msg::Pose pose_;
+  double p_controller_coefficient_;
+  bool get_turtle_pose_;
+  bool get_turtle_to_catch_;
+
+  void callback_turtle_pose_(const turtlesim::msg::Pose::SharedPtr msg);
+  void callback_alive_turtles_(const lesson_interfaces::msg::TurtleArray msg);
+  void controller_loop_();
+  void call_catch_turtle_service_(std::string turtle_name);
+  void callback_call_catch_turtle_();
+
     
-w/x: moving the turtle forward/backward
-a/d: turning the turtle left/right
-s  : force stop the turtle
-)";
-    int get_key_();
-    void forward_();
-    void backward_();
-    void turn_left_();
-    void turn_right_();
-    void stop_();
 
 
 };

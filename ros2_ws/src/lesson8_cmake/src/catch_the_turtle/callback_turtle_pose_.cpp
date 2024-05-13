@@ -12,17 +12,13 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Joe Lin
+* Author    : Brady Guo
 * Maintainer: Brady Guo
 *******************************************************************************/
 
 #include "lesson8_cmake/catch_the_turtle.hpp"
 
-int main(int argc, char *argv[])
-{
-    rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<CatchTheTurtle>("catch_the_turtle_node");
-    rclcpp::spin(node);
-    rclcpp::shutdown();
-    return 0;
+void CatchTheTurtle::callback_turtle_pose_(const turtlesim::msg::Pose::SharedPtr msg){
+    this->pose_ = *msg.get();
+    this->get_turtle_pose_ = true;
 }
