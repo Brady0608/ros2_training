@@ -74,7 +74,6 @@ class CatchTheTurtle: public rclcpp::Node{
   void callback_alive_turtles_(const lesson_interfaces::msg::TurtleArray msg);
   void controller_loop_();
   void call_catch_turtle_service_(std::string turtle_name);
-  // void callback_call_catch_turtle_();
 
     
 

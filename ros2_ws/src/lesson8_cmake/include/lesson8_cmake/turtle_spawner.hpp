@@ -43,7 +43,7 @@ class TurtleSpawner: public rclcpp::Node{
     this->turtle_name_prefix_ = "turtle";
 
     this->turtle_spawn_client_ = this->create_client<turtlesim::srv::Spawn>("spawn");
-
+    this->kill_turtle_service_client_ = this->create_client<turtlesim::srv::Kill>("kill");
 
     this->alive_turtles_publisher_ = this->create_publisher<lesson_interfaces::msg::TurtleArray>("alive_turtles",10);
     this->spawn_turtle_timer_ = this->create_wall_timer(
@@ -58,7 +58,7 @@ class TurtleSpawner: public rclcpp::Node{
     rclcpp::TimerBase::SharedPtr spawn_turtle_timer_;
     rclcpp::Client<turtlesim::srv::Spawn>::SharedPtr turtle_spawn_client_;
     rclcpp::Service<lesson_interfaces::srv::CatchTurtle>::SharedPtr catch_turtle_service_;
-    rclcpp::Service<turtlesim::srv::Kill>::SharedPtr kill_turtle_service_client_;
+    rclcpp::Client<turtlesim::srv::Kill>::SharedPtr kill_turtle_service_client_;
 
     int turtle_counter_;
     float turtlesim_bound_;
