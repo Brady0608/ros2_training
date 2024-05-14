@@ -13,15 +13,20 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Joe Lin
-* Maintainer: Brady Guo
+* Maintainer: Brady guo
+* Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
 
-#include "lesson6_cmake/move_turtlesim_client.hpp"
+#include "lesson6_cmake/move_turtlesim_server.hpp"
 
-int main(int argc, char *argv[])
-{
-    rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<MoveTurtlesimClient>("move_turtlesim_client_node");
-    rclcpp::shutdown();
-    return 0;
+MoveTurtlesimServer::MoveTurtlesimServer(std::string node_name)
+        : Node(node_name) {
+
+    RCLCPP_INFO_STREAM(this->get_logger(), "Initializing...");
+    this->service_ = this->create_service<lesson_interfaces::srv::MoveTurtlesim> (
+        this->service_name_,
+        std::bind(&MoveTurtlesimServer::callback_service_, this, std::placeholders::_1, std::placeholders::_2)
+    );
+    this->publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("turtle1/cmd_vel", 10);
+    RCLCPP_INFO_STREAM(this->get_logger(), "Initialized!!");
 }

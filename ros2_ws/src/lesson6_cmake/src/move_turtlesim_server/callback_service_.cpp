@@ -25,13 +25,13 @@ void MoveTurtlesimServer::callback_service_(
 
   std::string path = request_ptr->path;
 
-  if (path == this->turtlesim_path_.LINE)
+  if (path == TurtlesimPath::LINE)
     this->move_line_();
-  else if (path == this->turtlesim_path_.SQUARE)
+  else if (path == TurtlesimPath::SQUARE)
     this->move_square_();
-  else if (path == this->turtlesim_path_.CIRCLE)
+  else if (path == TurtlesimPath::CIRCLE)
     this->move_circle_();
-  else if (path == this->turtlesim_path_.TRIANGLE)
+  else if (path == TurtlesimPath::TRIANGLE)
     this->move_triangle_();
   else {
     RCLCPP_WARN_STREAM(this->get_logger(), "Wrong path!");

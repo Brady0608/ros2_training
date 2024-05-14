@@ -15,16 +15,16 @@
 * Author    : Joe Lin
 * Maintainer: Brady Guo
 *******************************************************************************/
-#ifndef TURTLESIM_PATH__HPP_
-#define TURTLESIM_PATH__HPP_
+#ifndef TURTLESIM_PATH__H_
+#define TURTLESIM_PATH__H_
 
 #include <string>
 
-struct TurtlesimPath {
-    std::string LINE     = "line",
-                SQUARE   = "square",
-                CIRCLE   = "circle",
-                TRIANGLE = "triangle";
+namespace TurtlesimPath {
+    inline std::string LINE     = "line",
+                       SQUARE   = "square",
+                       CIRCLE   = "circle",
+                       TRIANGLE = "triangle";
 
 };
 

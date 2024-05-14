@@ -28,23 +28,29 @@ endif()
 # include 
 include_directories(include)
 
+set(ProjectName move_turtlesim_server)
+
 # add executable
 ## move_turtlesim_server_exe
 add_executable(move_turtlesim_server_exe
-  src/move_turtlesim_server/callback_service_.cpp
-  src/move_turtlesim_server/main.cpp
-  src/move_turtlesim_server/move_circle_.cpp
-  src/move_turtlesim_server/move_line_.cpp
-  src/move_turtlesim_server/move_square_.cpp
-  src/move_turtlesim_server/move_triangle_.cpp
-  src/move_turtlesim_server/stop_.cpp
+  src/${ProjectName}/move_turtlesim_server.cpp
+  src/${ProjectName}/callback_service_.cpp
+  src/${ProjectName}/main.cpp
+  src/${ProjectName}/move_circle_.cpp
+  src/${ProjectName}/move_line_.cpp
+  src/${ProjectName}/move_square_.cpp
+  src/${ProjectName}/move_triangle_.cpp
+  src/${ProjectName}/stop_.cpp
 )
 
 ament_target_dependencies(move_turtlesim_server_exe rclcpp geometry_msgs lesson_interfaces)
 
+
+set(ProjectName move_turtlesim_client)
 ## move_turtlesim_client_exe
 add_executable(move_turtlesim_client_exe
-  src/move_turtlesim_client/main.cpp
+  src/${ProjectName}/move_turtlesim_client.cpp
+  src/${ProjectName}/main.cpp
 )
 
 ament_target_dependencies(move_turtlesim_client_exe rclcpp lesson_interfaces)
