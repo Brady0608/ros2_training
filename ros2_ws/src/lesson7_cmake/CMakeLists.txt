@@ -26,6 +26,7 @@ endif()
 include_directories(include)
 
 add_executable(teleop_in_terminal_exe
+  src/teleop_in_terminal.cpp
   src/main.cpp
   src/get_key_.cpp
   src/backward_.cpp

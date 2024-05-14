@@ -32,60 +32,33 @@
 
 class TeleopInTerminal: public rclcpp::Node{
  public:
-  TeleopInTerminal(
-    std::string node_name="teleop_in_terminal_node")
-      : Node(node_name) {
-        this->cmd_vel_publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("/turtle1/cmd_vel",10);
+  TeleopInTerminal(std::string node_name="teleop_in_terminal_node");
 
-        RCLCPP_INFO(this->get_logger(),this->msg.c_str());
-
-        while(rclcpp::ok()){
-          // get the pressed key
-          this->key = this->get_key_();
-          if (this->key == 'w')
-              this->forward_();
-          else if (this->key == 'x')
-              this->backward_();
-          else if (this->key == 'a')
-              this->turn_left_();
-          else if (this->key == 'd')
-              this->turn_right_();
-          else if (this->key == 's')
-              this->stop_();
-          else {
-              this->stop_();
-              if (key == '\x03')
-                break;
-
-      }
-    }
-
-  }
 
  private:
-    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_publisher_;      
-    geometry_msgs::msg::Twist twist_;
-    char key = ' ';
-    std::string msg = R"(
-Control the Turtle!
--------------------------
-Moving around:
-    w
-a   s   d
-    x
-    
-w/x: moving the turtle forward/backward
-a/d: turning the turtle left/right
-s  : force stop the turtle
-)";
-    int get_key_();
+
+    int  get_key_();
     void forward_();
     void backward_();
     void turn_left_();
     void turn_right_();
     void stop_();
 
+    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_publisher_;      
+    geometry_msgs::msg::Twist twist_;
+    char key_ = ' ';
+    std::string msg_ = R"(
+Control the Turtle!
+-------------------------
+Moving around:
+    w
+a   s   d
+    x
 
+w/x: moving the turtle forward/backward
+a/d: turning the turtle left/right
+s  : force stop the turtle
+    )";
 };
 
 
