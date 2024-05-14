@@ -30,30 +30,15 @@
 
 class CatchTheTurtle: public rclcpp::Node{
  public:
-    CatchTheTurtle(
-        std::string node_name="catch_the_turtle_node")
-        : Node(node_name) {
-          
-          this->p_controller_coefficient_ = 1.0;
-          this->get_turtle_pose_ = false;
-          this->get_turtle_to_catch_ = false;
-          
-          this->cmd_vel_publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("/turtle1/cmd_vel",10);
-          this->pose_subscriber_ = this->create_subscription<turtlesim::msg::Pose>(
-            "/turtle1/pose", 
-            10, 
-            std::bind(&CatchTheTurtle::callback_turtle_pose_,this,std::placeholders::_1));
-          this->alive_turtles_subscriber_ = this->create_subscription<lesson_interfaces::msg::TurtleArray>(
-            "alive_turtles",
-             10, 
-             std::bind(&CatchTheTurtle::callback_alive_turtles_,this,std::placeholders::_1));
-          this->control_loop_timer_ = this->create_wall_timer(std::chrono::milliseconds(10),std::bind(&CatchTheTurtle::controller_loop_,this));
-          this->call_catch_turtle_client_ = this->create_client<lesson_interfaces::srv::CatchTurtle>("catch_turtle");
+    CatchTheTurtle(std::string node_name="catch_the_turtle_node");
 
-
-    }
 
  private:
+ 
+  void callback_turtle_pose_(const turtlesim::msg::Pose::SharedPtr msg);
+  void callback_alive_turtles_(const lesson_interfaces::msg::TurtleArray msg);
+  void controller_loop_();
+  void call_catch_turtle_service_(std::string turtle_name);
 
   rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_publisher_;
   rclcpp::Subscription<turtlesim::msg::Pose>::SharedPtr pose_subscriber_;
@@ -70,10 +55,6 @@ class CatchTheTurtle: public rclcpp::Node{
   std::vector<std::shared_ptr<std::thread>> catch_turtle_threads_;
 
 
-  void callback_turtle_pose_(const turtlesim::msg::Pose::SharedPtr msg);
-  void callback_alive_turtles_(const lesson_interfaces::msg::TurtleArray msg);
-  void controller_loop_();
-  void call_catch_turtle_service_(std::string turtle_name);
 
     
 

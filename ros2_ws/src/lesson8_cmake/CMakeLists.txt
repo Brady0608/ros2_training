@@ -28,33 +28,40 @@ endif()
 include_directories(include)
 
 # add executable
+set(PackageName turtle_spawner)
 add_executable(turtle_spawner_exe
-  src/turtle_spawner/call_spawn_service_.cpp
-  src/turtle_spawner/main.cpp
-  src/turtle_spawner/callback_spawn_turtle_timer_.cpp
-  src/turtle_spawner/publish_alive_turtles_.cpp
-  src/turtle_spawner/callback_catch_turtle_.cpp
-  src/turtle_spawner/call_kill_turtle_service_.cpp
+  src/${PackageName}/turtle_spawner.cpp
+  src/${PackageName}/call_spawn_service_.cpp
+  src/${PackageName}/main.cpp
+  src/${PackageName}/callback_spawn_turtle_timer_.cpp
+  src/${PackageName}/publish_alive_turtles_.cpp
+  src/${PackageName}/callback_catch_turtle_.cpp
+  src/${PackageName}/call_kill_turtle_service_.cpp
 )
 
 ament_target_dependencies(turtle_spawner_exe rclcpp geometry_msgs lesson_interfaces turtlesim)
 
+set(PackageName follow_the_turtle)
 add_executable(follow_the_turtle_exe
-  src/follow_the_turtle/main.cpp
-  src/follow_the_turtle/callback_control_loop_.cpp
-  src/follow_the_turtle/callback_turtle1_pose_.cpp
-  src/follow_the_turtle/callback_turtle2_pose_.cpp
-  src/follow_the_turtle/call_turtlesim_spawn_service_.cpp
+  src/${PackageName}/follow_the_turtle.cpp
+  src/${PackageName}/main.cpp
+  src/${PackageName}/callback_control_loop_.cpp
+  src/${PackageName}/callback_turtle1_pose_.cpp
+  src/${PackageName}/callback_turtle2_pose_.cpp
+  src/${PackageName}/call_turtlesim_spawn_service_.cpp
 )
 
 ament_target_dependencies(follow_the_turtle_exe rclcpp geometry_msgs turtlesim)
 
+
+set(PackageName catch_the_turtle)
 add_executable(catch_the_turtle_exe
-  src/catch_the_turtle/main.cpp
-  src/catch_the_turtle/controller_loop_.cpp
-  src/catch_the_turtle/callback_turtle_pose_.cpp
-  src/catch_the_turtle/callback_alive_turtles_.cpp
-  src/catch_the_turtle/call_catch_turtle_service_.cpp
+  src/${PackageName}/catch_the_turtle.cpp
+  src/${PackageName}/main.cpp
+  src/${PackageName}/controller_loop_.cpp
+  src/${PackageName}/callback_turtle_pose_.cpp
+  src/${PackageName}/callback_alive_turtles_.cpp
+  src/${PackageName}/call_catch_turtle_service_.cpp
 )
 
 ament_target_dependencies(catch_the_turtle_exe rclcpp geometry_msgs turtlesim lesson_interfaces)

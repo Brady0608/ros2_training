@@ -12,8 +12,8 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Joe Lin
-* Maintainer: Brady Guo
+* Author    : Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson8_cmake/turtle_spawner.hpp"

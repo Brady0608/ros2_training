@@ -18,13 +18,19 @@
 
 #include "lesson8_cmake/turtle_spawner.hpp"
 
-void TurtleSpawner::callback_catch_turtle_(const lesson_interfaces::srv::CatchTurtle::Request::SharedPtr request, 
-                                           const lesson_interfaces::srv::CatchTurtle::Response::SharedPtr response){
+  TurtleSpawner::TurtleSpawner(std::string node_name)
+      : Node(node_name) {
 
-    kill_turtle_threads_.push_back(
-        std::make_shared<std::thread>(
-        std::bind(&TurtleSpawner::call_kill_turtle_service_, this, request->name)));
-    response->success = true;
+    this->turtle_counter_ = 0;
+    this->turtlesim_bound_ = 11.0;
+    this->turtle_name_prefix_ = "turtle";
 
-
-}
+    this->turtle_spawn_client_ = this->create_client<turtlesim::srv::Spawn>("spawn");
+    this->kill_turtle_service_client_ = this->create_client<turtlesim::srv::Kill>("kill");
+    this->alive_turtles_publisher_ = this->create_publisher<lesson_interfaces::msg::TurtleArray>("alive_turtles",10);
+    this->spawn_turtle_timer_ = this->create_wall_timer(
+      std::chrono::seconds(2),
+      std::bind(&TurtleSpawner::callback_spawn_turtle_timer_,this));
+    this->catch_turtle_service_ = this->create_service<lesson_interfaces::srv::CatchTurtle>(
+      "catch_turtle",std::bind(&TurtleSpawner::callback_catch_turtle_,this,std::placeholders::_1,std::placeholders::_2));
+  }
