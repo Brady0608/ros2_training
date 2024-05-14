@@ -27,21 +27,14 @@ void CatchTheTurtle::call_catch_turtle_service_(std::string turtle_name){
 
     auto future = call_catch_turtle_client_->async_send_request(request);
 
-    try
-    {
+    try{
         auto response = future.get();
         if (!response->success)
         {
             RCLCPP_ERROR(this->get_logger(), "Failed to catch Turtle %s ", turtle_name.c_str());
         }
-        else{
-            response->success = false;
-            RCLCPP_INFO(this->get_logger(), "CATCH!!!!!! ");
-
-        }
     }
-    catch (const std::exception &e)
-    {
+    catch (const std::exception &e){
         RCLCPP_ERROR(this->get_logger(), "Service call failed.");
     }
 
