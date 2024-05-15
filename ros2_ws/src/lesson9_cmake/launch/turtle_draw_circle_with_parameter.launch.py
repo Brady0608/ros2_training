@@ -19,7 +19,7 @@ def generate_launch_description() -> LaunchDescription:
     turtle_draw_circle_with_parameter_instance = Node(
         package=THIS_PACKAGE,
         name=turtle_draw_circle_node_name,
-        executable="turtle_draw_circle_exe",
+        executable="turtle_draw_circle_with_parameter_exe",
         output="screen",
         remappings=remap_topic
     )
