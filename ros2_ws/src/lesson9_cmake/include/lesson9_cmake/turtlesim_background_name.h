@@ -20,10 +20,10 @@
 
 #include <string>
 
-namespace TurtlesimPath {
+namespace TurtlesimBackgroundName {
     inline std::string BackgroundB = "background_b",
                        BackgroundG = "background_g",
-                       BackgroundR = "background_r"
+                       BackgroundR = "background_r";
 
 };
 

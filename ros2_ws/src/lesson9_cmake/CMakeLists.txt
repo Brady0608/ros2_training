@@ -38,9 +38,21 @@ add_executable(turtle_draw_circle_with_parameter_exe
 
 ament_target_dependencies(turtle_draw_circle_with_parameter_exe rclcpp geometry_msgs rcl_interfaces )
 
+# add executable
+set(PackageName get_turtlesim_background)
+add_executable(get_turtlesim_background_exe
+  src/${PackageName}/get_turtlesim_background.cpp
+  src/${PackageName}/main.cpp
+  # src/${PackageName}/callback_timer_.cpp
+  src/${PackageName}/customic_create_client_.cpp
+)
+
+ament_target_dependencies(get_turtlesim_background_exe rclcpp rcl_interfaces)
+
 # install program
 install(TARGETS
   turtle_draw_circle_with_parameter_exe
+  get_turtlesim_background_exe
   DESTINATION lib/${PROJECT_NAME}
 )
 

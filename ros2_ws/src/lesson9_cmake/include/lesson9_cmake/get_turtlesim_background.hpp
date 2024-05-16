@@ -24,20 +24,27 @@
 #include <rcl_interfaces/srv/get_parameters.hpp>
 #include "lesson9_cmake/turtlesim_background_name.h"
 #include <any>
+#include <map>
 
 class GetTurtlesimBackground: public rclcpp::Node{
  public:
 
-    GetTurtlesimBackground(std::string node_name="get_turtlesim_background_node");
+   GetTurtlesimBackground(std::string node_name="get_turtlesim_background_node");
+    
+
 
  private:
     
-    void callback_timer_();
-    rclcpp::Client customic_create_client_(std::any service_type, std::string service_name);
+   void callback_timer_();
+
+   template<typename ServiceT>
+   typename rclcpp::Client<ServiceT>::SharedPtr customic_create_client_(const std::string service_name);
 
 
-    rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr get_background_parameter_client_;
-    rclcpp::TimerBase::SharedPtr timer_;
+   std::any get_background_parameter_client_;
+   rclcpp::TimerBase::SharedPtr timer_;
+
+   std::map<std::string, int> request_parameter_dict_;
  
 
 

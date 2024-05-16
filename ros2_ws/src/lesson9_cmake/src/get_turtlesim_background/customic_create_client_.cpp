@@ -18,10 +18,16 @@
 
 #include "lesson9_cmake/get_turtlesim_background.hpp"
 
-rclcpp::Client GetTurtlesimBackground::customic_create_client_(std::any service_type, std::string service_name) {
-    
-    auto client = this->create_client<service_type>(service_name);
-    
+template<typename ServiceT>
+typename rclcpp::Client<ServiceT>::SharedPtr GetTurtlesimBackground::customic_create_client_(const std::string service_name) {
 
+    auto client = this->create_client<ServiceT>(service_name);
+    while (!client->wait_for_service(std::chrono::seconds(1)))
+    {
+        RCLCPP_WARN(this->get_logger(), "Waiting for %s service...", service_name.c_str());
+    }
+
+    RCLCPP_INFO(this->get_logger(), "Find service %s!", service_name.c_str()); 
+     
     return client;
 }
