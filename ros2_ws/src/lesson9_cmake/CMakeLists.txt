@@ -51,10 +51,24 @@ add_executable(get_turtlesim_background_exe
 
 ament_target_dependencies(get_turtlesim_background_exe rclcpp rcl_interfaces)
 
+# add executable
+set(PackageName set_turtle_velocity)
+add_executable(set_turtle_velocity_exe
+  src/${PackageName}/set_turtle_velocity.cpp
+  src/${PackageName}/main.cpp
+  # src/${PackageName}/callback_timer_.cpp
+  # src/${PackageName}/call_get_parameter_service_.cpp
+  # src/${PackageName}/customic_create_client_.cpp
+)
+
+ament_target_dependencies(set_turtle_velocity_exe rclcpp rcl_interfaces)
+
+
 # install program
 install(TARGETS
   turtle_draw_circle_with_parameter_exe
   get_turtlesim_background_exe
+  set_turtle_velocity_exe
   DESTINATION lib/${PROJECT_NAME}
 )
 
