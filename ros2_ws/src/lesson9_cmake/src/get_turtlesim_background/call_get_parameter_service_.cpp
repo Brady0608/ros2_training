@@ -18,14 +18,22 @@
 
 #include "lesson9_cmake/get_turtlesim_background.hpp"
 
-void GetTurtlesimBackground::callback_timer_() {
+void GetTurtlesimBackground::call_get_parameter_service_(std::vector<std::string> turtlesim_bg_name_vec) {
     
-    std::vector<std::string> turtlesim_bg_name_vec;
-    for(auto it = this->request_parameter_dict_.begin(); it!=this->request_parameter_dict_.end(); it++){
-        turtlesim_bg_name_vec.push_back(it->first);
+    auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
+    request->names = turtlesim_bg_name_vec;
+    auto future = this->get_background_parameter_client_->async_send_request(request);
+    
+    try{
+        auto response = future.get();
+        for(auto it = this->request_parameter_dict_.begin(); it!= this->request_parameter_dict_.end(); it++){
+
+            rcl_interfaces::msg::ParameterValue parameter = response->values[it->second];
+            RCLCPP_INFO(this->get_logger(),"%s : %ld", it->first.c_str(), parameter.integer_value);
+        }
     }
-
-    this->get_turtlesim_bg_threads_.push_back(std::make_shared<std::thread>(std::bind(&GetTurtlesimBackground::call_get_parameter_service_, this, turtlesim_bg_name_vec)));
-
-
+    catch (const std::exception &e){
+        RCLCPP_ERROR(this->get_logger(), "Service call failed.");
+    }
+    
 }

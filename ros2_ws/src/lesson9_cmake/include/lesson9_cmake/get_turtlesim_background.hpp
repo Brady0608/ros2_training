@@ -25,6 +25,8 @@
 #include "lesson9_cmake/turtlesim_background_name.h"
 #include <any>
 #include <map>
+#include <vector>
+#include <string>
 
 class GetTurtlesimBackground: public rclcpp::Node{
  public:
@@ -36,15 +38,20 @@ class GetTurtlesimBackground: public rclcpp::Node{
 private:
   
   void callback_timer_();
+  void call_get_parameter_service_(std::vector<std::string> turtlesim_bg_name_vec);
 
-  template<typename ServiceT>
-  typename rclcpp::Client<ServiceT>::SharedPtr customic_create_client_(const std::string service_name);
+  // template<typename ServiceT>
+  // typename rclcpp::Client<ServiceT>::SharedPtr customic_create_client_(const std::string service_name);
   
-  std::any rclcpp::Client<ServiceT>::SharedPtr get_background_parameter_client_;
+  // std::any get_background_parameter_client_;
+
+  rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr get_background_parameter_client_;
   
   rclcpp::TimerBase::SharedPtr timer_;
 
   std::map<std::string, int> request_parameter_dict_;
+  std::vector<std::shared_ptr<std::thread>> get_turtlesim_bg_threads_;
+
 
 
 

@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.8)
 project(lesson9_cmake)
 
+
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
@@ -43,8 +44,9 @@ set(PackageName get_turtlesim_background)
 add_executable(get_turtlesim_background_exe
   src/${PackageName}/get_turtlesim_background.cpp
   src/${PackageName}/main.cpp
-  # src/${PackageName}/callback_timer_.cpp
-  src/${PackageName}/customic_create_client_.cpp
+  src/${PackageName}/callback_timer_.cpp
+  src/${PackageName}/call_get_parameter_service_.cpp
+  # src/${PackageName}/customic_create_client_.cpp
 )
 
 ament_target_dependencies(get_turtlesim_background_exe rclcpp rcl_interfaces)
