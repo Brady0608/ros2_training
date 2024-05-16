@@ -29,23 +29,23 @@
 class GetTurtlesimBackground: public rclcpp::Node{
  public:
 
-   GetTurtlesimBackground(std::string node_name="get_turtlesim_background_node");
-    
+  GetTurtlesimBackground(std::string node_name="get_turtlesim_background_node");
+  
 
 
- private:
-    
-   void callback_timer_();
+private:
+  
+  void callback_timer_();
 
-   template<typename ServiceT>
-   typename rclcpp::Client<ServiceT>::SharedPtr customic_create_client_(const std::string service_name);
+  template<typename ServiceT>
+  typename rclcpp::Client<ServiceT>::SharedPtr customic_create_client_(const std::string service_name);
+  
+  std::any rclcpp::Client<ServiceT>::SharedPtr get_background_parameter_client_;
+  
+  rclcpp::TimerBase::SharedPtr timer_;
 
+  std::map<std::string, int> request_parameter_dict_;
 
-   std::any get_background_parameter_client_;
-   rclcpp::TimerBase::SharedPtr timer_;
-
-   std::map<std::string, int> request_parameter_dict_;
- 
 
 
 
