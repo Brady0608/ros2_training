@@ -37,19 +37,30 @@
 
 class SetTurtleVelocity: public rclcpp::Node{
  public:
-    SetTurtleVelocity(std::string node_name="set_turtle_velocity_node");
+   SetTurtleVelocity(std::string node_name="set_turtle_velocity_node");
 
 
  private:
     
-    double velocity_upper_bound_, velocity_lower_bound_, velocity_;
-    double control_frequency_, acceleration_;
+   void set_velocity_bound_(std::map<std::string, int> names_dict);
+   void callback_timer_();
+   void call_describe_parameter_service_(std::vector<std::string> names_vector);
+   void call_set_parameter_atomically_service_(rcl_interfaces::msg::Parameter parameter);
 
-    std::map<std::string, int> request_parameter_dict_;
 
-    rclcpp::Client<rcl_interfaces::srv::DescribeParameters>::SharedPtr describe_parameters_client_;
-    rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_turtle_velocity_client_;
-    rclcpp::TimerBase::SharedPtr timer_;
+   double velocity_upper_bound_, velocity_lower_bound_, velocity_;
+   double control_frequency_, acceleration_;
+
+   std::map<std::string, int> request_parameter_dict_;
+
+   rclcpp::Client<rcl_interfaces::srv::DescribeParameters>::SharedPtr get_describe_parameters_client_;
+   rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_turtle_velocity_client_;
+   rclcpp::TimerBase::SharedPtr timer_;
+
+   std::vector<std::shared_ptr<std::thread>> set_velocity_bound_threads_;
+   std::vector<std::shared_ptr<std::thread>> set_parameter_atomically_threads_;
+
+
 
 
 

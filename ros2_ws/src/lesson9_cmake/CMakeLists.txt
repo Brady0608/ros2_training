@@ -56,9 +56,10 @@ set(PackageName set_turtle_velocity)
 add_executable(set_turtle_velocity_exe
   src/${PackageName}/set_turtle_velocity.cpp
   src/${PackageName}/main.cpp
-  # src/${PackageName}/callback_timer_.cpp
-  # src/${PackageName}/call_get_parameter_service_.cpp
-  # src/${PackageName}/customic_create_client_.cpp
+  src/${PackageName}/callback_timer_.cpp
+  src/${PackageName}/set_velocity_bound_.cpp
+  src/${PackageName}/call_describe_parameter_service_.cpp
+  src/${PackageName}/call_set_parameter_atomically_service_.cpp
 )
 
 ament_target_dependencies(set_turtle_velocity_exe rclcpp rcl_interfaces)

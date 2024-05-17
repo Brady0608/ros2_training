@@ -22,11 +22,19 @@ SetTurtleVelocity::SetTurtleVelocity(std::string node_name)
     : Node(node_name) {
         
         this->velocity_upper_bound_ = 1.0;
-        this->velocity_lower_bound_ = 0.0;
+        this->velocity_lower_bound_ = -1.0;
         this->velocity_ = 0.0;
         this->request_parameter_dict_ = {{"velocity",0}};
         this->control_frequency_ = 20.0;
         this->acceleration_ = 0.001;
+
+        this->set_velocity_bound_(this->request_parameter_dict_);
+
+        this->get_describe_parameters_client_ = this->create_client<rcl_interfaces::srv::DescribeParameters>("describe_parameters");
+        this->set_turtle_velocity_client_ = this->create_client<rcl_interfaces::srv::SetParametersAtomically>("set_parameters_atomically");
+        this->timer_ = this->create_wall_timer(std::chrono::milliseconds((int)(1000 / this->control_frequency_)), std::bind(&SetTurtleVelocity::callback_timer_, this));
+
+
 
 
 }

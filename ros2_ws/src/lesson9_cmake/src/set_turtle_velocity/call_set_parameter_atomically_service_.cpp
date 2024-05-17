@@ -18,11 +18,20 @@
 
 #include "lesson9_cmake/set_turtle_velocity.hpp"
 
-int main(int argc, char *argv[])
-{
-    rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<SetTurtleVelocity>("set_turtle_velocity_node");
-    rclcpp::spin(node);
-    rclcpp::shutdown();
-    return 0;
+void SetTurtleVelocity::call_set_parameter_atomically_service_(rcl_interfaces::msg::Parameter parameter) {
+    
+    auto request = std::make_shared<rcl_interfaces::srv::SetParametersAtomically::Request>();
+    request->parameters.push_back(parameter);
+
+    auto future = this->set_turtle_velocity_client_->async_send_request(request);
+    
+    try{
+        auto response = future.get();
+        if(response->result.successful)
+            RCLCPP_INFO(this->get_logger(), "Now the turtle's speed is %.3f m/s", this->velocity_);
+    }
+    catch (const std::exception &e){
+        RCLCPP_ERROR(this->get_logger(), "Set_parameter_atomically_service call failed.");
+    }   
+
 }
