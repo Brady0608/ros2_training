@@ -20,6 +20,10 @@
 
 void GetTurtlesimBackground::call_get_parameter_service_(std::vector<std::string> turtlesim_bg_name_vec) {
     
+    while (!this->get_background_parameter_client_->wait_for_service(std::chrono::seconds(1))){
+        RCLCPP_WARN(this->get_logger(), "Waiting for Service Server to be up...");
+    }
+    
     auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
     request->names = turtlesim_bg_name_vec;
     auto future = this->get_background_parameter_client_->async_send_request(request);
