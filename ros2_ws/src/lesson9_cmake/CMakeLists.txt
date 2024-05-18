@@ -64,12 +64,26 @@ add_executable(set_turtle_velocity_exe
 
 ament_target_dependencies(set_turtle_velocity_exe rclcpp rcl_interfaces)
 
+# add executable
+set(PackageName final_exam)
+add_executable(final_exam_exe
+  src/${PackageName}/final_exam.cpp
+  src/${PackageName}/main.cpp
+  # src/${PackageName}/callback_timer_.cpp
+  src/${PackageName}/call_get_describe_parameter_service_.cpp
+  # src/${PackageName}/call_describe_parameter_service_.cpp
+  # src/${PackageName}/call_set_parameter_atomically_service_.cpp
+)
+
+ament_target_dependencies(final_exam_exe rclcpp rcl_interfaces)
+
 
 # install program
 install(TARGETS
   turtle_draw_circle_with_parameter_exe
   get_turtlesim_background_exe
   set_turtle_velocity_exe
+  final_exam_exe
   DESTINATION lib/${PROJECT_NAME}
 )
 

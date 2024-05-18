@@ -44,7 +44,7 @@ class FinalExam: public rclcpp::Node{
 
  private:
 
-    void call_get_parameter_service_(std::vector<std::string> velocity_name_vec);
+    void call_get_describe_parameter_service_(std::vector<std::string> velocity_name_vec);
 
     
     int rgb_upper_bound_, rgb_lower_bound_;

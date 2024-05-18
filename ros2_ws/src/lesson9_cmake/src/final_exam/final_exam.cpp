@@ -33,6 +33,7 @@ FinalExam::FinalExam(std::string node_name)
     this->velocity_parameter_client_ = this->create_client<rcl_interfaces::srv::GetParameters>("get_parameters");
     this->set_bg_parameters_clients_ = this->create_client<rcl_interfaces::srv::SetParametersAtomically>("set_parameters_atomically");
 
+    this->call_get_describe_parameter_service_(this->get_velocity_name_vec_);
         
 
 }
