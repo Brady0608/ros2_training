@@ -45,7 +45,9 @@ class FinalExam: public rclcpp::Node{
  private:
 
     void call_get_describe_parameter_service_(std::vector<std::string> velocity_name_vec);
-
+    void callback_timer_();
+    void call_get_parameters_service_(std::vector<std::string> velocity_name_vec);
+    void call_set_parameter_atomically_service_(rcl_interfaces::msg::Parameter parameter);
     
     int rgb_upper_bound_, rgb_lower_bound_;
     double velocity_upper_bound_, velocity_lower_bound_, velocity_;
@@ -54,21 +56,14 @@ class FinalExam: public rclcpp::Node{
     std::vector<std::string> get_velocity_name_vec_;
 
     rclcpp::Client<rcl_interfaces::srv::DescribeParameters>::SharedPtr describe_parameters_client_;
-    rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr velocity_parameter_client_;
-    rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_bg_parameters_clients_;
+    rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr velocity_get_parameter_client_;
+    rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_bg_parameters_client_;
     rclcpp::TimerBase::SharedPtr timer_;
 
-    std::vector<std::shared_ptr<std::thread>> get_velocity_threads_;
-
-
-
-
-
-
-
+    std::vector<std::shared_ptr<std::thread>> velocity_get_describe_parameter_threads_;
+    std::vector<std::shared_ptr<std::thread>> velocity_get_parameters_threads_;
+    std::vector<std::shared_ptr<std::thread>> bg_color_set_parameters_atomically_threads_;
     
-
-
 };
 
 

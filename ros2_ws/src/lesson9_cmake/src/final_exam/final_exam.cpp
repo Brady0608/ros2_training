@@ -30,10 +30,11 @@ FinalExam::FinalExam(std::string node_name)
     this->get_velocity_name_vec_ = {"velocity"};
 
     this->describe_parameters_client_ = this->create_client<rcl_interfaces::srv::DescribeParameters>("describe_parameters");
-    this->velocity_parameter_client_ = this->create_client<rcl_interfaces::srv::GetParameters>("get_parameters");
-    this->set_bg_parameters_clients_ = this->create_client<rcl_interfaces::srv::SetParametersAtomically>("set_parameters_atomically");
+    this->velocity_get_parameter_client_ = this->create_client<rcl_interfaces::srv::GetParameters>("get_parameters");
+    this->set_bg_parameters_client_ = this->create_client<rcl_interfaces::srv::SetParametersAtomically>("set_parameters_atomically");
 
-    this->call_get_describe_parameter_service_(this->get_velocity_name_vec_);
+    this->velocity_get_describe_parameter_threads_.push_back(std::make_shared<std::thread>(std::bind(&FinalExam::call_get_describe_parameter_service_, this, this->get_velocity_name_vec_)));
+
+    this->timer_ = this->create_wall_timer(std::chrono::seconds(1), std::bind(&FinalExam::callback_timer_, this));
         
-
 }
