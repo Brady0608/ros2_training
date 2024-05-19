@@ -35,7 +35,7 @@ class GetTurtlesimBackground: public rclcpp::Node{
   
 
 
-private:
+ private:
   
   void callback_timer_();
   void call_get_parameter_service_(std::vector<std::string> turtlesim_bg_name_vec);
@@ -51,15 +51,7 @@ private:
 
   std::map<std::string, int> request_parameter_dict_;
   std::vector<std::shared_ptr<std::thread>> get_turtlesim_bg_threads_;
-
-
-
-
-
-
-    
-
-
+  
 };
 
 

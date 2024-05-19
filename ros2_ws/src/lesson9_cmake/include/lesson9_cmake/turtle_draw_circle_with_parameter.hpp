@@ -43,12 +43,7 @@ class TurtleDrawCircleWithParameter: public rclcpp::Node{
     rclcpp::TimerBase::SharedPtr timer_;
 
     std::string velocity_name_;
-
-
-
-
-    
-
+  
 
 };
 

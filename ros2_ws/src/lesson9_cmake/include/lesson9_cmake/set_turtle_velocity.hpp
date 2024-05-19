@@ -47,7 +47,6 @@ class SetTurtleVelocity: public rclcpp::Node{
    void call_describe_parameter_service_(std::vector<std::string> names_vector);
    void call_set_parameter_atomically_service_(rcl_interfaces::msg::Parameter parameter);
 
-
    double velocity_upper_bound_, velocity_lower_bound_, velocity_;
    double control_frequency_, acceleration_;
 
@@ -59,13 +58,6 @@ class SetTurtleVelocity: public rclcpp::Node{
 
    std::vector<std::shared_ptr<std::thread>> set_velocity_bound_threads_;
    std::vector<std::shared_ptr<std::thread>> set_parameter_atomically_threads_;
-
-
-
-
-
-    
-
 
 };
 

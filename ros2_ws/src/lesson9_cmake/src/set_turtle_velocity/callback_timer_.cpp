@@ -27,17 +27,8 @@ void SetTurtleVelocity::callback_timer_() {
     rcl_interfaces::msg::Parameter velocity_parameter;
     velocity_parameter.name = "velocity";
     velocity_parameter.value.type = rcl_interfaces::msg::ParameterType::PARAMETER_DOUBLE;
-    RCLCPP_WARN(this->get_logger(),"Before %f",this->velocity_); 
-
     this->velocity_ = this->velocity_ + this->acceleration_*this->control_frequency_;
-
-    RCLCPP_WARN(this->get_logger(),"After %f",this->velocity_);
-
     velocity_parameter.value.double_value = this->velocity_;
-
     this->set_parameter_atomically_threads_.push_back(std::make_shared<std::thread>(std::bind(&SetTurtleVelocity::call_set_parameter_atomically_service_, this, velocity_parameter)));
-
-
-
 
 }
