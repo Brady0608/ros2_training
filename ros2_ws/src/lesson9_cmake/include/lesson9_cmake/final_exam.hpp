@@ -60,7 +60,6 @@ class FinalExam: public rclcpp::Node{
     rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_bg_parameters_client_;
     rclcpp::TimerBase::SharedPtr timer_;
 
-    std::vector<std::shared_ptr<std::thread>> velocity_get_describe_parameter_threads_;
     std::vector<std::shared_ptr<std::thread>> velocity_get_parameters_threads_;
     std::vector<std::shared_ptr<std::thread>> bg_color_set_parameters_atomically_threads_;
     

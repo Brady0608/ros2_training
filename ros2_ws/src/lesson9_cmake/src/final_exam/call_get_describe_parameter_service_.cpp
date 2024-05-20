@@ -28,7 +28,8 @@ void FinalExam::call_get_describe_parameter_service_(std::vector<std::string> ve
     request->names = velocity_name_vec;
     auto future = this->describe_parameters_client_->async_send_request(request);
     
-    try{
+    if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) == rclcpp::FutureReturnCode::SUCCESS){
+        
         auto response = future.get();
         rcl_interfaces::msg::ParameterDescriptor velocity_parameter_descriptor =response->descriptors[0];
         rcl_interfaces::msg::FloatingPointRange velocity_range = velocity_parameter_descriptor.floating_point_range[0];
@@ -36,7 +37,7 @@ void FinalExam::call_get_describe_parameter_service_(std::vector<std::string> ve
         this->velocity_lower_bound_ = velocity_range.from_value;
 
     }
-    catch (const std::exception &e){
+    else{
         RCLCPP_ERROR(this->get_logger(), "Get Describe Parameter Service call failed.");
     }
     
