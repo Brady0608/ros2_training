@@ -90,6 +90,7 @@ install(TARGETS
 # install directory launch
 install(DIRECTORY
   launch
+  config
   DESTINATION share/${PROJECT_NAME}/
 )
 

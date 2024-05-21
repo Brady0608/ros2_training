@@ -27,7 +27,11 @@ FinalExam::FinalExam(std::string node_name)
     this->velocity_lower_bound_ = -1.0;
     this->velocity_ = 0.0;
     this->has_to_change_color_ = true;
-    this->get_velocity_name_vec_ = {"velocity"};
+    this->get_velocity_name_vec_ = {"velocity"}; 
+    
+    this->declare_parameter("change_bg_frequency", 1.0);
+    this->change_bg_frequency_ = this->get_parameter("change_bg_frequency").as_double();
+    
 
     this->describe_parameters_client_ = this->create_client<rcl_interfaces::srv::DescribeParameters>("describe_parameters");
     this->velocity_get_parameter_client_ = this->create_client<rcl_interfaces::srv::GetParameters>("get_parameters");
@@ -35,6 +39,6 @@ FinalExam::FinalExam(std::string node_name)
 
     this->call_get_describe_parameter_service_(this->get_velocity_name_vec_);
     
-    this->timer_ = this->create_wall_timer(std::chrono::seconds(1), std::bind(&FinalExam::callback_timer_, this));
+    this->timer_ = this->create_wall_timer(std::chrono::milliseconds((int)(1000/this->change_bg_frequency_)), std::bind(&FinalExam::callback_timer_, this));
         
 }

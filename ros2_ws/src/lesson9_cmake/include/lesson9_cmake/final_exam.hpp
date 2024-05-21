@@ -52,6 +52,7 @@ class FinalExam: public rclcpp::Node{
     int rgb_upper_bound_, rgb_lower_bound_;
     double velocity_upper_bound_, velocity_lower_bound_, velocity_;
     bool has_to_change_color_;
+    double change_bg_frequency_;
 
     std::vector<std::string> get_velocity_name_vec_;
 

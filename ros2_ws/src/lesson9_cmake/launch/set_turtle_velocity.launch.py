@@ -35,13 +35,20 @@ def generate_launch_description() -> LaunchDescription:
         name="set_turtle_velocity_node",
         executable="set_turtle_velocity_exe",
         output="screen",
-        remappings=remap_topic_service
+        remappings=remap_topic_service,
+    )
+
+    rqt_reconfigure_node = Node(
+        package="rqt_reconfigure",
+        name="rqt_reconfigure",
+        executable="rqt_reconfigure",
+        output="screen"
     )
 
     launch_description = LaunchDescription()
     action_list = [
         turtlesim_instance, turtle_draw_circle_with_parameter_instance,
-        set_turtle_velocity_instance
+        set_turtle_velocity_instance, rqt_reconfigure_node
     ]
     for action in action_list:
         launch_description.add_action(action)
