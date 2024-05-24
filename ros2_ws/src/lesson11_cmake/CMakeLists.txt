@@ -54,12 +54,12 @@ ament_target_dependencies(single_thread_multi_node_exe rclcpp)
 
 
 set(PackageName multi_thread_executor)
-add_executable(multi_thread_executor_with_default_callback_group_exe
-  src/${PackageName}/default_callback_group/multi_thread_executor.cpp
-  src/${PackageName}/default_callback_group/main.cpp
+add_executable(multi_thread_executor_without_callback_group_exe
+  src/${PackageName}/without_callback_group/multi_thread_executor.cpp
+  src/${PackageName}/without_callback_group/main.cpp
 )
 
-ament_target_dependencies(multi_thread_executor_with_default_callback_group_exe rclcpp)
+ament_target_dependencies(multi_thread_executor_without_callback_group_exe rclcpp)
 
 add_executable(multi_thread_executor_callback_group_ex1_exe
   src/${PackageName}/callback_group_ex1/multi_thread_executor.cpp
@@ -110,7 +110,7 @@ install(TARGETS
   default_executor_exe  
   single_thread_executor_exe
   single_thread_multi_node_exe
-  multi_thread_executor_with_default_callback_group_exe
+  multi_thread_executor_without_callback_group_exe
   multi_thread_executor_callback_group_ex1_exe
   multi_thread_executor_callback_group_ex2_exe
   multi_thread_executor_callback_group_ex3_exe

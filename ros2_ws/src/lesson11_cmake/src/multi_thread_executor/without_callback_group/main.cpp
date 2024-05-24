@@ -21,7 +21,7 @@
 int main(int argc, char *argv[])
 {
     rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<MultiThreadExecutor>("multi_thread_executor_with_default_callback_group_node");
+    rclcpp::Node::SharedPtr node = std::make_shared<MultiThreadExecutor>("multi_thread_executor_without_callback_group_node");
     rclcpp::executors::MultiThreadedExecutor executor {};
     executor.add_node(node);
     executor.spin();
