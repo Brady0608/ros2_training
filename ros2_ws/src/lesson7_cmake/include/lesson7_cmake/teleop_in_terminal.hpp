@@ -1,4 +1,3 @@
-    RCLCPP_INFO(this->get_logger(),"aftSize of thread : %ld", this->velocity_get_parameters_threads_.size());
 /*******************************************************************************
 * Copyright 2024 BROGENT TECHNOLOGIES INC.
 *
