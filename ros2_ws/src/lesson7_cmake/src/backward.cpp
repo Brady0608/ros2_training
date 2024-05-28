@@ -19,10 +19,10 @@
 
 #include "lesson7_cmake/teleop_in_terminal.hpp"
 
-void TeleopInTerminal::turn_right_() {
+void TeleopInTerminal::backward() {
   
-  this->twist_.linear.x = 0.0;
-  this->twist_.angular.z = M_PI_2;
+  this->twist_.linear.x = -1.0;
+  this->twist_.angular.z = 0.0;
   this->cmd_vel_publisher_->publish(this->twist_);
   
 }
