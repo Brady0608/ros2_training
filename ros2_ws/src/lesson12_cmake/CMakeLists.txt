@@ -56,29 +56,29 @@ ament_target_dependencies(qos_reliability_publisher_best_effort_exe rclcpp std_m
 
 
 # add executable
-set(PackageName dds_example_1)
-add_executable(dds_example_1_subscriber_exe
+set(PackageName dds_example)
+add_executable(dds_example_subscriber_exe
   src/${PackageName}/subscriber/subscriber.cpp
   src/${PackageName}/subscriber/main.cpp
   src/${PackageName}/subscriber/callback_subscriber_.cpp
   src/${PackageName}/subscriber/process_dds_test_data_.cpp
 )
-ament_target_dependencies(dds_example_1_subscriber_exe rclcpp std_msgs)
+ament_target_dependencies(dds_example_subscriber_exe rclcpp std_msgs)
 
-add_executable(dds_example_1_publisher_exe
+add_executable(dds_example_publisher_exe
   src/${PackageName}/publisher/publisher.cpp
   src/${PackageName}/publisher/main.cpp
   src/${PackageName}/publisher/callback_timer_.cpp
 )
-ament_target_dependencies(dds_example_1_publisher_exe rclcpp std_msgs)
+ament_target_dependencies(dds_example_publisher_exe rclcpp std_msgs)
 
 # install program
 install(TARGETS
   qos_reliability_subscriber_exe
   qos_reliability_publisher_reliable_exe
   qos_reliability_publisher_best_effort_exe 
-  dds_example_1_subscriber_exe
-  dds_example_1_publisher_exe
+  dds_example_subscriber_exe
+  dds_example_publisher_exe
   DESTINATION lib/${PROJECT_NAME}
 )
 

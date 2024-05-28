@@ -16,7 +16,7 @@
 * Maintainer: Brady Guo
 *******************************************************************************/
 
-#include "lesson12_cmake/dds_example_1/subscriber.hpp"
+#include "lesson12_cmake/dds_example/subscriber.hpp"
 
 std::vector<std::string> split(const std::string &s, char delimiter);
 

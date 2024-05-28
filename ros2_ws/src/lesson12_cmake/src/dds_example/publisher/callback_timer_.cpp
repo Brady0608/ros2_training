@@ -16,9 +16,16 @@
 * Maintainer: Brady Guo
 *******************************************************************************/
 
-#include "lesson12_cmake/dds_example_1/subscriber.hpp"
+#include "lesson12_cmake/dds_example/publisher.hpp"
 
-void Subscriber::callback_subscriber_(const std_msgs::msg::String::SharedPtr msg) {
-    
-    this->process_dds_test_data_(msg->data);
+void Publisher::callback_timer_() {
+    auto msg = std::make_shared<std_msgs::msg::String>();
+    auto now = this->get_clock()->now();
+    std::stringstream time_str;
+    time_str << now.seconds() << "," << now.nanoseconds();
+    msg->data = std::to_string(this->msg_id_) + ":" + time_str.str();
+    publisher_->publish(*msg);
+    RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", msg->data.c_str());
+    this->msg_id_++;
+
 }

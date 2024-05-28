@@ -16,13 +16,13 @@
 * Maintainer: Brady Guo
 *******************************************************************************/
 
-#include "lesson12_cmake/dds_example_1/publisher.hpp"
+#include "lesson12_cmake/dds_example/publisher.hpp"
 
 Publisher::Publisher(std::string node_name)
     : Node(node_name) {
         
         this->msg_id_ = 0;
-        this->timer_period_ = 0.5; 
+        this->timer_period_ = 0.5; // 0.5 second, Message Lost: adjust 0.5 to 0.0
         this->publisher_ = this->create_publisher<std_msgs::msg::String>("/dds_test", 1);
         this->timer_ = this->create_wall_timer(std::chrono::milliseconds((int)(this->timer_period_*1000)), std::bind(&Publisher::callback_timer_, this));        
 
