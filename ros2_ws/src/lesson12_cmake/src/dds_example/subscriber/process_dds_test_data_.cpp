@@ -70,7 +70,7 @@ void Subscriber::process_dds_test_data_(const std::string data) {
         return;
     } catch (const std::out_of_range &e) {
         RCLCPP_ERROR(this->get_logger(), "Time out of range: %s,%s", time_parts[0].c_str(), time_parts[1].c_str());
-        return;
+        return; 
     }
 
     rclcpp::Time time_obj(seconds, nano_seconds, RCL_ROS_TIME);
