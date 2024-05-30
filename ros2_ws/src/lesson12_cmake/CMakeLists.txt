@@ -72,6 +72,24 @@ add_executable(dds_example_publisher_exe
 )
 ament_target_dependencies(dds_example_publisher_exe rclcpp std_msgs)
 
+
+# add executable
+set(PackageName lifecycle_example)
+add_executable(managed_scan_exe
+  src/${PackageName}/managed_scan/main.cpp
+  src/${PackageName}/managed_scan/on_activate.cpp
+  src/${PackageName}/managed_scan/on_cleanup.cpp
+  src/${PackageName}/managed_scan/on_configure.cpp
+  src/${PackageName}/managed_scan/on_deactivate.cpp
+  src/${PackageName}/managed_scan/on_error.cpp
+  src/${PackageName}/managed_scan/on_shutdown.cpp
+  src/${PackageName}/managed_scan/publish.cpp
+)
+ament_target_dependencies(managed_scan_exe rclcpp std_msgs lifecycle_msgs rclcpp_lifecycle)
+
+
+
+
 # install program
 install(TARGETS
   qos_reliability_subscriber_exe
@@ -79,6 +97,7 @@ install(TARGETS
   qos_reliability_publisher_best_effort_exe 
   dds_example_subscriber_exe
   dds_example_publisher_exe
+  managed_scan_exe
   DESTINATION lib/${PROJECT_NAME}
 )
 
