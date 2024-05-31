@@ -56,8 +56,8 @@ class SetTurtleVelocity: public rclcpp::Node{
    rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_turtle_velocity_client_;
    rclcpp::TimerBase::SharedPtr timer_;
 
-   std::vector<std::shared_ptr<std::thread>> set_velocity_bound_threads_;
-   std::vector<std::shared_ptr<std::thread>> set_parameter_atomically_threads_;
+   rclcpp::CallbackGroup::SharedPtr callback_group_set_parameter_atomically_service_;
+
 
 };
 

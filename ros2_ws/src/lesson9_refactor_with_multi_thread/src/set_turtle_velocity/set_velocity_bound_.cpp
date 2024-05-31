@@ -25,6 +25,6 @@ void SetTurtleVelocity::set_velocity_bound_(std::map<std::string, int> names_dic
         names_dict_to_vec.push_back(it->first);
     }
 
-    this->set_velocity_bound_threads_.push_back(std::make_shared<std::thread>(std::bind(&SetTurtleVelocity::call_describe_parameter_service_, this, names_dict_to_vec)));
+    this->call_describe_parameter_service_(names_dict_to_vec);
 
 }
