@@ -27,7 +27,7 @@ SetTurtleVelocity::SetTurtleVelocity(std::string node_name)
     this->request_parameter_dict_ = {{"velocity",0}};
     this->control_frequency_ = 20.0;
     this->acceleration_ = 0.001;
-    this->callback_group_set_parameter_atomically_service_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+    this->callback_group_set_parameter_atomically_service_ = this->create_callback_group(rclcpp::CallbackGroupType::Reentrant);
 
     this->set_velocity_bound_(this->request_parameter_dict_);
 
