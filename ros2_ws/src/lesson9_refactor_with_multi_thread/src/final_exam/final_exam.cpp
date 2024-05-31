@@ -28,7 +28,6 @@ FinalExam::FinalExam(std::string node_name)
     this->velocity_ = 0.0;
     this->has_to_change_color_ = true;
     this->get_velocity_name_vec_ = {"velocity"};
-    this->callback_group_describe_parameters_service_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
     this->callback_group_get_parameters_service_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
     this->callback_group_set_parameters_atomically_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
     
@@ -36,7 +35,7 @@ FinalExam::FinalExam(std::string node_name)
     this->change_bg_frequency_ = this->get_parameter("change_bg_frequency").as_double();
     
 
-    this->describe_parameters_client_ = this->create_client<rcl_interfaces::srv::DescribeParameters>("describe_parameters",rmw_qos_profile_services_default ,this->callback_group_describe_parameters_service_);
+    this->describe_parameters_client_ = this->create_client<rcl_interfaces::srv::DescribeParameters>("describe_parameters");
     this->velocity_get_parameter_client_ = this->create_client<rcl_interfaces::srv::GetParameters>("get_parameters",rmw_qos_profile_services_default, this->callback_group_get_parameters_service_);
     this->set_bg_parameters_client_ = this->create_client<rcl_interfaces::srv::SetParametersAtomically>("set_parameters_atomically",rmw_qos_profile_services_default, this->callback_group_set_parameters_atomically_);
 

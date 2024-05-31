@@ -61,7 +61,6 @@ class FinalExam: public rclcpp::Node{
     rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_bg_parameters_client_;
     rclcpp::TimerBase::SharedPtr timer_;
 
-    rclcpp::CallbackGroup::SharedPtr callback_group_describe_parameters_service_;
     rclcpp::CallbackGroup::SharedPtr callback_group_get_parameters_service_;
     rclcpp::CallbackGroup::SharedPtr callback_group_set_parameters_atomically_;
 

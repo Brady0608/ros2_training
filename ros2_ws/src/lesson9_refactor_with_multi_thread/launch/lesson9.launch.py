@@ -119,6 +119,7 @@ def generate_node_list(launch_configuration_dict: Dict[str, LaunchConfiguration]
         name="get_turtlesim_background_node",
         executable="get_turtlesim_background_exe",
         output="screen",
+        prefix="gnome-terminal --",
         remappings=remap_services
     )
 
