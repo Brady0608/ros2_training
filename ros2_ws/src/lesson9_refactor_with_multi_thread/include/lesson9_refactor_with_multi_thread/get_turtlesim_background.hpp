@@ -50,7 +50,6 @@ class GetTurtlesimBackground: public rclcpp::Node{
   rclcpp::TimerBase::SharedPtr timer_;
 
   std::map<std::string, int> request_parameter_dict_;
-  std::vector<std::shared_ptr<std::thread>> get_turtlesim_bg_threads_;
   
 };
 

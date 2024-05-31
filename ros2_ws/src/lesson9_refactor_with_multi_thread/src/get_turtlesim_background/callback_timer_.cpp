@@ -25,7 +25,7 @@ void GetTurtlesimBackground::callback_timer_() {
         turtlesim_bg_name_vec.push_back(it->first);
     }
 
-    this->get_turtlesim_bg_threads_.push_back(std::make_shared<std::thread>(std::bind(&GetTurtlesimBackground::call_get_parameter_service_, this, turtlesim_bg_name_vec)));
+    this->call_get_parameter_service_(turtlesim_bg_name_vec);
 
 
 }
