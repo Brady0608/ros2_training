@@ -12,8 +12,8 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Joe Lin
-* Maintainer: Brady Guo
+* Author    : Joe Lin (joe_lin@brogent.com)
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 * Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
 #ifndef MOVE_TURTLESIM_CLIENT__HPP_
@@ -30,7 +30,7 @@ class MoveTurtlesimClient: public rclcpp::Node{
     MoveTurtlesimClient(std::string node_name="move_turtlesim_client_node");
     
  private:
-   rclcpp::Client<lesson_interfaces::srv::MoveTurtlesim>::SharedPtr client_;      
+   rclcpp::Client<lesson_interfaces::srv::MoveTurtlesim>::SharedPtr client_ptr;      
    std::string service_name_ {"move_turtlesim"};
    std::vector<std::string> paths_ { 
       TurtlesimPath::LINE,

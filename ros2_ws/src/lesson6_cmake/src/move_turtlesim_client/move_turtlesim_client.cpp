@@ -12,8 +12,8 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Joe Lin
-* Maintainer: Brady Guo
+* Author    : Joe Lin (joe_lin@brogent.com)
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 * Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
 
@@ -23,10 +23,10 @@ MoveTurtlesimClient::MoveTurtlesimClient(std::string node_name)
         : Node(node_name) {
         
     RCLCPP_INFO_STREAM(this->get_logger(), "Initializing...");
-    this->client_ = this->create_client<lesson_interfaces::srv::MoveTurtlesim>(this->service_name_);
+    this->client_ptr = this->create_client<lesson_interfaces::srv::MoveTurtlesim>(this->service_name_);
     RCLCPP_INFO_STREAM(this->get_logger(), "Initialized!!");
     
-    while (!this->client_->wait_for_service(std::chrono::duration<double>(1.0))) {
+    while (!this->client_ptr->wait_for_service(std::chrono::duration<double>(1.0))) {
         if (!rclcpp::ok()) {
             RCLCPP_ERROR_STREAM(this->get_logger(), "Interrupted while waiting for the service. Exiting.");
             return;
@@ -43,7 +43,7 @@ MoveTurtlesimClient::MoveTurtlesimClient(std::string node_name)
     for(auto path = this->paths_.begin(); path != this->paths_.end(); ++path) {
         auto request = std::make_shared<lesson_interfaces::srv::MoveTurtlesim::Request>();
         request->path = *path;
-        auto future = this->client_->async_send_request(request);
+        auto future = this->client_ptr->async_send_request(request);
         if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) == rclcpp::FutureReturnCode::SUCCESS)
             RCLCPP_INFO_STREAM(this->get_logger(), "Successfull to call serive '" << this->service_name_ << "'");
         else

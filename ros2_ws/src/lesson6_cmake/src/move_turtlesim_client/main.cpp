@@ -12,8 +12,8 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Joe Lin
-* Maintainer: Brady Guo
+* Author    : Joe Lin (joe_lin@brogent.com)
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson6_cmake/move_turtlesim_client.hpp"
@@ -21,7 +21,7 @@
 int main(int argc, char *argv[])
 {
     rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<MoveTurtlesimClient>("move_turtlesim_client_node");
+    std::shared_ptr<MoveTurtlesimClient> node = std::make_shared<MoveTurtlesimClient>("move_turtlesim_client_node");
     rclcpp::shutdown();
     return 0;
 }

@@ -12,8 +12,8 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Joe Lin
-* Maintainer: Brady guo
+* Author    : Joe Lin (joe_lin@brogent.com)
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 * Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
 
@@ -23,10 +23,10 @@ MoveTurtlesimServer::MoveTurtlesimServer(std::string node_name)
         : Node(node_name) {
 
     RCLCPP_INFO_STREAM(this->get_logger(), "Initializing...");
-    this->service_ = this->create_service<lesson_interfaces::srv::MoveTurtlesim> (
+    this->service_ptr_ = this->create_service<lesson_interfaces::srv::MoveTurtlesim> (
         this->service_name_,
         std::bind(&MoveTurtlesimServer::callback_service_, this, std::placeholders::_1, std::placeholders::_2)
     );
-    this->publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("turtle1/cmd_vel", 10);
+    this->publisher_ptr_ = this->create_publisher<geometry_msgs::msg::Twist>("turtle1/cmd_vel", 10);
     RCLCPP_INFO_STREAM(this->get_logger(), "Initialized!!");
 }

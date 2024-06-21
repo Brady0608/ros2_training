@@ -12,8 +12,8 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Joe Lin
-* Maintainer: Brady Guo
+* Author    : Joe Lin (joe_lin@brogent.com)
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 * Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
 
@@ -24,14 +24,16 @@ void MoveTurtlesimServer::move_triangle_() {
   RCLCPP_INFO_STREAM(this->get_logger(), "Moving around a triangle!");
 
   for (int number = 0; number < 3; number++) {
-    this->twist_.linear.x = 0.0;
-    this->twist_.angular.z = -M_PI_4 - (M_PI_4*number);
-    this->publisher_->publish(this->twist_);
+
+    this->twist_.linear.x = this->set_twist_.at("TRIANGLE_FIRST_PERIOD").at(0);
+    this->twist_.angular.z = this->set_twist_.at("TRIANGLE_FIRST_PERIOD").at(1) - (M_PI_4*number);
+
+    this->publisher_ptr_->publish(this->twist_);
     rclcpp::sleep_for(std::chrono::milliseconds(1000));
 
-    this->twist_.linear.x = 2.0;
-    this->twist_.angular.z = 0.0;
-    this->publisher_->publish(this->twist_);
+    this->twist_.linear.x = this->set_twist_.at("TRIANGLE_SECOND_PERIOD").at(0);
+    this->twist_.angular.z = this->set_twist_.at("TRIANGLE_SECOND_PERIOD").at(1);
+    this->publisher_ptr_->publish(this->twist_);
     rclcpp::sleep_for(std::chrono::milliseconds(1000));
   }
   

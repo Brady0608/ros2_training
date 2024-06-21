@@ -12,8 +12,8 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissons and
 * limitations under the License.
-* Author    : Joe Lin
-* Maintainer: Brady Guo
+* Author    : Joe Lin (joe_lin@brogent.com)
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 * Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
 
@@ -22,8 +22,8 @@
 void MoveTurtlesimServer::stop_() {
   
   RCLCPP_INFO_STREAM(this->get_logger(), "Stop the turtlesim!");
-  this->twist_.linear.x = 0.0;
-  this->twist_.angular.z = 0.0;
-  this->publisher_->publish(this->twist_);
+  this->twist_.linear.x = this->set_twist_.at("STOP").at(0);
+  this->twist_.angular.z = this->set_twist_.at("STOP").at(1);
+  this->publisher_ptr_->publish(this->twist_);
   
 }

@@ -12,8 +12,8 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Joe Lin
-* Maintainer: Brady Guo
+* Author    : Joe Lin (joe_lin@brogent.com)
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 * Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
 
@@ -23,11 +23,11 @@ void MoveTurtlesimServer::move_line_() {
   
   RCLCPP_INFO_STREAM(this->get_logger(), "Moving along with a line!");
 
-  this->twist_.linear.x  = 0.2;
-  this->twist_.angular.z = 0.0;
+  this->twist_.linear.x = this->set_twist_.at("LINE").at(0);
+  this->twist_.angular.z = this->set_twist_.at("LINE").at(1);
   
   for (int number = 0; number < 5; number++) {
-    this->publisher_->publish(this->twist_);
+    this->publisher_ptr_->publish(this->twist_);
     rclcpp::sleep_for(std::chrono::milliseconds(1000));
   }
   

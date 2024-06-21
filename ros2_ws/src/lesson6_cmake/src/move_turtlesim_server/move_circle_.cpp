@@ -12,8 +12,8 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Joe Lin
-* Maintainer: Joe Lin
+* Author    : Joe Lin (joe_lin@brogent.com)
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 * Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
 
@@ -24,9 +24,9 @@ void MoveTurtlesimServer::move_circle_() {
   RCLCPP_INFO_STREAM(this->get_logger(), "Moving around a circle!");
 
   for (int number = 0; number < 5; number++) {
-    this->twist_.linear.x = 1.0;
-    this->twist_.angular.z = M_PI_2;
-    this->publisher_->publish(this->twist_);
+  this->twist_.linear.x = this->set_twist_.at("CIRCLE").at(0);
+  this->twist_.angular.z = this->set_twist_.at("CIRCLE").at(1);
+    this->publisher_ptr_->publish(this->twist_);
     rclcpp::sleep_for(std::chrono::milliseconds(1000));
   }
 
