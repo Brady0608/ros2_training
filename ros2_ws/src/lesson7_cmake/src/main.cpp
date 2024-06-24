@@ -12,8 +12,8 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Joe Lin
-* Maintainer: Brady Guo
+* Author    : Brady Guo (brady_guo@brogent.com)
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson7_cmake/teleop_in_terminal.hpp"

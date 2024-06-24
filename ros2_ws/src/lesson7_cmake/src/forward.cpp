@@ -12,7 +12,7 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissons and
 * limitations under the License.
-* Author    : Brady Guo
+* Author    : Brady Guo (brady_guo@brogent.com)
 * Maintainer: Brady Guo
 * Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
@@ -21,8 +21,8 @@
 
 void TeleopInTerminal::forward() {
   
-  this->twist_.linear.x = 1.0;
-  this->twist_.angular.z = 0.0;
-  this->cmd_vel_publisher_->publish(this->twist_);
+  this->twist_.linear.x = this->set_twist_.at("FORWARD").at("linear_x");
+  this->twist_.angular.z = this->set_twist_.at("FORWARD").at("angular_z");
+  this->cmd_vel_publisher_ptr_->publish(this->twist_);
   
 }

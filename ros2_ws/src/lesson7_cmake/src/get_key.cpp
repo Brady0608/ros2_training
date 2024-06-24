@@ -12,7 +12,7 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissons and
 * limitations under the License.
-* Author    : Brady Guo
+* Author    : Brady Guo (brady_guo@brogent.com)
 * Maintainer: Brady Guo
 * Reference : https://github.com/aarsht7/teleop_cpp_ros2/blob/main/src/teleop_cpp_ros2.cpp
 *******************************************************************************/

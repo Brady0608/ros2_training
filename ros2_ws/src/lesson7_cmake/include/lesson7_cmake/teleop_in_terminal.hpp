@@ -12,7 +12,7 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Brady Guo
+* Author    : Brady Guo (brady_guo@brogent.com)
 * Maintainer: Brady Guo
 * Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
@@ -30,13 +30,13 @@
 #include <rclcpp/rclcpp.hpp>
 #include <geometry_msgs/msg/twist.hpp>
 
-class TeleopInTerminal: public rclcpp::Node{
+class TeleopInTerminal: public rclcpp::Node {
  public:
 
   TeleopInTerminal(std::string node_name="teleop_in_terminal_node"): Node(node_name) {
-    this->cmd_vel_publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("/turtle1/cmd_vel",10);
+    this->cmd_vel_publisher_ptr_ = this->create_publisher<geometry_msgs::msg::Twist>("/turtle1/cmd_vel", 10);
 
-    RCLCPP_INFO_STREAM(this->get_logger(),this->msg_.c_str());
+    RCLCPP_INFO_STREAM(this->get_logger(), this->msg_);
   }
 
     int  get_key();
@@ -48,10 +48,17 @@ class TeleopInTerminal: public rclcpp::Node{
 
  private:
 
-
-
-    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_publisher_;      
+    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr cmd_vel_publisher_ptr_;      
     geometry_msgs::msg::Twist twist_;
+
+    const std::map<std::string, std::map<std::string, double>> set_twist_ {
+        {"BACKWARD",   {{"linear_x", -1.0}, {"angular_z", 0.0}}},
+        {"FORWARD",    {{"linear_x", 1.0}, {"angular_z", 0.0}}},
+        {"STOP",       {{"linear_x", 0.0}, {"angular_z", 0.0}}},
+        {"TURN_LEFT",  {{"linear_x", 0.0}, {"angular_z", M_PI_2}}},
+        {"TURN_RIGHT", {{"linear_x", 0.0}, {"angular_z", -M_PI_2}}}
+   };
+
     std::string msg_ = R"(
 Control the Turtle!
 -------------------------

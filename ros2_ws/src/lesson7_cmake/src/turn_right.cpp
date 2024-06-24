@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissons and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 * Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
 
@@ -21,8 +21,8 @@
 
 void TeleopInTerminal::turn_right() {
   
-  this->twist_.linear.x = 0.0;
-  this->twist_.angular.z = M_PI_2;
-  this->cmd_vel_publisher_->publish(this->twist_);
+  this->twist_.linear.x = this->set_twist_.at("TURN_RIGHT").at("linear_x");;
+  this->twist_.angular.z = this->set_twist_.at("TURN_RIGHT").at("angular_z");
+  this->cmd_vel_publisher_ptr_->publish(this->twist_);
   
 }
