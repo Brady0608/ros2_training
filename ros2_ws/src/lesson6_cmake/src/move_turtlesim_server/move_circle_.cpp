@@ -24,8 +24,8 @@ void MoveTurtlesimServer::move_circle_() {
   RCLCPP_INFO_STREAM(this->get_logger(), "Moving around a circle!");
 
   for (int number = 0; number < 5; number++) {
-  this->twist_.linear.x = this->set_twist_.at("CIRCLE").at(0);
-  this->twist_.angular.z = this->set_twist_.at("CIRCLE").at(1);
+  this->twist_.linear.x = this->set_twist_.at("CIRCLE").at("linear_x");
+  this->twist_.angular.z = this->set_twist_.at("CIRCLE").at("angular_z");
     this->publisher_ptr_->publish(this->twist_);
     rclcpp::sleep_for(std::chrono::milliseconds(1000));
   }

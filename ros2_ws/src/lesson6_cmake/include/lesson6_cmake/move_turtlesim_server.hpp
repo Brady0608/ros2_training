@@ -43,15 +43,15 @@ class MoveTurtlesimServer: public rclcpp::Node {
    void move_circle_();
    void move_triangle_();
    void stop_();
-   
-   const std::map<std::string, std::vector<double>> set_twist_= {
-      {"LINE", {0.2, 0.0}},
-      {"SQUARE_FIRST_PERIOD", {2.0, 0.0}},
-      {"SQUARE_SECOND_PERIOD", {0.0, M_PI_2}},
-      {"CIRCLE", {1.0, M_PI_2}},
-      {"TRIANGLE_FIRST_PERIOD", {0.0, -M_PI_4}},
-      {"TRIANGLE_SECOND_PERIOD", {2.0, 0.0}},
-      {"STOP", {0.0, 0.0}}
+
+   const std::map<std::string, std::map<std::string, double>> set_twist_ {
+      {"LINE",                   {{"linear_x", 0.2}, {"angular_z", 0.0}}},
+      {"SQUARE_FIRST_PERIOD",    {{"linear_x", 2.0}, {"angular_z", 0.0}}},
+      {"SQUARE_SECOND_PERIOD",   {{"linear_x", 0.0}, {"angular_z", M_PI_2}}},
+      {"CIRCLE",                 {{"linear_x", 1.0}, {"angular_z", M_PI_2}}},
+      {"TRIANGLE_FIRST_PERIOD",  {{"linear_x", 0.0}, {"angular_z", -M_PI_4}}},
+      {"TRIANGLE_SECOND_PERIOD", {{"linear_x", 2.0}, {"angular_z", 0.0}}},
+      {"STOP",                   {{"linear_x", 0.0}, {"angular_z", 0.0}}}
    };
 
    geometry_msgs::msg::Twist twist_ {};

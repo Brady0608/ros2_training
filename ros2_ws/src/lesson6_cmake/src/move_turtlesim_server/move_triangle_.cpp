@@ -25,14 +25,14 @@ void MoveTurtlesimServer::move_triangle_() {
 
   for (int number = 0; number < 3; number++) {
 
-    this->twist_.linear.x = this->set_twist_.at("TRIANGLE_FIRST_PERIOD").at(0);
-    this->twist_.angular.z = this->set_twist_.at("TRIANGLE_FIRST_PERIOD").at(1) - (M_PI_4*number);
+    this->twist_.linear.x = this->set_twist_.at("TRIANGLE_FIRST_PERIOD").at("linear_x");
+    this->twist_.angular.z = this->set_twist_.at("TRIANGLE_FIRST_PERIOD").at("angular_z") - (M_PI_4*number);
 
     this->publisher_ptr_->publish(this->twist_);
     rclcpp::sleep_for(std::chrono::milliseconds(1000));
 
-    this->twist_.linear.x = this->set_twist_.at("TRIANGLE_SECOND_PERIOD").at(0);
-    this->twist_.angular.z = this->set_twist_.at("TRIANGLE_SECOND_PERIOD").at(1);
+    this->twist_.linear.x = this->set_twist_.at("TRIANGLE_SECOND_PERIOD").at("linear_x");
+    this->twist_.angular.z = this->set_twist_.at("TRIANGLE_SECOND_PERIOD").at("angular_z");
     this->publisher_ptr_->publish(this->twist_);
     rclcpp::sleep_for(std::chrono::milliseconds(1000));
   }

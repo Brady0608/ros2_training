@@ -22,8 +22,8 @@
 void MoveTurtlesimServer::stop_() {
   
   RCLCPP_INFO_STREAM(this->get_logger(), "Stop the turtlesim!");
-  this->twist_.linear.x = this->set_twist_.at("STOP").at(0);
-  this->twist_.angular.z = this->set_twist_.at("STOP").at(1);
+  this->twist_.linear.x = this->set_twist_.at("STOP").at("linear_x");
+  this->twist_.angular.z = this->set_twist_.at("STOP").at("angular_z");
   this->publisher_ptr_->publish(this->twist_);
   
 }

@@ -24,13 +24,13 @@ void MoveTurtlesimServer::move_square_() {
   RCLCPP_INFO_STREAM(this->get_logger(), "Moving around a square!");
 
   for (int number = 0; number < 4; number++) {
-    this->twist_.linear.x = this->set_twist_.at("SQUARE_FIRST_PERIOD").at(0);
-    this->twist_.angular.z = this->set_twist_.at("SQUARE_FIRST_PERIOD").at(1);
+    this->twist_.linear.x = this->set_twist_.at("SQUARE_FIRST_PERIOD").at("linear_x");
+    this->twist_.angular.z = this->set_twist_.at("SQUARE_FIRST_PERIOD").at("angular_z");
     this->publisher_ptr_->publish(this->twist_);
     rclcpp::sleep_for(std::chrono::milliseconds(1000));
     
-    this->twist_.linear.x = this->set_twist_.at("SQUARE_SECOND_PERIOD").at(0);
-    this->twist_.angular.z = this->set_twist_.at("SQUARE_SECOND_PERIOD").at(1);
+    this->twist_.linear.x = this->set_twist_.at("SQUARE_SECOND_PERIOD").at("linear_x");
+    this->twist_.angular.z = this->set_twist_.at("SQUARE_SECOND_PERIOD").at("angular_z");
     this->publisher_ptr_->publish(this->twist_);
     rclcpp::sleep_for(std::chrono::milliseconds(1000));
   }
