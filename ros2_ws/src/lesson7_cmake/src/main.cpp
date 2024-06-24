@@ -12,19 +12,18 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Brady Guo (brady_guo@brogent.com)
+* Author    : Brady Guo 
 * Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson7_cmake/teleop_in_terminal.hpp"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     rclcpp::init(argc, argv);    
     std::shared_ptr<TeleopInTerminal> node = std::make_shared<TeleopInTerminal>("teleop_in_terminal_node");
     int key {};
 
-    while(rclcpp::ok()){
+    while(rclcpp::ok()) {
         // get the pressed key
         key = node->get_key();
         if (key == 'w')
@@ -42,8 +41,7 @@ int main(int argc, char *argv[])
             if (key == '\x03')
             break;
         }
-    }
-        
+    }        
     rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;

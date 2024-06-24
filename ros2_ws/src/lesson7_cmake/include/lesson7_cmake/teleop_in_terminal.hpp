@@ -12,17 +12,18 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Brady Guo (brady_guo@brogent.com)
-* Maintainer: Brady Guo
+* Author    : Brady Guo 
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 * Reference : https://google.github.io/styleguide/cppguide.html#Class_Format
 *******************************************************************************/
 #ifndef TELEOP_IN_TERMINAL__HPP_
 #define TELEOP_IN_TERMINAL__HPP_
 
 
-#include <string>
+
 #include <cmath>
 #include <iostream> 
+#include <string>
 #include <stdio.h>
 #include <unistd.h>
 #include <termios.h>
