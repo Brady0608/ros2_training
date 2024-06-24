@@ -12,14 +12,14 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Joe Lin
-* Maintainer: Brady Guo
+* Author    : Brady Guo 
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson8_cmake/follow_the_turtle.hpp"
 
-void FollowTheTurtle::call_turtlesim_spawn_service_(){
-    while (!this->turtle2_spawn_client_->wait_for_service(std::chrono::seconds(1))){
+void FollowTheTurtle::call_turtlesim_spawn_service_() {
+    while (this->turtle2_spawn_client_ptr_->wait_for_service(std::chrono::seconds(1)) == false) {
         RCLCPP_WARN(this->get_logger(), "Waiting for \"/spawn\" service...");
     }
 
@@ -35,28 +35,20 @@ void FollowTheTurtle::call_turtlesim_spawn_service_(){
     request->theta = dist_theta(gen);
     
 
-    auto future = this->turtle2_spawn_client_->async_send_request(request);
+    auto future = this->turtle2_spawn_client_ptr_->async_send_request(request);
 
     if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) == rclcpp::FutureReturnCode::SUCCESS) {
-
         auto response = future.get();
-
         RCLCPP_INFO(this->get_logger(), "After getting..");
-
-        if (response->name != ""){
-
+        if (response->name != "") {
             RCLCPP_INFO(this->get_logger(),"Turtle %s spawned successfully",response->name.c_str());
+        }
+        else {
 
         }
-
     }
-
     else {
-
         RCLCPP_ERROR(this->get_logger(), "Service call failed.");
-
     }
-
-
     
 }

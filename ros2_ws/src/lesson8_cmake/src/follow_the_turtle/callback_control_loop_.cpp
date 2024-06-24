@@ -12,14 +12,14 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Joe Lin
-* Maintainer: Brady Guo
+* Author    : Brady Guo 
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson8_cmake/follow_the_turtle.hpp"
 
-void FollowTheTurtle::callback_control_loop_(){
-    if (!this->check_turtle1_up && !this->check_turtle2_up){
+void FollowTheTurtle::callback_control_loop_() {
+    if (this->check_turtle1_up == false || this->check_turtle2_up == false) {
         return;
     }
     double distance_x = this->turtle1_pose_.x - this->turtle2_pose_.x;
@@ -27,7 +27,7 @@ void FollowTheTurtle::callback_control_loop_(){
     double distance = std::sqrt(std::pow(distance_x, 2) + std::pow(distance_y, 2));
     
     geometry_msgs::msg::Twist twist_msg;
-    if(distance > 0.5){
+    if(distance > 0.5) {
         twist_msg.linear.x = this->p_controller_coefficient_ * 0.5 * distance;
         double goal_theta = std::atan2(distance_y,distance_x);
         double theta_to_goal = goal_theta - this->turtle2_pose_.theta;
@@ -35,14 +35,15 @@ void FollowTheTurtle::callback_control_loop_(){
             theta_to_goal -= (2*M_PI);
         else if (theta_to_goal < -M_PI)
             theta_to_goal += (2*M_PI);
+        else { }
         twist_msg.angular.z = this->p_controller_coefficient_ * theta_to_goal;
     }
-    else{
+    else {
         twist_msg.linear.x = 0;
         twist_msg.angular.z = 0;
     }
 
-    this->turtle2_cmd_vel_publisher_->publish(twist_msg);
+    this->turtle2_cmd_vel_publisher_ptr_->publish(twist_msg);
 
     
 }

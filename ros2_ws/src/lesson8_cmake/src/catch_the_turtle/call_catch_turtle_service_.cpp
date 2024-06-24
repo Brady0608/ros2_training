@@ -12,29 +12,29 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Brady Guo
-* Maintainer: Brady Guo
+* Author    : Brady Guo 
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson8_cmake/catch_the_turtle.hpp"
 
-void CatchTheTurtle::call_catch_turtle_service_(std::string turtle_name){
-    while (!call_catch_turtle_client_->wait_for_service(std::chrono::seconds(1))){   
+void CatchTheTurtle::call_catch_turtle_service_(std::string turtle_name) {
+    while (call_catch_turtle_client_ptr_->wait_for_service(std::chrono::seconds(1)) == false) {   
         RCLCPP_WARN(this->get_logger(), "Waiting for Service Server to be up...");
     }
     auto request = std::make_shared<lesson_interfaces::srv::CatchTurtle::Request>();
     request->name = turtle_name;
 
-    auto future = call_catch_turtle_client_->async_send_request(request);
+    auto future = call_catch_turtle_client_ptr_->async_send_request(request);
 
-    try{
+    try {
         auto response = future.get();
         if (!response->success)
         {
             RCLCPP_ERROR(this->get_logger(), "Failed to catch Turtle %s ", turtle_name.c_str());
         }
     }
-    catch (const std::exception &e){
+    catch (const std::exception& e) {
         RCLCPP_ERROR(this->get_logger(), "Service call failed.");
     }
 

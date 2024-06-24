@@ -18,30 +18,30 @@
 
 #include "lesson8_cmake/turtle_spawner.hpp"
 
-void TurtleSpawner::call_kill_turtle_service_(std::string turtle_name){
-    while (!this->kill_turtle_service_client_->wait_for_service(std::chrono::seconds(1))){
+void TurtleSpawner::call_kill_turtle_service_(std::string turtle_name) {
+    while (this->kill_turtle_service_client_ptr_->wait_for_service(std::chrono::seconds(1)) == false) {
         RCLCPP_WARN(this->get_logger(), "Waiting for \"/kill\" service...");
     }
 
     auto request = std::make_shared<turtlesim::srv::Kill::Request>();
     request->name = turtle_name;
 
-    auto future = this->kill_turtle_service_client_->async_send_request(request);
+    auto future = this->kill_turtle_service_client_ptr_->async_send_request(request);
 
     try {
         future.get();
-        for (int i = 0; i < (int)alive_turtles_.turtle_array.size(); i++)
-        {
-            if (alive_turtles_.turtle_array.at(i).name == turtle_name)
-            {
+        for (int i = 0; i < (int)alive_turtles_.turtle_array.size(); i++) {
+            if (alive_turtles_.turtle_array.at(i).name == turtle_name) {
                 alive_turtles_.turtle_array.erase(alive_turtles_.turtle_array.begin() + i);
                 this->publish_alive_turtles_();
                 break;
             }
+            else {
+                
+            }
         }
     }
-    catch (const std::exception &e){
+    catch (const std::exception& e) {
         RCLCPP_ERROR(this->get_logger(), "Kill service call failed.");
     }
-
 }

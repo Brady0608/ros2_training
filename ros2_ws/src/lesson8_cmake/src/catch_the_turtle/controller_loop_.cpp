@@ -12,14 +12,14 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Brady Guo
-* Maintainer: Brady Guo
+* Author    : Brady Guo 
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson8_cmake/catch_the_turtle.hpp"
 
 void CatchTheTurtle::controller_loop_(){
-    if(!this->get_turtle_pose_ || !this->get_turtle_to_catch_)
+    if(this->get_turtle_pose_ == false || this->get_turtle_to_catch_ == false)
         return;
     double distance_x = this->turtle_to_catch_.pose.x - this->pose_.x;
     double distance_y = this->turtle_to_catch_.pose.y - this->pose_.y;
@@ -27,7 +27,7 @@ void CatchTheTurtle::controller_loop_(){
 
     geometry_msgs::msg::Twist twist_msg;
 
-    if(distance > 0.5){
+    if(distance > 0.5) {
         twist_msg.linear.x = this->p_controller_coefficient_ * 0.5 * distance;
         double goal_theta = std::atan2(distance_y,distance_x);
         double theta_to_goal = goal_theta - this->pose_.theta;
@@ -37,12 +37,12 @@ void CatchTheTurtle::controller_loop_(){
             theta_to_goal += (2*M_PI);
         twist_msg.angular.z = this->p_controller_coefficient_ * theta_to_goal;
     }
-    else{
+    else {
         twist_msg.linear.x = 0;
         twist_msg.angular.z = 0;
         // this->call_catch_turtle_service_(turtle_to_catch_.name);
         this->catch_turtle_threads_.push_back(std::make_shared<std::thread>(std::bind(&CatchTheTurtle::call_catch_turtle_service_, this, this->turtle_to_catch_.name)));
         this->turtle_to_catch_.name = "";
     }
-    cmd_vel_publisher_->publish(twist_msg);
+    cmd_vel_publisher_ptr_->publish(twist_msg);
 }

@@ -19,20 +19,19 @@
 #ifndef TURTLE_SPAWNER__HPP_
 #define TURTLE_SPAWNER__HPP_
 
-
-#include <rclcpp/rclcpp.hpp>
 #include <cmath>
-#include <random>
 #include <iostream>
-#include <vector>
+#include <random>
+#include <rclcpp/rclcpp.hpp>
 #include <turtlesim/srv/spawn.hpp>
 #include <turtlesim/srv/kill.hpp>
+#include <vector>
 #include "lesson_interfaces/msg/turtle.hpp"
 #include "lesson_interfaces/msg/turtle_array.hpp"
 #include "lesson_interfaces/srv/catch_turtle.hpp"
 
 
-class TurtleSpawner: public rclcpp::Node{
+class TurtleSpawner: public rclcpp::Node {
  public:
 
   TurtleSpawner(std::string node_name="turtle_spawner_node");
@@ -40,25 +39,30 @@ class TurtleSpawner: public rclcpp::Node{
  private:
 
   void callback_spawn_turtle_timer_();
-  void call_spawn_service_(std::string turtle_name, float x, float y, float theta);
-  void publish_alive_turtles_();
   void callback_catch_turtle_(const lesson_interfaces::srv::CatchTurtle::Request::SharedPtr request, 
                               const lesson_interfaces::srv::CatchTurtle::Response::SharedPtr response);
   void call_kill_turtle_service_(std::string turtle_name);
-
-  rclcpp::Publisher<lesson_interfaces::msg::TurtleArray>::SharedPtr alive_turtles_publisher_;
-  rclcpp::TimerBase::SharedPtr spawn_turtle_timer_;
-  rclcpp::Client<turtlesim::srv::Spawn>::SharedPtr turtle_spawn_client_;
-  rclcpp::Service<lesson_interfaces::srv::CatchTurtle>::SharedPtr catch_turtle_service_;
-  rclcpp::Client<turtlesim::srv::Kill>::SharedPtr kill_turtle_service_client_;
-
-  int turtle_counter_;
-  float turtlesim_bound_;
-  std::string turtle_name_prefix_;
+  void call_spawn_service_(std::string turtle_name, float x, float y, float theta);
+  void publish_alive_turtles_() {
+    auto msg = lesson_interfaces::msg::TurtleArray();
+    msg.turtle_array = alive_turtles_.turtle_array;
+    this->alive_turtles_publisher_ptr_->publish(msg);
+  }
+  
+  rclcpp::Client<turtlesim::srv::Spawn>::SharedPtr turtle_spawn_client_ptr_;
+  rclcpp::Client<turtlesim::srv::Kill>::SharedPtr kill_turtle_service_client_ptr_;
+  rclcpp::Publisher<lesson_interfaces::msg::TurtleArray>::SharedPtr alive_turtles_publisher_ptr_;
+  rclcpp::Service<lesson_interfaces::srv::CatchTurtle>::SharedPtr catch_turtle_service_ptr_;
+  rclcpp::TimerBase::SharedPtr spawn_turtle_timer_ptr_;
+  
   lesson_interfaces::msg::TurtleArray alive_turtles_;
 
-  std::vector<std::shared_ptr<std::thread>> spawn_turtle_threads_;
-  std::vector<std::shared_ptr<std::thread>> kill_turtle_threads_;
+  float turtlesim_bound_ {11.0}; 
+  int turtle_counter_ {0};
+  std::string turtle_name_prefix_ {"turtle"};
+  
+  std::vector<std::shared_ptr<std::thread>> spawn_turtle_threads_ {};
+  std::vector<std::shared_ptr<std::thread>> kill_turtle_threads_ {};
 
 
 

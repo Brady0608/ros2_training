@@ -18,7 +18,7 @@
 
 #include "lesson8_cmake/turtle_spawner.hpp"
 
-void TurtleSpawner::callback_spawn_turtle_timer_(){
+void TurtleSpawner::callback_spawn_turtle_timer_() {
     
     turtle_counter_ += 1;
     auto turtle_name = turtle_name_prefix_ + std::to_string(turtle_counter_);

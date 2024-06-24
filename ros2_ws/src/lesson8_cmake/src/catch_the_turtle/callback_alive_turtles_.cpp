@@ -12,19 +12,20 @@
 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 * See the License for the specific language governing permissions and
 * limitations under the License.
-* Author    : Brady Guo
-* Maintainer: Brady Guo
+* Author    : Brady Guo 
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson8_cmake/catch_the_turtle.hpp"
 
-void CatchTheTurtle::callback_alive_turtles_(const lesson_interfaces::msg::TurtleArray msg){
-    if (!msg.turtle_array.empty()){
+void CatchTheTurtle::callback_alive_turtles_(const lesson_interfaces::msg::TurtleArray msg) {
+    if (msg.turtle_array.empty() == false) {
         this->turtle_to_catch_ = msg.turtle_array.at(0);
         this->get_turtle_to_catch_ = true;
-        RCLCPP_INFO(this->get_logger(),"Have a turtle to catch!");
-    }else{
-        RCLCPP_INFO(this->get_logger(),"NOOOOOOOOOOOOOO turtle to catch!");
+        RCLCPP_INFO(this->get_logger(), "Have a turtle to catch!");
+    }
+    else {
+        RCLCPP_INFO(this->get_logger(), "NOOOOOOOOOOOOOO turtle to catch!");
         this->get_turtle_to_catch_ = false;
 
     }

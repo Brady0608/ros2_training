@@ -18,10 +18,9 @@
 
 #include "lesson8_cmake/turtle_spawner.hpp"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<TurtleSpawner>("turtle_spawner_node");
+    std::shared_ptr<TurtleSpawner> node = std::make_shared<TurtleSpawner>("turtle_spawner_node");
     rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;

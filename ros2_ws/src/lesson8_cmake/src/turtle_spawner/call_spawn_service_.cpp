@@ -18,9 +18,8 @@
 
 #include "lesson8_cmake/turtle_spawner.hpp"
 
-void TurtleSpawner::call_spawn_service_(std::string turtle_name, float x, float y, float theta){
-    while (!turtle_spawn_client_->wait_for_service(std::chrono::seconds(1)))
-        {
+void TurtleSpawner::call_spawn_service_(std::string turtle_name, float x, float y, float theta) {
+    while (turtle_spawn_client_ptr_->wait_for_service(std::chrono::seconds(1)) == false) {
             RCLCPP_WARN(this->get_logger(), "Waiting for \"/spawn\" service...");
         }
 
@@ -30,7 +29,7 @@ void TurtleSpawner::call_spawn_service_(std::string turtle_name, float x, float 
     request->theta = theta;
     request->name = turtle_name;
 
-    auto future = turtle_spawn_client_->async_send_request(request);
+    auto future = turtle_spawn_client_ptr_->async_send_request(request);
 
     try {
         auto response = future.get();
@@ -44,11 +43,11 @@ void TurtleSpawner::call_spawn_service_(std::string turtle_name, float x, float 
             this->publish_alive_turtles_();
             RCLCPP_INFO(this->get_logger(), "Turtle %s is now alive.", response->name.c_str());
         }
+        else {
+
+        }
     }
-    catch (const std::exception &e) {
+    catch (const std::exception& e) {
         RCLCPP_ERROR(this->get_logger(), "Service call failed.");
     }
-
-
-
 }
