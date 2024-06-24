@@ -18,8 +18,7 @@
 
 #include "lesson6_cmake/move_turtlesim_client.hpp"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     rclcpp::init(argc, argv);    
     std::shared_ptr<MoveTurtlesimClient> node = std::make_shared<MoveTurtlesimClient>("move_turtlesim_client_node");
     rclcpp::shutdown();

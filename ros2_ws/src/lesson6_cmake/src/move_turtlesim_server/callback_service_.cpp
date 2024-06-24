@@ -21,7 +21,7 @@
 
 void MoveTurtlesimServer::callback_service_(
     const lesson_interfaces::srv::MoveTurtlesim::Request::SharedPtr request_ptr, 
-    const lesson_interfaces::srv::MoveTurtlesim::Response::SharedPtr response_ptr){
+    const lesson_interfaces::srv::MoveTurtlesim::Response::SharedPtr response_ptr) {
 
   std::string path = request_ptr->path;
 

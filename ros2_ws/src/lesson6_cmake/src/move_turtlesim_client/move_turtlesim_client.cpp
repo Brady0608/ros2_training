@@ -26,7 +26,7 @@ MoveTurtlesimClient::MoveTurtlesimClient(std::string node_name)
     this->client_ptr = this->create_client<lesson_interfaces::srv::MoveTurtlesim>(this->service_name_);
     RCLCPP_INFO_STREAM(this->get_logger(), "Initialized!!");
     
-    while (!this->client_ptr->wait_for_service(std::chrono::duration<double>(1.0))) {
+    while (this->client_ptr->wait_for_service(std::chrono::duration<double>(1.0)) == false) {
         if (!rclcpp::ok()) {
             RCLCPP_ERROR_STREAM(this->get_logger(), "Interrupted while waiting for the service. Exiting.");
             return;

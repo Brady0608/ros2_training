@@ -18,8 +18,7 @@
 
 #include "lesson6_cmake/move_turtlesim_server.hpp"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     rclcpp::init(argc, argv);    
     std::shared_ptr<MoveTurtlesimServer> node = std::make_shared<MoveTurtlesimServer>("move_turtlesim_server_node");
     rclcpp::spin(node);
