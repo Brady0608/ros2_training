@@ -35,9 +35,9 @@ FinalExam::FinalExam(std::string node_name)
     this->change_bg_frequency_ = this->get_parameter("change_bg_frequency").as_double();
     
 
-    this->describe_parameters_client_ = this->create_client<rcl_interfaces::srv::DescribeParameters>("describe_parameters");
-    this->velocity_get_parameter_client_ = this->create_client<rcl_interfaces::srv::GetParameters>("get_parameters",rmw_qos_profile_services_default, this->callback_group_get_parameters_service_);
-    this->set_bg_parameters_client_ = this->create_client<rcl_interfaces::srv::SetParametersAtomically>("set_parameters_atomically",rmw_qos_profile_services_default, this->callback_group_set_parameters_atomically_);
+    this->describe_parameters_client_ptr_ = this->create_client<rcl_interfaces::srv::DescribeParameters>("describe_parameters");
+    this->velocity_get_parameter_client_ptr_ = this->create_client<rcl_interfaces::srv::GetParameters>("get_parameters",rmw_qos_profile_services_default, this->callback_group_get_parameters_service_);
+    this->set_bg_parameters_client_ptr_ = this->create_client<rcl_interfaces::srv::SetParametersAtomically>("set_parameters_atomically",rmw_qos_profile_services_default, this->callback_group_set_parameters_atomically_);
 
     this->call_get_describe_parameter_service_(this->get_velocity_name_vec_);
     

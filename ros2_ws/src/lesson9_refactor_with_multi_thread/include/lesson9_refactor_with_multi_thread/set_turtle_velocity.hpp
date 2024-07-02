@@ -52,9 +52,9 @@ class SetTurtleVelocity: public rclcpp::Node{
 
    std::map<std::string, int> request_parameter_dict_;
 
-   rclcpp::Client<rcl_interfaces::srv::DescribeParameters>::SharedPtr get_describe_parameters_client_;
-   rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_turtle_velocity_client_;
-   rclcpp::TimerBase::SharedPtr timer_;
+   rclcpp::Client<rcl_interfaces::srv::DescribeParameters>::SharedPtr get_describe_parameters_client_ptr_;
+   rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_turtle_velocity_client_ptr_;
+   rclcpp::TimerBase::SharedPtr timer_ptr_;
 
    rclcpp::CallbackGroup::SharedPtr callback_group_set_parameter_atomically_service_;
 

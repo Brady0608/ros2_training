@@ -20,13 +20,13 @@
 
 void SetTurtleVelocity::call_describe_parameter_service_(std::vector<std::string> names_vector) {
     
-    while (!this->get_describe_parameters_client_->wait_for_service(std::chrono::seconds(1))){
+    while (!this->get_describe_parameters_client_ptr_->wait_for_service(std::chrono::seconds(1))){
         RCLCPP_WARN(this->get_logger(), "Waiting for Describe Parameter Service Server to be up...");
     }
 
     auto request = std::make_shared<rcl_interfaces::srv::DescribeParameters::Request>();
     request->names = names_vector;
-    auto future = this->get_describe_parameters_client_->async_send_request(request);
+    auto future = this->get_describe_parameters_client_ptr_->async_send_request(request);
     
     try{
         auto response = future.get();

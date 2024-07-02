@@ -31,9 +31,9 @@ SetTurtleVelocity::SetTurtleVelocity(std::string node_name)
 
     this->set_velocity_bound_(this->request_parameter_dict_);
 
-    this->get_describe_parameters_client_ = this->create_client<rcl_interfaces::srv::DescribeParameters>("describe_parameters");
-    this->set_turtle_velocity_client_ = this->create_client<rcl_interfaces::srv::SetParametersAtomically>("set_parameters_atomically", rmw_qos_profile_services_default, this->callback_group_set_parameter_atomically_service_);
-    this->timer_ = this->create_wall_timer(std::chrono::milliseconds((int)(1000 / this->control_frequency_)), std::bind(&SetTurtleVelocity::callback_timer_, this));
+    this->get_describe_parameters_client_ptr_ = this->create_client<rcl_interfaces::srv::DescribeParameters>("describe_parameters");
+    this->set_turtle_velocity_client_ptr_ = this->create_client<rcl_interfaces::srv::SetParametersAtomically>("set_parameters_atomically", rmw_qos_profile_services_default, this->callback_group_set_parameter_atomically_service_);
+    this->timer_ptr_ = this->create_wall_timer(std::chrono::milliseconds((int)(1000 / this->control_frequency_)), std::bind(&SetTurtleVelocity::callback_timer_, this));
 
 
 

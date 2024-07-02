@@ -20,21 +20,21 @@
 
 void FinalExam::call_set_parameter_atomically_service_(rcl_interfaces::msg::Parameter parameter) {
     
-    while (!this->set_bg_parameters_client_->wait_for_service(std::chrono::seconds(1))){
+    while (this->set_bg_parameters_client_ptr_->wait_for_service(std::chrono::seconds(1)) == false) {
         RCLCPP_WARN(this->get_logger(), "Waiting for Set Parameter Atomically Service Server to be up...");
     }
 
     auto request = std::make_shared<rcl_interfaces::srv::SetParametersAtomically::Request>();
     request->parameters.push_back(parameter);
 
-    auto future = this->set_bg_parameters_client_->async_send_request(request);
+    auto future = this->set_bg_parameters_client_ptr_->async_send_request(request);
     
-    try{
+    try {
         auto response = future.get();
         if(response->result.successful)
             RCLCPP_INFO(this->get_logger(), "Change background color");
     }
-    catch (const std::exception &e){
+    catch (const std::exception& e) {
         RCLCPP_ERROR(this->get_logger(), "Set_parameter_atomically_service call failed.");
     }   
 

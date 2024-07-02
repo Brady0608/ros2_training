@@ -20,13 +20,13 @@
 
 void FinalExam::call_get_describe_parameter_service_(std::vector<std::string> velocity_name_vec) {
     
-    while (!this->describe_parameters_client_->wait_for_service(std::chrono::seconds(1))){
+    while (!this->describe_parameters_client_ptr->wait_for_service(std::chrono::seconds(1))){
         RCLCPP_WARN(this->get_logger(), "Waiting for Get Describe Parameter Service Server to be up...");
     }
     
     auto request = std::make_shared<rcl_interfaces::srv::DescribeParameters::Request>();
     request->names = velocity_name_vec;
-    auto future = this->describe_parameters_client_->async_send_request(request);
+    auto future = this->describe_parameters_client_ptr->async_send_request(request);
     
     if (rclcpp::spin_until_future_complete(this->get_node_base_interface(), future) == rclcpp::FutureReturnCode::SUCCESS){
         

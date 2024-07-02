@@ -20,14 +20,14 @@
 
 void SetTurtleVelocity::call_set_parameter_atomically_service_(rcl_interfaces::msg::Parameter parameter) {
     
-    while (!this->set_turtle_velocity_client_->wait_for_service(std::chrono::seconds(1))){
+    while (!this->set_turtle_velocity_client_ptr_->wait_for_service(std::chrono::seconds(1))){
         RCLCPP_WARN(this->get_logger(), "Waiting for Set Parameter Atomically Service Server to be up...");
     }
 
     auto request = std::make_shared<rcl_interfaces::srv::SetParametersAtomically::Request>();
     request->parameters.push_back(parameter);
 
-    auto future = this->set_turtle_velocity_client_->async_send_request(request);
+    auto future = this->set_turtle_velocity_client_ptr_->async_send_request(request);
     
     try{
         auto response = future.get();

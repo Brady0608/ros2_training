@@ -18,10 +18,9 @@
 
 #include "lesson9_cmake/get_turtlesim_background.hpp"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<GetTurtlesimBackground>("name_node");
+    std::shared_ptr<GetTurtlesimBackground> node = std::make_shared<GetTurtlesimBackground>("name_node");
     rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;

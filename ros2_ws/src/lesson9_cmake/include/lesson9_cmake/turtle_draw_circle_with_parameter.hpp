@@ -18,33 +18,32 @@
 #ifndef TURTLE_DRAW_CIRCLE_WITH_PARAMETER__HPP_
 #define TURTLE_DRAW_CIRCLE_WITH_PARAMETER__HPP_
 
-
-#include <rclcpp/rclcpp.hpp>
 #include <iostream>
 #include <string>
+
 #include <geometry_msgs/msg/twist.hpp>
+#include <rclcpp/rclcpp.hpp>
 #include <rcl_interfaces/msg/floating_point_range.hpp>
 #include <rcl_interfaces/msg/parameter_type.hpp>
 #include <rcl_interfaces/msg/parameter_descriptor.hpp>
 
 
-class TurtleDrawCircleWithParameter: public rclcpp::Node{
+class TurtleDrawCircleWithParameter: public rclcpp::Node {
  public:
     TurtleDrawCircleWithParameter(std::string node_name="turtle_draw_circle_with_parameter_node");
 
 
  private:
  
-    void declare_ros2_parameter_(std::string parameter_name);
-    void callback_timer_();
     geometry_msgs::msg::Twist set_speed_(std::string parameter_name);
+    void callback_timer_();
+    void declare_ros2_parameter_(std::string parameter_name);
 
-    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher_;
-    rclcpp::TimerBase::SharedPtr timer_;
+    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher_ptr_;
+    rclcpp::TimerBase::SharedPtr timer_ptr_;
 
-    std::string velocity_name_;
+    std::string velocity_name_ {"velocity"};
   
-
 };
 
 

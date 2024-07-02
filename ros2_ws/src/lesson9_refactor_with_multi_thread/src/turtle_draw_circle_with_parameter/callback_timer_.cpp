@@ -21,6 +21,6 @@
 void TurtleDrawCircleWithParameter::callback_timer_(){
 
     auto twist = this->set_speed_(this->velocity_name_);
-    this->publisher_->publish(twist);
+    this->publisher_ptr_->publish(twist);
     
 }

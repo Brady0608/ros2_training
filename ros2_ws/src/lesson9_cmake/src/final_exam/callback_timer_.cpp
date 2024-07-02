@@ -18,10 +18,10 @@
 
 #include "lesson9_cmake/final_exam.hpp"
 
-void FinalExam::callback_timer_(){
+void FinalExam::callback_timer_() {
     
     this->velocity_get_parameters_threads_.push_back(std::make_shared<std::thread>(std::bind(&FinalExam::call_get_parameters_service_, this, this->get_velocity_name_vec_)));
-    if(this->has_to_change_color_){
+    if(this->has_to_change_color_) {
         double velocity_ratio = ((this->velocity_ + std::fabs(this->velocity_lower_bound_)) / 
                                  (this->velocity_upper_bound_ + std::fabs(this->velocity_lower_bound_)));
         double rgb_value = (this->rgb_upper_bound_ - this->rgb_lower_bound_) * velocity_ratio;

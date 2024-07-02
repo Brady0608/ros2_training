@@ -18,7 +18,7 @@
 
 #include "lesson9_cmake/turtle_draw_circle_with_parameter.hpp"
 
-void TurtleDrawCircleWithParameter::declare_ros2_parameter_(std::string parameter_name){
+void TurtleDrawCircleWithParameter::declare_ros2_parameter_(std::string parameter_name) {
 
     std::stringstream parameter_descriptor_description;
     parameter_descriptor_description << "Set the ";

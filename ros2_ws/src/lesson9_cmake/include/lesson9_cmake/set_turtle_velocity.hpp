@@ -18,12 +18,12 @@
 #ifndef SET_TURTLE_VELOCITY__HPP_
 #define SET_TURTLE_VELOCITY__HPP_
 
-
-#include <rclcpp/rclcpp.hpp>
 #include <cmath>
 #include <map>
 #include <vector>
 #include <string>
+
+#include <rclcpp/rclcpp.hpp>
 #include <rcl_interfaces/msg/floating_point_range.hpp>
 #include <rcl_interfaces/msg/parameter.hpp>
 #include <rcl_interfaces/msg/parameter_descriptor.hpp>
@@ -32,32 +32,34 @@
 #include <rcl_interfaces/srv/set_parameters_atomically.hpp>
 
 
-
-
-
-class SetTurtleVelocity: public rclcpp::Node{
+class SetTurtleVelocity: public rclcpp::Node {
  public:
    SetTurtleVelocity(std::string node_name="set_turtle_velocity_node");
 
 
  private:
-    
-   void set_velocity_bound_(std::map<std::string, int> names_dict);
+  
    void callback_timer_();
    void call_describe_parameter_service_(std::vector<std::string> names_vector);
    void call_set_parameter_atomically_service_(rcl_interfaces::msg::Parameter parameter);
+   void set_velocity_bound_(std::map<std::string, int> names_dict);
 
-   double velocity_upper_bound_, velocity_lower_bound_, velocity_;
-   double control_frequency_, acceleration_;
+   rclcpp::Client<rcl_interfaces::srv::DescribeParameters>::SharedPtr get_describe_parameters_client_ptr_;
+   rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_turtle_velocity_client_ptr_;
+   rclcpp::TimerBase::SharedPtr timer_ptr_;
 
-   std::map<std::string, int> request_parameter_dict_;
+   double control_frequency_ {20.0};
+   double acceleration_ {0.001};
+   double velocity_ {0.0};
+   double velocity_lower_bound_ {-1.0};
+   double velocity_upper_bound_ {1.0};
 
-   rclcpp::Client<rcl_interfaces::srv::DescribeParameters>::SharedPtr get_describe_parameters_client_;
-   rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_turtle_velocity_client_;
-   rclcpp::TimerBase::SharedPtr timer_;
+   std::map<std::string, int> request_parameter_dict_ {{"velocity",0}};
 
-   std::vector<std::shared_ptr<std::thread>> set_velocity_bound_threads_;
-   std::vector<std::shared_ptr<std::thread>> set_parameter_atomically_threads_;
+
+
+   std::vector<std::shared_ptr<std::thread>> set_velocity_bound_threads_ {};
+   std::vector<std::shared_ptr<std::thread>> set_parameter_atomically_threads_ {};
 
 };
 

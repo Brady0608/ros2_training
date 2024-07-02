@@ -18,9 +18,9 @@
 
 #include "lesson9_cmake/turtle_draw_circle_with_parameter.hpp"
 
-void TurtleDrawCircleWithParameter::callback_timer_(){
+void TurtleDrawCircleWithParameter::callback_timer_() {
 
     auto twist = this->set_speed_(this->velocity_name_);
-    this->publisher_->publish(twist);
+    this->publisher_ptr_->publish(twist);
     
 }

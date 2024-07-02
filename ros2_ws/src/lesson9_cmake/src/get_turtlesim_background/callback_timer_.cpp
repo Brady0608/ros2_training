@@ -21,11 +21,10 @@
 void GetTurtlesimBackground::callback_timer_() {
     
     std::vector<std::string> turtlesim_bg_name_vec;
-    for(auto it = this->request_parameter_dict_.begin(); it!=this->request_parameter_dict_.end(); it++){
-        turtlesim_bg_name_vec.push_back(it->first);
+    for(const auto& [background_color_name, value] : this->request_parameter_dict_) {
+        turtlesim_bg_name_vec.push_back(background_color_name);
     }
 
     this->get_turtlesim_bg_threads_.push_back(std::make_shared<std::thread>(std::bind(&GetTurtlesimBackground::call_get_parameter_service_, this, turtlesim_bg_name_vec)));
-
 
 }

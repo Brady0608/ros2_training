@@ -21,10 +21,9 @@
 void SetTurtleVelocity::set_velocity_bound_(std::map<std::string, int> names_dict) {
 
     std::vector<std::string> names_dict_to_vec;
-    for(auto it = names_dict.begin(); it!=names_dict.end(); it++){
-        names_dict_to_vec.push_back(it->first);
+    for(const auto& [parameter_name, value] : names_dict) {
+        names_dict_to_vec.push_back(parameter_name);
     }
-
     this->set_velocity_bound_threads_.push_back(std::make_shared<std::thread>(std::bind(&SetTurtleVelocity::call_describe_parameter_service_, this, names_dict_to_vec)));
 
 }

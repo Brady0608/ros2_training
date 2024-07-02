@@ -20,23 +20,22 @@
 
 void GetTurtlesimBackground::call_get_parameter_service_(std::vector<std::string> turtlesim_bg_name_vec) {
     
-    while (!this->get_background_parameter_client_->wait_for_service(std::chrono::seconds(1))){
+    while (this->get_background_parameter_client_ptr_->wait_for_service(std::chrono::seconds(1)) == false) {
         RCLCPP_WARN(this->get_logger(), "Waiting for Service Server to be up...");
     }
     
     auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
     request->names = turtlesim_bg_name_vec;
-    auto future = this->get_background_parameter_client_->async_send_request(request);
+    auto future = this->get_background_parameter_client_ptr_->async_send_request(request);
     
-    try{
+    try {
         auto response = future.get();
-        for(auto it = this->request_parameter_dict_.begin(); it!= this->request_parameter_dict_.end(); it++){
-
-            rcl_interfaces::msg::ParameterValue parameter = response->values[it->second];
-            RCLCPP_INFO(this->get_logger(),"%s : %ld", it->first.c_str(), parameter.integer_value);
+        for (const auto& [background_color_name, value] : this->request_parameter_dict_) {
+            rcl_interfaces::msg::ParameterValue parameter = response->values[value];
+            RCLCPP_INFO(this->get_logger(),"%s : %ld", background_color_name.c_str(), parameter.integer_value);
         }
     }
-    catch (const std::exception &e){
+    catch (const std::exception& e) {
         RCLCPP_ERROR(this->get_logger(), "Service call failed.");
     }
     

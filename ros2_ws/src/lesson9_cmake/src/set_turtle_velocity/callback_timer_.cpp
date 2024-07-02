@@ -20,7 +20,7 @@
 
 void SetTurtleVelocity::callback_timer_() {
     
-    if((this->velocity_ > this->velocity_upper_bound_)  || (this->velocity_ < this->velocity_lower_bound_)){
+    if((this->velocity_ > this->velocity_upper_bound_)  || (this->velocity_ < this->velocity_lower_bound_)) {
         this->acceleration_ = this->acceleration_ * -1.0;
     }
     

@@ -39,8 +39,8 @@ class TurtleDrawCircleWithParameter: public rclcpp::Node{
     void callback_timer_();
     geometry_msgs::msg::Twist set_speed_(std::string parameter_name);
 
-    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher_;
-    rclcpp::TimerBase::SharedPtr timer_;
+    rclcpp::Publisher<geometry_msgs::msg::Twist>::SharedPtr publisher_ptr_;
+    rclcpp::TimerBase::SharedPtr timer_ptr_;
 
     std::string velocity_name_;
   

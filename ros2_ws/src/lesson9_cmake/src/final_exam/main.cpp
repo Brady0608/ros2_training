@@ -18,10 +18,9 @@
 
 #include "lesson9_cmake/final_exam.hpp"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<FinalExam>("final_exam_node");
+    std::shared_ptr<FinalExam> node = std::make_shared<FinalExam>("final_exam_node");
     rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;

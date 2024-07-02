@@ -56,9 +56,9 @@ class FinalExam: public rclcpp::Node{
 
     std::vector<std::string> get_velocity_name_vec_;
 
-    rclcpp::Client<rcl_interfaces::srv::DescribeParameters>::SharedPtr describe_parameters_client_;
-    rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr velocity_get_parameter_client_;
-    rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_bg_parameters_client_;
+    rclcpp::Client<rcl_interfaces::srv::DescribeParameters>::SharedPtr describe_parameters_client_ptr_;
+    rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr velocity_get_parameter_client_ptr_;
+    rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_bg_parameters_client_ptr_;
     rclcpp::TimerBase::SharedPtr timer_;
 
     rclcpp::CallbackGroup::SharedPtr callback_group_get_parameters_service_;

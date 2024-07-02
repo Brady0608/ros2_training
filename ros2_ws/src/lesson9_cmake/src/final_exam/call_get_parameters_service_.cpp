@@ -20,26 +20,26 @@
 
 void FinalExam::call_get_parameters_service_(std::vector<std::string> velocity_name_vec) {
     
-    while (!this->velocity_get_parameter_client_->wait_for_service(std::chrono::seconds(1))){
+    while (this->velocity_get_parameter_client_ptr_->wait_for_service(std::chrono::seconds(1)) == false) {
         RCLCPP_WARN(this->get_logger(), "Waiting for Get Parameters Service Server to be up...");
     }
     
     auto request = std::make_shared<rcl_interfaces::srv::GetParameters::Request>();
     request->names = velocity_name_vec;
-    auto future = this->velocity_get_parameter_client_->async_send_request(request);
+    auto future = this->velocity_get_parameter_client_ptr_->async_send_request(request);
     
-    try{
+    try {
         auto response = future.get();
         rcl_interfaces::msg::ParameterValue velocity_from_parameter_server = response->values[0];
-        if (this->velocity_ == velocity_from_parameter_server.double_value){
+        if (this->velocity_ == velocity_from_parameter_server.double_value) {
             this->has_to_change_color_ = false;
         }
-        else{
+        else {
             this->has_to_change_color_ = true;
             this->velocity_ = velocity_from_parameter_server.double_value;
         }
     }
-    catch (const std::exception &e){
+    catch (const std::exception& e) {
         RCLCPP_ERROR(this->get_logger(), "Get Parameters Service call failed.");
     }
     

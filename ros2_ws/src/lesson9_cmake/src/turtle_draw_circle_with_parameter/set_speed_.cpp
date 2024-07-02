@@ -18,7 +18,7 @@
 
 #include "lesson9_cmake/turtle_draw_circle_with_parameter.hpp"
 
-geometry_msgs::msg::Twist TurtleDrawCircleWithParameter::set_speed_(std::string parameter_name){
+geometry_msgs::msg::Twist TurtleDrawCircleWithParameter::set_speed_(std::string parameter_name) {
 
     geometry_msgs::msg::Twist twist;
     twist.linear.x = this->get_parameter(parameter_name).as_double();

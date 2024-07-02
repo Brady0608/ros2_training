@@ -23,7 +23,7 @@ TurtleDrawCircleWithParameter::TurtleDrawCircleWithParameter(std::string node_na
         
     this->velocity_name_ = "velocity";
     this->declare_ros2_parameter_(this->velocity_name_);
-    this->publisher_ = this->create_publisher<geometry_msgs::msg::Twist>("cmd_vel",10);
-    this->timer_ = this->create_wall_timer(std::chrono::milliseconds(500),std::bind(&TurtleDrawCircleWithParameter::callback_timer_,this));
+    this->publisher_ptr_ = this->create_publisher<geometry_msgs::msg::Twist>("cmd_vel",10);
+    this->timer_ptr_ = this->create_wall_timer(std::chrono::milliseconds(500),std::bind(&TurtleDrawCircleWithParameter::callback_timer_,this));
 
 }

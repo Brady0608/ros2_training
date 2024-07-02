@@ -18,10 +18,9 @@
 
 #include "lesson9_cmake/turtle_draw_circle_with_parameter.hpp"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<TurtleDrawCircleWithParameter>("turtle_draw_circle_with_parameter_node");
+    std::shared_ptr<TurtleDrawCircleWithParameter> node = std::make_shared<TurtleDrawCircleWithParameter>("turtle_draw_circle_with_parameter_node");
     rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;

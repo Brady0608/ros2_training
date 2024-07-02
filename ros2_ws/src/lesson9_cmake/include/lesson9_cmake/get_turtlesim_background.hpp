@@ -28,7 +28,7 @@
 #include <vector>
 #include <string>
 
-class GetTurtlesimBackground: public rclcpp::Node{
+class GetTurtlesimBackground: public rclcpp::Node {
  public:
 
   GetTurtlesimBackground(std::string node_name="get_turtlesim_background_node");
@@ -43,14 +43,16 @@ class GetTurtlesimBackground: public rclcpp::Node{
   // template<typename ServiceT>
   // typename rclcpp::Client<ServiceT>::SharedPtr customic_create_client_(const std::string service_name);
   
-  // std::any get_background_parameter_client_;
+  // std::any get_background_parameter_client_ptr_;
 
-  rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr get_background_parameter_client_;
+  rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr get_background_parameter_client_ptr_;
   
-  rclcpp::TimerBase::SharedPtr timer_;
+  rclcpp::TimerBase::SharedPtr timer_ptr;
 
-  std::map<std::string, int> request_parameter_dict_;
-  std::vector<std::shared_ptr<std::thread>> get_turtlesim_bg_threads_;
+  std::map<std::string, int> request_parameter_dict_ {{TurtlesimBackgroundName::BackgroundB, 0},
+                                                      {TurtlesimBackgroundName::BackgroundG, 1},
+                                                      {TurtlesimBackgroundName::BackgroundR, 2}};
+  std::vector<std::shared_ptr<std::thread>> get_turtlesim_bg_threads_ {};
   
 };
 

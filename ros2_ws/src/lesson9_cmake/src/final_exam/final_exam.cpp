@@ -20,22 +20,13 @@
 
 FinalExam::FinalExam(std::string node_name)
     : Node(node_name) {
-    
-    this->rgb_upper_bound_ = 255;
-    this->rgb_lower_bound_ = 0;
-    this->velocity_upper_bound_ = 1.0;
-    this->velocity_lower_bound_ = -1.0;
-    this->velocity_ = 0.0;
-    this->has_to_change_color_ = true;
-    this->get_velocity_name_vec_ = {"velocity"}; 
-    
+      
     this->declare_parameter("change_bg_frequency", 1.0);
     this->change_bg_frequency_ = this->get_parameter("change_bg_frequency").as_double();
     
-
-    this->describe_parameters_client_ = this->create_client<rcl_interfaces::srv::DescribeParameters>("describe_parameters");
-    this->velocity_get_parameter_client_ = this->create_client<rcl_interfaces::srv::GetParameters>("get_parameters");
-    this->set_bg_parameters_client_ = this->create_client<rcl_interfaces::srv::SetParametersAtomically>("set_parameters_atomically");
+    this->describe_parameters_client_ptr_ = this->create_client<rcl_interfaces::srv::DescribeParameters>("describe_parameters");
+    this->velocity_get_parameter_client_ptr_ = this->create_client<rcl_interfaces::srv::GetParameters>("get_parameters");
+    this->set_bg_parameters_client_ptr_ = this->create_client<rcl_interfaces::srv::SetParametersAtomically>("set_parameters_atomically");
 
     this->call_get_describe_parameter_service_(this->get_velocity_name_vec_);
     
