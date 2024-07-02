@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
-#!/usr/bin/env pytohn3
 ##########################################################################
-# Copyright 2023 BROGENT TECHNOLOGIES INC.
+# Copyright 2024 BROGENT TECHNOLOGIES INC.
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
 # You may obtain a copy of the License at
@@ -14,7 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Authors: Tsung-Meng Guo(brady_guo@brogent.com)
+# Authors:   Brady Guo 
+# Maintance: Brady Guo (brady_guo@brogent.com)
 ##########################################################################
 import launch
 import os
