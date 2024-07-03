@@ -13,30 +13,31 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 #ifndef SUBSCRIBER__HPP_
 #define SUBSCRIBER__HPP_
 
 
 #include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/string.hpp>
 #include <rclcpp/qos.hpp>
+#include <std_msgs/msg/string.hpp>
 
 
 
-class Subscriber: public rclcpp::Node{
+class Subscriber: public rclcpp::Node {
  public:
     Subscriber(std::string node_name="subscriber_node");
 
 
  private:
  
-   void callback_subscriber_(const std_msgs::msg::String::SharedPtr msg);
+   void callback_subscriber_(const std_msgs::msg::String::SharedPtr msg) {
+      RCLCPP_INFO(this->get_logger(), "Data Received = '%s'", msg->data.c_str());
+   }
 
-   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscriber_;
+   rclcpp::Subscription<std_msgs::msg::String>::SharedPtr subscriber_ptr_;
 
-    
 
 
 };

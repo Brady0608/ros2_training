@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson12_cmake/qos_reliability/publisher.hpp"
@@ -21,10 +21,9 @@
 Publisher::Publisher(std::string node_name)
     : Node(node_name) {
         
-        this->msg_id_ = 0;
         auto qos_profile = rclcpp::QoS(10).best_effort();
-        this->publisher_ = this->create_publisher<std_msgs::msg::String>("/qos_test", qos_profile);
-        this->timer_ = this->create_wall_timer(std::chrono::seconds(1), std::bind(&Publisher::callback_timer_, this));        
+        this->publisher_ptr_ = this->create_publisher<std_msgs::msg::String>("/qos_test", qos_profile);
+        this->timer_ptr_ = this->create_wall_timer(std::chrono::seconds(1), std::bind(&Publisher::callback_timer_, this));        
 
 
 }

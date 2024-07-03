@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 #include "lesson12_cmake/lifecycle_example/managed_scan.hpp"
 
@@ -25,17 +25,10 @@ int main(int argc, char * argv[]) {
     setvbuf(stdout, NULL, _IONBF, BUFSIZ);
 
     rclcpp::init(argc, argv);
-
     rclcpp::executors::SingleThreadedExecutor exe;
-
-    std::shared_ptr<ManagedScan> lifecycle_node =
-    std::make_shared<ManagedScan>("managed_scan_node");
-
+    std::shared_ptr<ManagedScan> lifecycle_node = std::make_shared<ManagedScan>("managed_scan_node");
     exe.add_node(lifecycle_node->get_node_base_interface());
-
     exe.spin();
-
     rclcpp::shutdown();
-
     return 0;
 }

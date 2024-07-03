@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 #ifndef MANAGED_SCAN__HPP_
 #define MANAGED_SCAN__HPP_
@@ -26,8 +26,8 @@
 #include <thread>
 #include <utility>
 
-#include <rclcpp/rclcpp.hpp>
 #include <rclcpp/publisher.hpp>
+#include <rclcpp/rclcpp.hpp>
 #include <rclcpp_lifecycle/lifecycle_node.hpp>
 #include <rclcpp_lifecycle/lifecycle_publisher.hpp>
 #include <rcutils/logging_macros.h>
@@ -35,39 +35,38 @@
 
 using namespace std::chrono_literals;
 
-
-
-class ManagedScan: public rclcpp_lifecycle::LifecycleNode{
+class ManagedScan: public rclcpp_lifecycle::LifecycleNode {
  public:
 
     explicit ManagedScan(const std::string & node_name, bool intra_process_comms = false)
-        : rclcpp_lifecycle::LifecycleNode(node_name, rclcpp::NodeOptions().use_intra_process_comms(intra_process_comms)){}
+        : rclcpp_lifecycle::LifecycleNode(node_name, rclcpp::NodeOptions().use_intra_process_comms(intra_process_comms)) {}
   
     void publish();
+
     rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn 
-        on_configure(const rclcpp_lifecycle::State &);
+    on_configure(const rclcpp_lifecycle::State &);
+    
     rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn 
-        on_activate(const rclcpp_lifecycle::State &);
+    on_activate(const rclcpp_lifecycle::State &);
+    
     rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn 
-        on_deactivate(const rclcpp_lifecycle::State &);
+    on_deactivate(const rclcpp_lifecycle::State &);
+    
     rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn 
-        on_cleanup(const rclcpp_lifecycle::State &);
+    on_cleanup(const rclcpp_lifecycle::State &);
+    
     rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn 
-        on_shutdown(const rclcpp_lifecycle::State &);
+    on_shutdown(const rclcpp_lifecycle::State &);
+    
     rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn 
-        on_error(const rclcpp_lifecycle::State &);
+    on_error(const rclcpp_lifecycle::State &);
 
 
  private:
  
-    rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::String>::SharedPtr publisher_;
-    rclcpp::TimerBase::SharedPtr timer_;
-
-
-
-
+    rclcpp_lifecycle::LifecyclePublisher<std_msgs::msg::String>::SharedPtr publisher_ptr_;
+    rclcpp::TimerBase::SharedPtr timer_ptr_;
     
-
 
 };
 

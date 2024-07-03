@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson12_cmake/qos_reliability/publisher.hpp"
@@ -21,7 +21,7 @@
 int main(int argc, char *argv[])
 {
     rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<Publisher>("publisher_node");
+    std::shared_ptr<Publisher> node = std::make_shared<Publisher>("publisher_node");
     rclcpp::spin(node);
     rclcpp::shutdown();
     return 0;

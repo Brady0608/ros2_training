@@ -33,7 +33,6 @@ set(PackageName qos_reliability)
 add_executable(qos_reliability_subscriber_exe
   src/${PackageName}/subscriber/subscriber.cpp
   src/${PackageName}/subscriber/main.cpp
-  src/${PackageName}/subscriber/callback_subscriber_.cpp
 )
 
 ament_target_dependencies(qos_reliability_subscriber_exe rclcpp std_msgs)
@@ -60,7 +59,6 @@ set(PackageName dds_example)
 add_executable(dds_example_subscriber_exe
   src/${PackageName}/subscriber/subscriber.cpp
   src/${PackageName}/subscriber/main.cpp
-  src/${PackageName}/subscriber/callback_subscriber_.cpp
   src/${PackageName}/subscriber/process_dds_test_data_.cpp
 )
 ament_target_dependencies(dds_example_subscriber_exe rclcpp std_msgs)

@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson12_cmake/dds_example/publisher.hpp"
@@ -24,7 +24,7 @@ void Publisher::callback_timer_() {
     std::stringstream time_str;
     time_str << now.seconds() << "," << now.nanoseconds();
     msg->data = std::to_string(this->msg_id_) + ":" + time_str.str();
-    publisher_->publish(*msg);
+    publisher_ptr_->publish(*msg);
     RCLCPP_INFO(this->get_logger(), "Publishing: '%s'", msg->data.c_str());
     this->msg_id_++;
 

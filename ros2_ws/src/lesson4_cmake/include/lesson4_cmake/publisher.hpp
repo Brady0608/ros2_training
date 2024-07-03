@@ -41,7 +41,7 @@ public:
     Publisher(const std::string node_name="publisher_node"): Node(node_name)
     {
         this->publisher_ptr_ = this->create_publisher<std_msgs::msg::String>("publish_test", 10);
-        this->timer_ = this->create_wall_timer(
+        this->timer_ptr_ = this->create_wall_timer(
             std::chrono::milliseconds(1000),
             std::bind(&Publisher::callback_wall_timer_, this)
         );
@@ -49,7 +49,7 @@ public:
 
 private:
     int counter_ = 0;
-    rclcpp::TimerBase::SharedPtr timer_;
+    rclcpp::TimerBase::SharedPtr timer_ptr_;
     rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_ptr_;
 
     /**

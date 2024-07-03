@@ -13,19 +13,19 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 #ifndef PUBLISHER__HPP_
 #define PUBLISHER__HPP_
 
 
 #include <rclcpp/rclcpp.hpp>
-#include <std_msgs/msg/string.hpp>
 #include <rclcpp/qos.hpp>
+#include <std_msgs/msg/string.hpp>
 
 
 
-class Publisher: public rclcpp::Node{
+class Publisher: public rclcpp::Node {
  public:
     Publisher(std::string node_name="publisher_node");
 
@@ -34,9 +34,9 @@ class Publisher: public rclcpp::Node{
  
    void callback_timer_();
 
-   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_;
-   rclcpp::TimerBase::SharedPtr timer_;
-   int msg_id_;
+   rclcpp::Publisher<std_msgs::msg::String>::SharedPtr publisher_ptr_;
+   rclcpp::TimerBase::SharedPtr timer_ptr_;
+   int msg_id_ {0};
 
     
 

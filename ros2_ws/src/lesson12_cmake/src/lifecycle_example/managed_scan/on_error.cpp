@@ -13,13 +13,13 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson12_cmake/lifecycle_example/managed_scan.hpp"
 
 rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn 
-    ManagedScan::on_error(const rclcpp_lifecycle::State &) {
+ManagedScan::on_error(const rclcpp_lifecycle::State &) {
 
     RCUTILS_LOG_INFO_NAMED(get_name(), "something went wrong!");
       

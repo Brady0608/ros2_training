@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson12_cmake/qos_reliability/subscriber.hpp"
@@ -22,8 +22,6 @@ Subscriber::Subscriber(std::string node_name)
     : Node(node_name) {
         
         auto qos_profile = rclcpp::QoS(10).reliable();
-        this->subscriber_ = this->create_subscription<std_msgs::msg::String>("/qos_test", qos_profile, std::bind(&Subscriber::callback_subscriber_, this, std::placeholders::_1));
+        this->subscriber_ptr_ = this->create_subscription<std_msgs::msg::String>("/qos_test", qos_profile, std::bind(&Subscriber::callback_subscriber_, this, std::placeholders::_1));
         
-
-
 }

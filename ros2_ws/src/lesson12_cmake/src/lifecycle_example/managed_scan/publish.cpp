@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson12_cmake/lifecycle_example/managed_scan.hpp"
@@ -24,7 +24,7 @@ void ManagedScan::publish() {
     auto msg = std::make_unique<std_msgs::msg::String>();
     msg->data = "Lifecycle HelloWorld #" + std::to_string(++count);
 
-    if (this->publisher_->is_activated() == false) {
+    if (this->publisher_ptr_->is_activated() == false) {
       RCLCPP_INFO(
         get_logger(), "Lifecycle publisher is currently inactive. Messages are not published.");
     } else {
@@ -32,6 +32,6 @@ void ManagedScan::publish() {
         get_logger(), "Lifecycle publisher is active. Publishing: [%s]", msg->data.c_str());
     }
 
-    this->publisher_->publish(std::move(msg));
+    this->publisher_ptr_->publish(std::move(msg));
     
 }

@@ -13,17 +13,16 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson12_cmake/lifecycle_example/managed_scan.hpp"
 
 rclcpp_lifecycle::node_interfaces::LifecycleNodeInterface::CallbackReturn 
-    ManagedScan::on_configure(const rclcpp_lifecycle::State &) {
+ManagedScan::on_configure(const rclcpp_lifecycle::State &) {
 
-    this->publisher_ = this->create_publisher<std_msgs::msg::String>("managed_scan", 10);
-    this->timer_ = this->create_wall_timer(
-      1s, std::bind(&ManagedScan::publish, this));
+    this->publisher_ptr_ = this->create_publisher<std_msgs::msg::String>("managed_scan", 10);
+    this->timer_ptr_ = this->create_wall_timer(1s, std::bind(&ManagedScan::publish, this));
 
     RCLCPP_INFO(get_logger(), "on_configure() is called.");
 
