@@ -13,22 +13,24 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 #ifndef GET_TURTLESIM_BACKGROUND__HPP_
 #define GET_TURTLESIM_BACKGROUND__HPP_
 
-
-#include <rclcpp/rclcpp.hpp>
-#include <rcl_interfaces/msg/parameter_value.hpp>
-#include <rcl_interfaces/srv/get_parameters.hpp>
-#include "lesson9_refactor_with_multi_thread/turtlesim_background_name.h"
 #include <any>
 #include <map>
 #include <vector>
 #include <string>
 
-class GetTurtlesimBackground: public rclcpp::Node{
+#include <rclcpp/rclcpp.hpp>
+#include <rcl_interfaces/msg/parameter_value.hpp>
+#include <rcl_interfaces/srv/get_parameters.hpp>
+
+#include "lesson9_refactor_with_multi_thread/turtlesim_background_name.h"
+
+
+class GetTurtlesimBackground: public rclcpp::Node {
  public:
 
   GetTurtlesimBackground(std::string node_name="get_turtlesim_background_node");
@@ -47,9 +49,11 @@ class GetTurtlesimBackground: public rclcpp::Node{
 
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr get_background_parameter_client_ptr_;
   
-  rclcpp::TimerBase::SharedPtr timer_ptr;
+  rclcpp::TimerBase::SharedPtr timer_ptr_;
 
-  std::map<std::string, int> request_parameter_dict_;
+  std::map<std::string, int> request_parameter_dict_ {{TurtlesimBackgroundName::BackgroundB, 0},
+                                                      {TurtlesimBackgroundName::BackgroundG, 1},
+                                                      {TurtlesimBackgroundName::BackgroundR, 2}};
   
 };
 

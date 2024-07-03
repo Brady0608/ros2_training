@@ -13,14 +13,14 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson9_refactor_with_multi_thread/set_turtle_velocity.hpp"
 
 void SetTurtleVelocity::callback_timer_() {
     
-    if((this->velocity_ > this->velocity_upper_bound_)  || (this->velocity_ < this->velocity_lower_bound_)){
+    if((this->velocity_ > this->velocity_upper_bound_)  || (this->velocity_ < this->velocity_lower_bound_)) {
         this->acceleration_ = this->acceleration_ * -1.0;
     }
     

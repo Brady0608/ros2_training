@@ -13,15 +13,14 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson9_refactor_with_multi_thread/final_exam.hpp"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     rclcpp::init(argc, argv);
-    rclcpp::Node::SharedPtr node = std::make_shared<FinalExam>("final_exam_node");
+    std::shared_ptr<FinalExam> node = std::make_shared<FinalExam>("final_exam_node");
     rclcpp::executors::MultiThreadedExecutor executor {};
     executor.add_node(node);
     executor.spin();    

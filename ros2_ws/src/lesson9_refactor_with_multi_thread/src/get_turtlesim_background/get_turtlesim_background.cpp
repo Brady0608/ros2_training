@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson9_refactor_with_multi_thread/get_turtlesim_background.hpp"
@@ -21,12 +21,9 @@
 GetTurtlesimBackground::GetTurtlesimBackground(std::string node_name)
     : Node(node_name) {
      
-    this->request_parameter_dict_ = {{TurtlesimBackgroundName::BackgroundB, 0},
-                                     {TurtlesimBackgroundName::BackgroundG, 1},
-                                     {TurtlesimBackgroundName::BackgroundR, 2}};
     //  this->get_background_parameter_client_ptr_ = this->customic_create_client_<rcl_interfaces::srv::GetParameters>("get_parameters");
     this->get_background_parameter_client_ptr_ = this->create_client<rcl_interfaces::srv::GetParameters>("get_parameters"); 
-    this->timer_ptr = this->create_wall_timer(std::chrono::seconds(1), std::bind(&GetTurtlesimBackground::callback_timer_,this));  
+    this->timer_ptr_ = this->create_wall_timer(std::chrono::seconds(1), std::bind(&GetTurtlesimBackground::callback_timer_, this));  
      
 
 }

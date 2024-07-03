@@ -23,7 +23,7 @@ GetTurtlesimBackground::GetTurtlesimBackground(std::string node_name)
      
     //  this->get_background_parameter_client_ptr_ = this->customic_create_client_<rcl_interfaces::srv::GetParameters>("get_parameters");
     this->get_background_parameter_client_ptr_ = this->create_client<rcl_interfaces::srv::GetParameters>("get_parameters"); 
-    this->timer_ptr = this->create_wall_timer(std::chrono::seconds(1), std::bind(&GetTurtlesimBackground::callback_timer_, this));  
+    this->timer_ptr_ = this->create_wall_timer(std::chrono::seconds(1), std::bind(&GetTurtlesimBackground::callback_timer_, this));  
      
 
 }

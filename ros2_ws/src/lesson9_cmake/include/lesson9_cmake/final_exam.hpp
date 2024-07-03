@@ -54,7 +54,7 @@ class FinalExam: public rclcpp::Node {
     rclcpp::Client<rcl_interfaces::srv::DescribeParameters>::SharedPtr      describe_parameters_client_ptr_;
     rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr           velocity_get_parameter_client_ptr_;
     rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_bg_parameters_client_ptr_;
-    rclcpp::TimerBase::SharedPtr timer_;
+    rclcpp::TimerBase::SharedPtr timer_ptr_;
     
     bool   has_to_change_color_ {true}; 
     double change_bg_frequency_ {};

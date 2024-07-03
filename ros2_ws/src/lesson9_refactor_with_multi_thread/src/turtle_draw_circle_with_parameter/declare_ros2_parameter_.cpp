@@ -13,12 +13,12 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson9_refactor_with_multi_thread/turtle_draw_circle_with_parameter.hpp"
 
-void TurtleDrawCircleWithParameter::declare_ros2_parameter_(std::string parameter_name){
+void TurtleDrawCircleWithParameter::declare_ros2_parameter_(std::string parameter_name) {
 
     std::stringstream parameter_descriptor_description;
     parameter_descriptor_description << "Set the ";

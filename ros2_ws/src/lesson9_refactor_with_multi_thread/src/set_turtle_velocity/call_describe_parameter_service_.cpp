@@ -13,14 +13,14 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson9_refactor_with_multi_thread/set_turtle_velocity.hpp"
 
 void SetTurtleVelocity::call_describe_parameter_service_(std::vector<std::string> names_vector) {
     
-    while (!this->get_describe_parameters_client_ptr_->wait_for_service(std::chrono::seconds(1))){
+    while (this->get_describe_parameters_client_ptr_->wait_for_service(std::chrono::seconds(1)) == false) {
         RCLCPP_WARN(this->get_logger(), "Waiting for Describe Parameter Service Server to be up...");
     }
 
@@ -28,7 +28,7 @@ void SetTurtleVelocity::call_describe_parameter_service_(std::vector<std::string
     request->names = names_vector;
     auto future = this->get_describe_parameters_client_ptr_->async_send_request(request);
     
-    try{
+    try {
         auto response = future.get();
         rcl_interfaces::msg::ParameterDescriptor velocity_parameter_descriptor;
         rcl_interfaces::msg::FloatingPointRange velocity_range;
@@ -37,7 +37,7 @@ void SetTurtleVelocity::call_describe_parameter_service_(std::vector<std::string
         this->velocity_upper_bound_ = velocity_range.to_value;
         this->velocity_lower_bound_ = velocity_range.from_value;
     }
-    catch (const std::exception &e){
+    catch (const std::exception& e) {
         RCLCPP_ERROR(this->get_logger(), "Describe_parameter service call failed.");
     }   
 

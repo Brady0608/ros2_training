@@ -13,17 +13,17 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 #ifndef SET_TURTLE_VELOCITY__HPP_
 #define SET_TURTLE_VELOCITY__HPP_
 
-
-#include <rclcpp/rclcpp.hpp>
 #include <cmath>
 #include <map>
 #include <vector>
 #include <string>
+
+#include <rclcpp/rclcpp.hpp>
 #include <rcl_interfaces/msg/floating_point_range.hpp>
 #include <rcl_interfaces/msg/parameter.hpp>
 #include <rcl_interfaces/msg/parameter_descriptor.hpp>
@@ -32,32 +32,30 @@
 #include <rcl_interfaces/srv/set_parameters_atomically.hpp>
 
 
-
-
-
-class SetTurtleVelocity: public rclcpp::Node{
+class SetTurtleVelocity: public rclcpp::Node {
  public:
    SetTurtleVelocity(std::string node_name="set_turtle_velocity_node");
 
 
  private:
-    
-   void set_velocity_bound_(std::map<std::string, int> names_dict);
+  
    void callback_timer_();
    void call_describe_parameter_service_(std::vector<std::string> names_vector);
    void call_set_parameter_atomically_service_(rcl_interfaces::msg::Parameter parameter);
+   void set_velocity_bound_(std::map<std::string, int> names_dict);
 
-   double velocity_upper_bound_, velocity_lower_bound_, velocity_;
-   double control_frequency_, acceleration_;
-
-   std::map<std::string, int> request_parameter_dict_;
-
-   rclcpp::Client<rcl_interfaces::srv::DescribeParameters>::SharedPtr get_describe_parameters_client_ptr_;
+   rclcpp::CallbackGroup::SharedPtr                                        callback_group_set_parameter_atomically_service_ptr_;
+   rclcpp::Client<rcl_interfaces::srv::DescribeParameters>::SharedPtr      get_describe_parameters_client_ptr_;
    rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_turtle_velocity_client_ptr_;
-   rclcpp::TimerBase::SharedPtr timer_ptr_;
+   rclcpp::TimerBase::SharedPtr                                            timer_ptr_;
 
-   rclcpp::CallbackGroup::SharedPtr callback_group_set_parameter_atomically_service_;
+   double control_frequency_ {20.0};
+   double acceleration_ {0.001};
+   double velocity_ {0.0};
+   double velocity_lower_bound_ {-1.0};
+   double velocity_upper_bound_ {1.0};
 
+   std::map<std::string, int> request_parameter_dict_ {{"velocity",0}};
 
 };
 

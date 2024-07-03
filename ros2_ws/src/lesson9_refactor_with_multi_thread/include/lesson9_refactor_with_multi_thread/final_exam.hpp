@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 #ifndef FINAL_EXAM__HPP_
 #define FINAL_EXAM__HPP_
@@ -37,33 +37,34 @@
 
 
 
-class FinalExam: public rclcpp::Node{
+class FinalExam: public rclcpp::Node {
  public:
    FinalExam(std::string node_name="final_exam_node");
 
 
  private:
-
-    void call_get_describe_parameter_service_(std::vector<std::string> velocity_name_vec);
     void callback_timer_();
+    void call_get_describe_parameter_service_(std::vector<std::string> velocity_name_vec);
     void call_get_parameters_service_(std::vector<std::string> velocity_name_vec);
     void call_set_parameter_atomically_service_(rcl_interfaces::msg::Parameter parameter);
-    
-    int rgb_upper_bound_, rgb_lower_bound_;
-    double velocity_upper_bound_, velocity_lower_bound_, velocity_;
-    bool has_to_change_color_;
-    double change_bg_frequency_;
 
-    std::vector<std::string> get_velocity_name_vec_;
 
-    rclcpp::Client<rcl_interfaces::srv::DescribeParameters>::SharedPtr describe_parameters_client_ptr_;
-    rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr velocity_get_parameter_client_ptr_;
+    rclcpp::CallbackGroup::SharedPtr                                        callback_group_get_parameters_service_ptr_;
+    rclcpp::CallbackGroup::SharedPtr                                        callback_group_set_parameters_atomically_ptr_;
+    rclcpp::Client<rcl_interfaces::srv::DescribeParameters>::SharedPtr      describe_parameters_client_ptr_;
+    rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr           velocity_get_parameter_client_ptr_;
     rclcpp::Client<rcl_interfaces::srv::SetParametersAtomically>::SharedPtr set_bg_parameters_client_ptr_;
-    rclcpp::TimerBase::SharedPtr timer_;
+    rclcpp::TimerBase::SharedPtr                                            timer_ptr_;
+    
+    bool   has_to_change_color_ {true}; 
+    double change_bg_frequency_ {};
+    double velocity_ {0.0};
+    double velocity_lower_bound_ {-1.0};
+    double velocity_upper_bound_ {1.0};
+    int    rgb_lower_bound_ {0};
+    int    rgb_upper_bound_ {255};
 
-    rclcpp::CallbackGroup::SharedPtr callback_group_get_parameters_service_;
-    rclcpp::CallbackGroup::SharedPtr callback_group_set_parameters_atomically_;
-
+    std::vector<std::string>                  get_velocity_name_vec_ {"velocity"};
     
 };
 

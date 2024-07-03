@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson9_refactor_with_multi_thread/get_turtlesim_background.hpp"
@@ -21,8 +21,8 @@
 void GetTurtlesimBackground::callback_timer_() {
     
     std::vector<std::string> turtlesim_bg_name_vec;
-    for(auto it = this->request_parameter_dict_.begin(); it!=this->request_parameter_dict_.end(); it++){
-        turtlesim_bg_name_vec.push_back(it->first);
+    for(const auto& [background_color_name, value] : this->request_parameter_dict_) {
+        turtlesim_bg_name_vec.push_back(background_color_name);
     }
 
     this->call_get_parameter_service_(turtlesim_bg_name_vec);

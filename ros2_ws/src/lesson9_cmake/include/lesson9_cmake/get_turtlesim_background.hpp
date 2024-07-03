@@ -47,7 +47,7 @@ class GetTurtlesimBackground: public rclcpp::Node {
 
   rclcpp::Client<rcl_interfaces::srv::GetParameters>::SharedPtr get_background_parameter_client_ptr_;
   
-  rclcpp::TimerBase::SharedPtr timer_ptr;
+  rclcpp::TimerBase::SharedPtr timer_ptr_;
 
   std::map<std::string, int> request_parameter_dict_ {{TurtlesimBackgroundName::BackgroundB, 0},
                                                       {TurtlesimBackgroundName::BackgroundG, 1},

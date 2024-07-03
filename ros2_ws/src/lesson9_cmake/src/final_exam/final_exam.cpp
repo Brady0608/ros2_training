@@ -30,6 +30,6 @@ FinalExam::FinalExam(std::string node_name)
 
     this->call_get_describe_parameter_service_(this->get_velocity_name_vec_);
     
-    this->timer_ = this->create_wall_timer(std::chrono::milliseconds((int)(1000/this->change_bg_frequency_)), std::bind(&FinalExam::callback_timer_, this));
+    this->timer_ptr_ = this->create_wall_timer(std::chrono::milliseconds((int)(1000/this->change_bg_frequency_)), std::bind(&FinalExam::callback_timer_, this));
         
 }

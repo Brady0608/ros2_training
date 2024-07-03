@@ -13,7 +13,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-# Authors: Tsung-Meng Guo(brady_guo@brogent.com)
+# Authors:   Brady Guo 
+# Maintance: Brady Guo (brady_guo@brogent.com)
 ##########################################################################
 import launch
 import os

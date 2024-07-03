@@ -13,12 +13,12 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson9_refactor_with_multi_thread/turtle_draw_circle_with_parameter.hpp"
 
-geometry_msgs::msg::Twist TurtleDrawCircleWithParameter::set_speed_(std::string parameter_name){
+geometry_msgs::msg::Twist TurtleDrawCircleWithParameter::set_speed_(std::string parameter_name) {
 
     geometry_msgs::msg::Twist twist;
     twist.linear.x = this->get_parameter(parameter_name).as_double();

@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson9_refactor_with_multi_thread/set_turtle_velocity.hpp"
@@ -21,8 +21,8 @@
 void SetTurtleVelocity::set_velocity_bound_(std::map<std::string, int> names_dict) {
 
     std::vector<std::string> names_dict_to_vec;
-    for(auto it = names_dict.begin(); it!=names_dict.end(); it++){
-        names_dict_to_vec.push_back(it->first);
+    for(const auto& [parameter_name, value] : names_dict) {
+        names_dict_to_vec.push_back(parameter_name);
     }
 
     this->call_describe_parameter_service_(names_dict_to_vec);
