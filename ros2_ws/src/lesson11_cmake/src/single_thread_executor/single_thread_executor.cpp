@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson11_cmake/single_thread_executor.hpp"
@@ -21,8 +21,8 @@
 SingleThreadExecutor::SingleThreadExecutor(std::string node_name)
     : Node(node_name) {
 
-    this->timer_1_ = this->create_wall_timer(seconds(1), std::bind(&SingleThreadExecutor::callback_timer_1_, this));       
-    this->timer_2_ = this->create_wall_timer(seconds(1), std::bind(&SingleThreadExecutor::callback_timer_2_, this));       
-    this->timer_3_ = this->create_wall_timer(seconds(1), std::bind(&SingleThreadExecutor::callback_timer_3_, this));       
+    this->timer_1_ptr_ = this->create_wall_timer(seconds(1), std::bind(&SingleThreadExecutor::callback_timer_1_, this));       
+    this->timer_2_ptr_ = this->create_wall_timer(seconds(1), std::bind(&SingleThreadExecutor::callback_timer_2_, this));       
+    this->timer_3_ptr_ = this->create_wall_timer(seconds(1), std::bind(&SingleThreadExecutor::callback_timer_3_, this));       
 
 }

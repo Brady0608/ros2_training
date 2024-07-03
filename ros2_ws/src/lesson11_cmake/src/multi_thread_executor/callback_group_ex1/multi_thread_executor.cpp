@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson11_cmake/multi_thread_executor.hpp"
@@ -21,19 +21,19 @@
 MultiThreadExecutor::MultiThreadExecutor(std::string node_name)
     : Node(node_name) {
     
-    this->callback_group_1_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
-    this->callback_group_2_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
-    this->callback_group_3_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+    this->callback_group_1_mutually_exclusive_ptr_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+    this->callback_group_2_mutually_exclusive_ptr_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
+    this->callback_group_3_mutually_exclusive_ptr_ = this->create_callback_group(rclcpp::CallbackGroupType::MutuallyExclusive);
 
 
-    this->timer_1_ = this->create_wall_timer(seconds(1), 
+    this->timer_1_ptr_ = this->create_wall_timer(seconds(1), 
                                              std::bind(&MultiThreadExecutor::callback_timer_1_, this), 
-                                             this->callback_group_1_);       
-    this->timer_2_ = this->create_wall_timer(seconds(1), 
+                                             this->callback_group_1_mutually_exclusive_ptr_);       
+    this->timer_2_ptr_ = this->create_wall_timer(seconds(1), 
                                              std::bind(&MultiThreadExecutor::callback_timer_2_, this), 
-                                             this->callback_group_2_);       
-    this->timer_3_ = this->create_wall_timer(seconds(1), 
+                                             this->callback_group_2_mutually_exclusive_ptr_);       
+    this->timer_3_ptr_ = this->create_wall_timer(seconds(1), 
                                              std::bind(&MultiThreadExecutor::callback_timer_3_, this), 
-                                             this->callback_group_3_);       
+                                             this->callback_group_3_mutually_exclusive_ptr_);       
 
 }

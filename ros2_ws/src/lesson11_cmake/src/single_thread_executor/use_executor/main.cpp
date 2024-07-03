@@ -13,15 +13,14 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson11_cmake/single_thread_executor.hpp"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node = std::make_shared<SingleThreadExecutor>("use_single_thread_executor_node");
+    std::shared_ptr<SingleThreadExecutor> node = std::make_shared<SingleThreadExecutor>("use_single_thread_executor_node");
     rclcpp::executors::SingleThreadedExecutor executor {};
     executor.add_node(node);
     executor.spin();

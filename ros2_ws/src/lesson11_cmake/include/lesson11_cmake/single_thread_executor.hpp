@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 #ifndef SINGLE_THREAD_EXECUTOR__HPP_
 #define SINGLE_THREAD_EXECUTOR__HPP_
@@ -23,20 +23,20 @@
 
 using namespace std::chrono;
 
-class SingleThreadExecutor: public rclcpp::Node{
+class SingleThreadExecutor: public rclcpp::Node {
  public:
     SingleThreadExecutor(std::string node_name="single_thread_executor_node");
 
 
  private:
-   void callback_timer_1_(){
+   void callback_timer_1_() {
 
     RCLCPP_INFO(this->get_logger(), "Timer1 call counts: %d", ++this->count_1_);
     std::this_thread::sleep_for(std::chrono::seconds(3));
     RCLCPP_INFO(this->get_logger(), "Callback from Timer 1.");
    
    }
-   void callback_timer_2_(){
+   void callback_timer_2_() {
         
     RCLCPP_INFO(this->get_logger(), "Timer2 call counts: %d", ++this->count_2_);
     std::this_thread::sleep_for(std::chrono::seconds(3));
@@ -44,7 +44,7 @@ class SingleThreadExecutor: public rclcpp::Node{
    
    }
    
-   void callback_timer_3_(){
+   void callback_timer_3_() {
 
     RCLCPP_INFO(this->get_logger(), "Timer3 call counts: %d", ++this->count_3_);    
     std::this_thread::sleep_for(std::chrono::seconds(3));
@@ -52,11 +52,13 @@ class SingleThreadExecutor: public rclcpp::Node{
    
    }
 
-   rclcpp::TimerBase::SharedPtr timer_1_;
-   rclcpp::TimerBase::SharedPtr timer_2_;
-   rclcpp::TimerBase::SharedPtr timer_3_;
+   rclcpp::TimerBase::SharedPtr timer_1_ptr_;
+   rclcpp::TimerBase::SharedPtr timer_2_ptr_;
+   rclcpp::TimerBase::SharedPtr timer_3_ptr_;
 
-   int count_1_, count_2_, count_3_ = 0; 
+   int count_1_ {0};
+   int count_2_ {0};
+   int count_3_ {0}; 
 
 };
 

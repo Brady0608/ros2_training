@@ -13,17 +13,16 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson11_cmake/multi_thread_executor.hpp"
 #include "lesson11_cmake/lesson11_node2.hpp"
 
-int main(int argc, char *argv[])
-{
+int main(int argc, char *argv[]) {
     rclcpp::init(argc, argv);    
-    rclcpp::Node::SharedPtr node1 = std::make_shared<MultiThreadExecutor>("node1");
-    rclcpp::Node::SharedPtr node2 = std::make_shared<Lesson11Node2>("node2");
+    std::shared_ptr<MultiThreadExecutor> node1 = std::make_shared<MultiThreadExecutor>("node1");
+    std::shared_ptr<Lesson11Node2> node2 = std::make_shared<Lesson11Node2>("node2");
     rclcpp::executors::MultiThreadedExecutor executor {};
     executor.add_node(node1);
     executor.add_node(node2);
