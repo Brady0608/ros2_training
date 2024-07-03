@@ -13,7 +13,7 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 
 #include "lesson10_cmake/retrieve_laser_scan.hpp"
@@ -21,7 +21,6 @@
 RetrieveLaserScan::RetrieveLaserScan(std::string node_name)
     : Node(node_name) {
     
-        this->scan_angle_range_parameter_ = "scan_angle_range";
         rcl_interfaces::msg::FloatingPointRange scan_angle_parameter_floating_point_range;
         scan_angle_parameter_floating_point_range.from_value = 0.0;
         scan_angle_parameter_floating_point_range.to_value = 270.0;
@@ -31,6 +30,6 @@ RetrieveLaserScan::RetrieveLaserScan(std::string node_name)
         this->scan_angle_parameter_descriptor_.description = "Specify the angle range for lidar scanning";
         this->declare_parameter(this->scan_angle_range_parameter_, 270.0, this->scan_angle_parameter_descriptor_);
 
-        this->laser_scan_subscriber_ = this->create_subscription<sensor_msgs::msg::LaserScan>("scan", 10, std::bind(&RetrieveLaserScan::callback_laser_scan_subscriber_, this, std::placeholders::_1));
-        this->laser_scan_publisher_ = this->create_publisher<sensor_msgs::msg::LaserScan>("custom_scan", 10);
+        this->laser_scan_subscriber_ptr_ = this->create_subscription<sensor_msgs::msg::LaserScan>("scan", 10, std::bind(&RetrieveLaserScan::callback_laser_scan_subscriber_, this, std::placeholders::_1));
+        this->laser_scan_publisher_ptr_ = this->create_publisher<sensor_msgs::msg::LaserScan>("custom_scan", 10);
 }

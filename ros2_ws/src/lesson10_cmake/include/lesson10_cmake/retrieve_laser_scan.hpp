@@ -13,15 +13,16 @@
 * See the License for the specific language governing permissions and
 * limitations under the License.
 * Author    : Brady Guo
-* Maintainer: Brady Guo
+* Maintainer: Brady Guo (brady_guo@brogent.com)
 *******************************************************************************/
 #ifndef RETRIEVE_LASER_SCAN__HPP_
 #define RETRIEVE_LASER_SCAN__HPP_
 
-#include <rclcpp/rclcpp.hpp>
 #include <cmath>
 #include <vector>
 #include <string>
+
+#include <rclcpp/rclcpp.hpp>
 #include <rcl_interfaces/msg/floating_point_range.hpp>
 #include <rcl_interfaces/msg/parameter_descriptor.hpp>
 #include <rcl_interfaces/msg/parameter_type.hpp>
@@ -30,7 +31,7 @@
 
 
 
-class RetrieveLaserScan: public rclcpp::Node{
+class RetrieveLaserScan: public rclcpp::Node {
  public:
    RetrieveLaserScan(std::string node_name="retrieve_laser_scan_node");
 
@@ -39,12 +40,11 @@ class RetrieveLaserScan: public rclcpp::Node{
     
     void callback_laser_scan_subscriber_(const sensor_msgs::msg::LaserScan::SharedPtr msg);
     
-    std::string scan_angle_range_parameter_;
+    rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr laser_scan_publisher_ptr_;
+    rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr laser_scan_subscriber_ptr_;
+    
     rcl_interfaces::msg::ParameterDescriptor scan_angle_parameter_descriptor_;
-
-    rclcpp::Subscription<sensor_msgs::msg::LaserScan>::SharedPtr laser_scan_subscriber_;
-    rclcpp::Publisher<sensor_msgs::msg::LaserScan>::SharedPtr laser_scan_publisher_;
-
+    std::string scan_angle_range_parameter_ {"scan_angle_range"};
     
 };
 
